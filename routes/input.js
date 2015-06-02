@@ -25,7 +25,7 @@ router.post('/new', function (request, response) {
 			response.render('input', {message: 'Inserted'})
 		}
 	}
-	collection.insertOne(article);
+	collection.insertOne(article, onInsert);
 });
 
 router.post('/find', function (request, response) {
@@ -42,10 +42,12 @@ router.post('/find', function (request, response) {
 			response.render('input', {results: docs, message: 'Search Successful'});
 		}
 	};
+	collection.find({topic: topic}, onSearch);
 });
 
 router.post('/edit', function (request, response) {
 	var collection = request.db.collection('articles');
+	var topic = request.body.topic;
 	var newArticle = {
 		main_category: request.body.m_category,
 		sub_category: request.body.s_category,

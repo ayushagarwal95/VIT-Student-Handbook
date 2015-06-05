@@ -14,8 +14,9 @@ router.post('/new', function (request, response) {
 		sub_category: request.body.s_category,
 		topic: request.body.topic,
 		heading: request.body.heading,
-		content: request.body.content,
-		tags: request.body.tags		
+		content: request.body.textContent,
+		tags: request.body.tags,
+		timestamp: new Date()
 	};
 	var onInsert = function (err) {
 		if (err) {
@@ -47,6 +48,7 @@ router.post('/find', function (request, response) {
 
 router.post('/edit', function (request, response) {
 	var collection = request.db.collection('articles');
+	var updateCollection = request.db.collection('updates');
 	var topic = request.body.topic;
 	var newArticle = {
 		main_category: request.body.m_category,
@@ -54,7 +56,7 @@ router.post('/edit', function (request, response) {
 		topic: request.body.topic,
 		heading: request.body.heading,
 		content: request.body.content,
-		tags: request.body.tags		
+		tags: request.body.tags
 	};
 	var onUpdate = function (err) {
 		if (err) {
@@ -62,10 +64,26 @@ router.post('/edit', function (request, response) {
 		}
 		else{
 			response.render('input', {message: 'Updated'});
+			var updateInfo = {
+				topic: topic,
+				timestamp: new Date()
+			};
+			var onFinish = function (err) {
+				if (err) {
+					console.log('error: ' + err);
+				}
+			}
+			updateCollection.findAndModify({topic: updateInfo.topic},
+				{$set: {timestamp: updateInfo.timestamp}},
+				{
+	              safe: true,
+	              new: true,
+	              upsert: true
+			}, onFinish);
 		}
 	};
 	collection.findAndModify({topic: topic},
-		{$set: {main_category: newArticle.main_category, sub_category: newArticle.sub_category, heading: newArticle.heading, content: newArticle.content, tags: newArticle.tags}}, 
+		{$set: {main_category: newArticle.main_category, sub_category: newArticle.sub_category, heading: newArticle.heading, content: newArticle.content, tags: newArticle.tags}},
 			{
               safe: true,
               new: true,

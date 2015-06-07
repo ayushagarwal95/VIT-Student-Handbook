@@ -1,0 +1,122 @@
+<!doctype html>
+<html>
+  <head>
+    <title>VIT SH - Input</title>
+    <style>
+        #accordion div.pane {
+            display:none;
+        }
+    </style>
+    <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+    <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
+  </head>
+  <body>
+     <% if(message!=null){ %>
+         <p><%= message%>
+     <%}%>
+     <div class="panel-group" id="accordion">
+         <div class="panel panel-default">
+             <div class="panel-heading">
+                <h4 class="panel-title">
+                    <a data-toggle="collapse" data-parent="#accordion" href="#collapse1">
+                        Collapsible Group 1</a>
+                </h4>
+            </div>
+            <div id="collapse1" class="panel-collapse collapse in">
+                <div class="panel-body">Lorem ipsum dolor sit amet, consectetur adipisicing elit,
+                    sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad
+                    minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea
+      commodo consequat.</div>
+    </div>
+  </div>
+  <div class="panel panel-default">
+    <div class="panel-heading">
+      <h4 class="panel-title">
+        <a data-toggle="collapse" data-parent="#accordion" href="#collapse2">
+        Collapsible Group 2</a>
+      </h4>
+    </div>
+    <div id="collapse2" class="panel-collapse collapse">
+      <div class="panel-body">Lorem ipsum dolor sit amet, consectetur adipisicing elit,
+      sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad
+      minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea
+      commodo consequat.</div>
+    </div>
+  </div>
+  <div class="panel panel-default">
+    <div class="panel-heading">
+      <h4 class="panel-title">
+        <a data-toggle="collapse" data-parent="#accordion" href="#collapse3">
+        Collapsible Group 3</a>
+      </h4>
+    </div>
+    <div id="collapse3" class="panel-collapse collapse">
+      <div class="panel-body">Lorem ipsum dolor sit amet, consectetur adipisicing elit,
+      sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad
+      minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea
+      commodo consequat.</div>
+    </div>
+  </div>
+</div>
+    <div id="blah accordion">
+        <h2>New</h2>
+        <div id="pane">
+            <form action="/new" method="post">
+                <label for="m_category">Main Category</label>
+                <input placeholder="Main Category of Article" id="m_category" type="text" />
+                <label for="s_category">Sub Category</label>
+                <input placeholder="Sub Category of Article" id="s_category" type="text" />
+                <label for="ss_category">Sub-Sub Category</label>
+                <input placeholder="Sub Sub Category of Article" id="ss_category" type="text" />
+                <label for="topic">Topic</label>
+                <input placeholder="Topic of Article" id="topic" type="text" />
+                <label for="contentText">Content</label>
+                <textarea rows="50" cols="50" name="contentText" wrap="virtual">Type Content Here</textarea>
+                <label for="tag">Tags</label>
+                <input placeholder="Tags separated by space" id="tag" type="text" />
+                <input type="submit" value="Submit" />
+            </form>
+        </div>
+        <h2>Find And Edit</h2>
+        <div id="pane">
+            <form action="/find" method="post">
+                <label for="topic">Topic</label>
+                <input type="text" placeholder="Topic" id="topic" />
+                <input type="submit" value="Submit" />
+            </form>
+            <% if (results) {%>
+            <form action="/edit" method="post">
+                <label for="m_category">Main Category</label>
+                <input placeholder="Main Category of Article" id="m_category" type="text" />
+                <label for="s_category">Sub Category</label>
+                <input placeholder="Sub Category of Article" id="s_category" type="text" />
+                <label for="ss_category">Sub-Sub Category</label>
+                <input placeholder="Sub Sub Category of Article" id="ss_category" type="text" />
+                <label for="topic">Topic</label>
+                <input placeholder="Topic of Article" id="topic" type="text" />
+                <label for="contentText">Content</label>
+                <textarea rows="50" cols="50" name="contentText" wrap="virtual">Type Content Here</textarea>
+                <label for="tag">Tags</label>
+                <input placeholder="Tags separated by space" id="tag" type="text" />
+                <input type="submit" value="Submit" />
+            </form>
+            <%}%>
+        </div>
+        <h2>Delete</h2>
+        <div id="pane">
+            <form method="post" action="/delete">
+                <label for="topic">Topic</label>
+                <input type="text" placeholder="Topic" id="topic" />
+                <input type="submit" value="Submit" />
+            </form>
+        </div>
+    </div>
+    <script>
+        $("#accordion").tabs("#accordion div.pane", {
+            tabs: 'h2',
+            effect: 'slide'
+        });
+    </script>
+  </body>
+</html>

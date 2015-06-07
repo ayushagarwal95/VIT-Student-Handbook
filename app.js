@@ -5,7 +5,7 @@ var favicon = require('serve-favicon');
 var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
-var mongodb = require('express-mongo-db');
+var mongoClient = require('mongodb').MongoClient;
 
 var webRoutes = require(path.join(__dirname, 'routes', 'web'));
 var apiRoutes = require(path.join(__dirname, 'routes', 'api'));
@@ -17,33 +17,6 @@ var app = express();
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'ejs');
 
-var mongodbOptions = {
-    hosts: [{
-        host: process.env.MONGODB_HOST || '127.0.0.1',
-        port: process.env.MONGODB_PORT || '27017'
-    }],
-    database: process.env.MONGODB_DATABASE || 'handbook',
-    username: process.env.MONGODB_USERNAME,
-    password: process.env.MONGODB_PASSWORD,
-    options: {
-        db: {
-            native_parser: true,
-            recordQueryStats: true,
-            retryMiliSeconds: 500,
-            numberOfRetries: 10
-        },
-        server: {
-            socketOptions: {
-                keepAlive: 1,
-                connectTimeoutMS: 10000
-            },
-            auto_reconnect: true,
-            poolSize: 50
-        }
-    }
-};
-app.use(mongodb(require('mongodb')), mongodbOptions);
-
 // uncomment after placing your favicon in /public
 //app.use(favicon(__dirname + '/public/favicon.ico'));
 app.use(logger('dev'));
@@ -52,8 +25,18 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
+var mongoURI = process.env.MONGO_LAB_URI || 'mongodb://localhost:27017/handbook';
+var onConnect = function (err, db) {
+    app.use(function(request, response, next){
+        request.db = db;
+        next();
+    });
+}
+mongoClient.connect(mongoURI, onConnect);
+
 app.use('/', webRoutes);
 app.use('/api', apiRoutes);
+app.use('/input', inputRoutes);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

@@ -37,7 +37,7 @@ router.post('/find', function (request, response) {
         if (err) {
             console.log('error: ' + err);
         }
-        else if (docs.length === 0) {
+        else if (docs === null) {
             response.render('input', {message: 'Not Found', results: null});
         }
         else {
@@ -76,7 +76,7 @@ router.post('/edit', function (request, response) {
                     console.log('error: ' + err);
                 }
             }
-            updateCollection.findAndModify({topic: updateInfo.topic},
+            updateCollection.findAndModify({topic: updateInfo.topic},[['topic','desc']],
                 {$set: {timestamp: updateInfo.timestamp}},
                 {
                     safe: true,
@@ -85,7 +85,7 @@ router.post('/edit', function (request, response) {
                 }, onFinish);
         }
     };
-    collection.findAndModify({topic: newArticle.topic},
+    collection.findAndModify({topic: newArticle.topic},[['topic','desc']],
         {
             $set: {
                 main_category: newArticle.main_category,

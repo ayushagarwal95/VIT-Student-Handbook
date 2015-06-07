@@ -27,21 +27,21 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 var mongoURI = process.env.MONGO_LAB_URI || 'mongodb://localhost/handbook';
 var mongodbOptions = {
-        db: {
-          native_parser: true,
-          recordQueryStats: true,
-          retryMiliSeconds: 500,
-          numberOfRetries: 10
-        },
-        server: {
-          socketOptions: {
+    db: {
+        native_parser: true,
+        recordQueryStats: true,
+        retryMiliSeconds: 500,
+        numberOfRetries: 10
+    },
+    server: {
+        socketOptions: {
             keepAlive: 1,
             connectTimeoutMS: 10000
-          },
-          auto_reconnect: true,
-          poolSize: 50
-        }
-      };
+        },
+        auto_reconnect: true,
+        poolSize: 50
+    }
+};
 var mongo;
 var onConnect = function (err, db) {
     mongo = db;

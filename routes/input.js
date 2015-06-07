@@ -76,7 +76,7 @@ router.post('/edit', function (request, response) {
                     console.log('error: ' + err);
                 }
             }
-            updateCollection.findAndModify({topic: updateInfo.topic},[['topic','desc']],
+            updateCollection.findAndModify({topic: updateInfo.topic}, [['topic', 'desc']],
                 {$set: {timestamp: updateInfo.timestamp}},
                 {
                     safe: true,
@@ -85,7 +85,7 @@ router.post('/edit', function (request, response) {
                 }, onFinish);
         }
     };
-    collection.findAndModify({topic: newArticle.topic},[['topic','desc']],
+    collection.findAndModify({topic: newArticle.topic}, [['topic', 'desc']],
         {
             $set: {
                 main_category: newArticle.main_category,

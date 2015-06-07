@@ -25,15 +25,33 @@ app.use(bodyParser.urlencoded({extended: false}));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
-var mongoURI = process.env.MONGO_LAB_URI || 'mongodb://localhost:27017/handbook';
+var mongoURI = process.env.MONGO_LAB_URI || 'mongodb://localhost/handbook';
+var mongodbOptions = {
+        db: {
+          native_parser: true,
+          recordQueryStats: true,
+          retryMiliSeconds: 500,
+          numberOfRetries: 10
+        },
+        server: {
+          socketOptions: {
+            keepAlive: 1,
+            connectTimeoutMS: 10000
+          },
+          auto_reconnect: true,
+          poolSize: 50
+        }
+      };
+var mongo;
 var onConnect = function (err, db) {
-    app.use(function (request, response, next) {
-        request.db = db;
-        next();
-    });
+    mongo = db;
 };
-mongoClient.connect(mongoURI, onConnect);
 
+mongoClient.connect(mongoURI, mongodbOptions, onConnect);
+app.use(function (request, response, next) {
+    request.db = mongo;
+    next();
+});
 app.use('/', webRoutes);
 app.use('/api', apiRoutes);
 app.use('/input', inputRoutes);

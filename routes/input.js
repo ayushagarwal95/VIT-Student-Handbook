@@ -12,9 +12,7 @@ router.post('/new', function (request, response) {
     var article = {
         main_category: request.body.m_category,
         sub_category: request.body.s_category,
-        sub_sub_category: request.body.ss_category,
         topic: request.body.topic,
-        heading: request.body.heading,
         content: request.body.contentText,
         tags: request.body.tag,
         timestamp: new Date()
@@ -54,7 +52,6 @@ router.post('/edit', function (request, response) {
     var newArticle = {
         main_category: request.body.e_m_category,
         sub_category: request.body.e_s_category,
-        sub_sub_category: request.body.e_ss_category,
         topic: request.body.e_topic,
         heading: request.body.e_heading,
         content: request.body.e_contentText,
@@ -69,7 +66,7 @@ router.post('/edit', function (request, response) {
             response.render('input', {message: 'Updated', results: null});
             var updateInfo = {
                 topic: newArticle.topic,
-                timestamp: new Date()
+                timestamp: newArticle.timestamp
             };
             var onFinish = function (err) {
                 if (err) {
@@ -90,7 +87,6 @@ router.post('/edit', function (request, response) {
             $set: {
                 main_category: newArticle.main_category,
                 sub_category: newArticle.sub_category,
-                sub_sub_category: newArticle.sub_sub_category,
                 heading: newArticle.heading,
                 content: newArticle.content,
                 tags: newArticle.tags,

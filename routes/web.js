@@ -17,9 +17,20 @@ router.get('/main', function (request, response) {
     response.render('main');
 });
 
-router.post('/search', function (request, response) {
-    var searchText = request.body.searchItem;
-    //TODO - mongo search on tags
-    
+router.get('/search', function (request, response) {
+    var searchText = request.query.tag;
+    var collection = request.db.collection('articles') ;
+    var query = {} ;
+    query['tags'] = {'$regex' : '*.;'+searchText+';.*'};
+    collection.find(query).toArray(function(err,docs){
+      if(err)
+      {
+        response.status(500).send('internal server error');
+      }
+       else {
+         response.json(docs);
+       }
+    });
+
 });
 module.exports = router;

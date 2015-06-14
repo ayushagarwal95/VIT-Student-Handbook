@@ -44,7 +44,13 @@ var mongodbOptions = {
 };
 var mongo;
 var onConnect = function (err, db) {
+  if(err)
+  {
+    console.log("unable to connect to mongodb error :" + err);
+  }
+  else {
     mongo = db;
+  }
 };
 
 mongoClient.connect(mongoURI, mongodbOptions, onConnect);

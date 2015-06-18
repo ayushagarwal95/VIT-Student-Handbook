@@ -103,8 +103,18 @@ router.post('/edit', function (request, response) {
 
 router.post('/delete', function (request, response) {
     var collection = request.db.collection('articles');
+    var updateCollection = request.db.collection('updates');
     var topic = request.body.d_topic;
     var onDelete = function (err, results) {
+        var onUpdateRemoval = function (err, results) {
+            if (err) {
+                console.log('Error: ' + err);
+            }
+            else {
+                console.log('Removed: ' + results);
+            }
+        };
+        updateCollection.remove({topic: topic});
         if (err) {
             console.log('error: ' + err);
         }

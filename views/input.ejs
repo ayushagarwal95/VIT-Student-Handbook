@@ -55,7 +55,7 @@
                             <input placeholder="Topic of Article" name="topic" type="text"/></div>
                         <div class="col-xs-12">
                             <label for="contentText" valign="top">Content: </label>
-                            <textarea rows="50" name="contentText" wrap="virtual"
+                            <textarea rows="30" name="contentText" wrap="virtual"
                                       placeholder="Type Content Here"></textarea></div>
                         <div class="col-xs-12">
                             <label for="tag">Tags: </label>
@@ -98,7 +98,7 @@
                                    value="<%= results.topic %>"/></div>
                         <div class="col-xs-12">
                             <label for="contentText" valign="top">Content: </label>
-                            <textarea rows="50" name="e_contentText" wrap="virtual"
+                            <textarea rows="30" name="e_contentText" wrap="virtual"
                                       placeholder="Type Content Here"><%= results.content %></textarea></div>
                         <div class="col-xs-12">
                             <label for="tag">Tags: </label>
@@ -124,6 +124,23 @@
                         <label for="topic">Topic: </label>
                         <input type="text" placeholder="Topic" name="d_topic"/>
                         <input type="submit" value="Submit"/>
+                    </form>
+                </div>
+            </div>
+        </div>
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <h4 class="panel-title">
+                    <a data-toggle="collapse" data-parent="#accordion" href="#collapse4">
+                        <span class="text-center">Image Upload</span></a>
+                </h4>
+            </div>
+            <div id="collapse4" class="panel-collapse collapse">
+                <div class="panel-body">
+                    <form method="post" action="/input/upload" enctype="multipart/form-data">
+                        <label for="imgfile">Upload Image File: </label>
+                        <input type="file" name="imgfile" id="imgfile"/>
+                        <input type="submit" value="Upload" />
                     </form>
                 </div>
             </div>

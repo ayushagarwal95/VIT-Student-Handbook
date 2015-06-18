@@ -116,4 +116,8 @@ router.post('/delete', function (request, response) {
     collection.remove({topic: topic}, onDelete);
 });
 
+router.post('/upload', function (request, response) {
+    console.log('Image uploaded: ' + request.files.name);
+    response.render('input', {message: 'Uploaded', results: null});
+})
 module.exports = router;

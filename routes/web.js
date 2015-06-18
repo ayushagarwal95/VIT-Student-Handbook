@@ -7,14 +7,21 @@ router.get('/', function (request, response) {
     response.render('index');
 });
 
-router.post('/login', function (request, response) {
-    var regno = request.body.reg_num;
-    // TODO - Add suggestions functionality
-    response.render('main');
-});
-
-router.get('/main', function (request, response) {
-    response.render('main');
+router.get('/suggestions', function (request, response) {
+    var collection = request.db.collection('articles');
+    var regNo = request.query.regno;
+    var category = request.query.category;
+    var query = {};
+    query['main_category'] = category;
+    //query['tags'] =
+    collection.find(query).toArray(function (err, docs) {
+        if (err) {
+            response.status(500).send('Internal Server Error');
+        }
+        else {
+            response.json(docs);
+        }
+    });
 });
 
 router.get('/search', function (request, response) {
@@ -22,15 +29,40 @@ router.get('/search', function (request, response) {
     var collection = request.db.collection('articles') ;
     var query = {} ;
     query['tags'] = {'$regex' : '*.;'+searchText+';.*'};
-    collection.find(query).toArray(function(err,docs){
-      if(err)
-      {
-        response.status(500).send('internal server error');
+    collection.find(query).toArray(function (err, docs) {
+      if(err) {
+        response.status(500).send('Internal Server Error');
       }
-       else {
+      else {
          response.json(docs);
-       }
+      }
     });
-
 });
+
+router.get('/articles', function (request, response) {
+    var collection = request.db.collection('articles');
+    var m_category = request.query.main_category;
+    var s_category = request.query.sub_category;
+    if (m_category) {
+        collection.find({main_category: m_category}).toArray(function (err, docs) {
+            if (err) {
+                response.status(500).send('Internal Server Error');
+            }
+            else {
+                response.json(docs);
+            }
+        });
+    }
+    else {
+        collection.find({sub_category: s_category}).toArray(function (err, docs) {
+            if (err) {
+                response.status(500).send('Internal Server Error');
+            }
+            else {
+                response.json(docs);
+            }
+        });
+    }
+});
+
 module.exports = router;

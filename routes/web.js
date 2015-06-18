@@ -6,6 +6,7 @@ var router = express.Router();
 router.get('/', function (request, response) {
     response.render('index');
 });
+
 /* TODO
 router.get('/suggestions', function (request, response) {
     var collection = request.db.collection('articles');

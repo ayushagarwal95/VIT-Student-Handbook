@@ -1,0 +1,206 @@
+@import 'default-styles.scss';
+@import 'components/_color.scss';
+@import 'components/_variables.scss';
+@import 'components/_mixins.scss';
+@import 'components/_prefixer.scss';
+@import 'components/_roboto.scss';
+@import 'components/_global.scss';
+@import 'components/_icons-material-design.scss';
+@import 'components/_cards.scss';
+@import 'components/_dropdown.scss';
+@import 'components/_buttons.scss';
+@import 'components/_waves.scss';
+/*Import necessary components of materialize framework in the components folder*/
+
+/*--------------------Site Styles--------------------------*/
+.action-bar {
+  background-color: $md-blue-600;
+  overflow: hidden;
+  .center-wrap {
+    width: 90%;
+    min-width: 200px;
+    margin: 15px auto;
+    max-width: 400px;
+  }
+  .search {
+    margin: 15px 0;
+    display: block;
+    background-color: #FFFFFF;
+    overflow: hidden;
+    border-radius: 2px;
+    i {
+      font-size: 24px;
+      padding: 8px;
+
+    }
+    i.mdi-action-search {
+      float: left;
+    }
+    i.mdi-navigation-more-vert {
+      float: right;
+      cursor: pointer;
+    }
+    input {
+      font-family: Roboto, sans-serif;
+      font-weight: 400;
+      width: 50%;
+      border: none;
+      outline: none;
+      padding-top: 10px;
+      background-color: #FFFFFF;
+    }
+  }
+  .suggestions {
+    p {
+      font-size: 14px;
+      font-family: Roboto, sans-serif;
+      color: #FFFFFF;
+      font-weight: 700;
+      margin-bottom: 20px;
+    }
+    .sugg-block {
+      display: -webkit-box;
+      display: -moz-box;
+      display: -ms-flexbox;
+      display: -webkit-flex;
+      display: flex;
+      -webkit-box-direction: normal;
+         -moz-box-direction: normal;
+      -webkit-box-orient: horizontal;
+         -moz-box-orient: horizontal;
+      -webkit-flex-direction: row;
+          -ms-flex-direction: row;
+              flex-direction: row;
+      -webkit-flex-wrap: nowrap;
+          -ms-flex-wrap: nowrap;
+              flex-wrap: nowrap;
+      -webkit-box-pack: justify;
+         -moz-box-pack: justify;
+         -ms-flex-pack: justify;
+      -webkit-justify-content: space-between;
+              justify-content: space-between;
+      -webkit-align-content: stretch;
+      -ms-flex-line-pack: stretch;
+           align-content: stretch;
+      -webkit-box-align: start;
+         -moz-box-align: start;
+      -webkit-align-items: flex-start;
+           -ms-flex-align: start;
+              align-items: flex-start;
+      overflow-x: scroll;
+      overflow-y: hidden;
+      .sugg-item {
+        -webkit-box-ordinal-group: 1;
+           -moz-box-ordinal-group: 1;
+         -webkit-order: 0;
+        -ms-flex-order: 0;
+                 order: 0;
+        -webkit-box-flex: 0;
+           -moz-box-flex: 0;
+        -webkit-flex: 0 1 auto;
+            -ms-flex: 0 1 auto;
+                flex: 0 1 auto;
+         -webkit-align-self: auto;
+        -ms-flex-item-align: auto;
+                 align-self: auto;
+        width: 58px;
+        min-width: 58px;
+        height: 56px;
+        padding: 14px;
+        border-radius: 50%;
+        margin: 0 2%;
+        span {
+          display: block;
+          font-family: Roboto,sans-serif;
+          font-weight: 300;
+          font-size: 26px;
+          color: #FFFFFF;
+          text-align: center;
+        }
+      }
+    }
+    overflow: hidden;
+  }
+}
+
+.content {
+  margin-top: 10px;
+  .center-wrap {
+    width: 96%;
+    min-width: 200px;
+    margin: 15px auto;
+    max-width: 400px;
+  }
+  .card {
+    width: 44%;
+    margin: 10px;
+    text-align: center;
+    overflow: hidden;
+    span {
+      display: block;
+      margin-top: 20px;
+      color: #FFFFFF;
+      font-size: 80px;
+      font-family: Roboto, sans-serif;
+      font-weight: 700;
+      overflow: hidden;
+    }
+    p {
+      margin-top: 5px;
+      margin-bottom: 5px;
+      padding: 0 10px;
+      display: block;
+      color: #FFFFFF;
+      font-family: Roboto, sans-serif;
+      font-size: 14px;
+      font-weight: 300;
+      text-align: center;
+      height: 14px;
+    }
+    i {
+      color: #FFFFFF;
+      float: right;
+      padding: 7px 2px;
+    }
+  }
+}
+/*---------------------------------------------------------*/
+
+/*---------------------Media Queries-----------------------*/
+@media only screen and (max-width: 413px) {
+  .content {
+    .card {
+      width: 46%;
+      margin: 10px 5px;
+    }
+  }
+}
+
+@media only screen and (max-width: 320px) {
+  .content {
+    .card {
+      width: 47%;
+      margin: 10px 3px;
+      span {
+        font-size: 70px;
+      }
+      p {
+        margin-bottom: 0;
+      }
+    }
+  }
+}
+
+@media only screen and (max-width: 290px) {
+  .content {
+    .center-wrap {
+      width: 280px;
+      overflow: scroll;
+    }
+    .card {
+      width: 131px;
+      margin: 10px 3px;
+    }
+  }
+}
+/*---------------------------------------------------------*/

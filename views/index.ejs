@@ -1,15 +1,139 @@
 <!DOCTYPE html>
-<html>
-<head>
-    <title>VIT-SH</title>
-    <link rel='stylesheet' href='/stylesheets/style.css'/>
-</head>
-<body>
-<h1>VIT Student Handbook</h1>
-<a href="/input">For Content Team</a>
-<br/><br/><br/><br/><br/><br/><br/>
+<html ng-app="appname">
 
-<p>The link will be on the home page temporarily only! If this link is removed, just tyoe the above weblink with a
-    /input at the end!</p>
+<head>
+    <script src="/angularjs/angular.js"></script>
+    <script src="/angular-route/angular-route.min.js"></script>
+    <link href="/css/materialize.min.css" rel="stylesheet" />
+    <link href="/css/style-desktop.css" rel="stylesheet"/>
+    <script src="/js/init.js"></script>
+    <script src="/js/jquery-1.11.3.min.js"></script>
+    <script src="/js/materialize.min.js"></script>
+    <script src="/js/app-desktop.js"></script>
+</head>
+
+<body layout="column">
+<ul id="slide-out" class="side-nav collection left-align">
+    <li class="collection-item avatar">
+        <a href="browse.html">
+            <h4 class="circle Ac white-text center-align right z-depth-1-half tooltipped" data-delay="50" data-position="left" data-tooltip="Academics"><small>Ac</small></h4>
+        </a>
+    </li>
+    <li class="collection-item avatar">
+        <a href="browse.html">
+            <h4 class="circle St white-text center-align right z-depth-1-half tooltipped" data-delay="50" data-position="left" data-tooltip="Student Organizations"><small>St</small></h4>
+        </a>
+    </li>
+    <li class="collection-item avatar">
+        <a href="browse.html">
+            <h4 class="circle Co white-text center-align right z-depth-1-half tooltipped" data-delay="50" data-position="left" data-tooltip="College"><small>Co</small></h4>
+        </a>
+    </li>
+    <li class="collection-item avatar">
+        <a href="browse.html">
+            <h4 class="circle Li white-text center-align right z-depth-1-half tooltipped" data-delay="50" data-position="left" data-tooltip="Life Hack"><small>Li</small></h4>
+        </a>
+    </li>
+    <li class="collection-item avatar">
+        <a href="browse.html">
+            <h4 class="circle Ho white-text center-align right z-depth-1-half tooltipped" data-delay="50" data-position="left" data-tooltip="Hostels"><small>Ho</small></h4>
+        </a>
+    </li>
+    <li class="collection-item avatar">
+        <a href="browse.html">
+            <h4 class="circle Ar white-text center-align right z-depth-1-half tooltipped" data-delay="50" data-position="left" data-tooltip="Around VIT"><small>Ar</small></h4>
+        </a>
+    </li>
+</ul>
+<header class="VIT" ng-controller="header">
+    <div class="navbar-fixed">
+        <nav>
+            <div class="nav-wrapper VIT">
+                <div class="input-field left">
+                    <input id="search" placeholder="Search..." type="search">
+                    <label for="search"><i class="mdi-action-search"></i></label>
+                    <i class="mdi-navigation-close"></i>
+                </div>
+                <ul class="right">
+                    <li><a id="categories" href="#" data-activates="slide-out" class="button-collapse white-text waves-effect waves-light">Categories</a></li>
+                    <li><a id="login" href="#modal1" class="modal-trigger white-text waves-effect waves-light"> <p>{{greeting.text}}, world </p>Login</a></li>
+                </ul>
+            </div>
+        </nav>
+    </div>
+</header>
+<ng-view>
+
+</ng-view>
+<script type="text/javascript">
+    var appname = angular.module('appname', ['ngRoute']);
+    var controllers = {};
+    controllers.header = function($scope) {
+            $scope.greeting = { text: 'Text 2' };
+
+
+        };
+    controllers.newview = function($scope,$http){
+        $scope.formDatain={};
+        $scope.processForm = function() {
+        $http({
+            method  : 'POST',
+            url     : '/input/new',
+            data    : $.param($scope.formDatain),  // pass in data as strings
+            headers : { 'Content-Type': 'application/x-www-form-urlencoded' }  // set the headers so angular passing info as form data (not request payload)
+        })
+                .success(function(data) {
+                    console.log(data);
+
+                    if (!data) {
+                        // if not successful, bind errors to error variables
+                        $scope.error = data.errors;
+
+                    } else {
+                        // if successful, bind success message to message
+                        $scope.message = data;
+                        alert("Article Added Successfully");
+                    }
+                });
+    };
+
+        $scope.test = "asd";
+
+
+        /*$http.post('/input/new', {msg:'hello word!'}).
+                success(function(data, status, headers, config) {
+                    // this callback will be called asynchronously
+                    // when the response is available
+                }).
+                error(function(data, status, headers, config) {
+                    // called asynchronously if an error occurs
+                    // or server returns response with an error status.
+                });*/
+        $scope.$on('$routeChangeSuccess',test());
+
+    };
+    appname.controller(controllers);
+    appname.config(function($routeProvider) {
+        $routeProvider
+                .when('/input',{
+                    templateUrl: '/input',
+                    controller: 'newview'
+                })
+                .when('/route1',{
+                    templateUrl: 'views/route1.html',
+                    controller:'content'
+                })
+                .otherwise({
+                    redirectTo : '/'
+                });
+    });
+    function test(){
+
+        $('.collapsible').collapsible({
+            accordion : false // A setting that changes the collapsible behavior to expandable instead of the default accordion style
+        });
+    }
+</script>
 </body>
+
 </html>

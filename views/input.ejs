@@ -1,151 +1,96 @@
-<!doctype html>
-<html>
-<head>
-    <title>VIT SH - Input</title>
-    <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css">
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
-    <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
-    <style>
-        * {
-            text-align: center;
-        }
-
-        form input {
-            padding: 1%;
-            margin: 1%;
-            text-align: left;
-        }
-
-        form label {
-            padding: 1%;
-            margin: 1%;
-            text-align: left;
-        }
-
-        textarea {
-            width: 100%;
-            text-align: left;
-        }
-    </style>
-</head>
-<body>
 <div class="container">
-    <% if(message != null){ %>
-    <p><%= message %></p>
-    <% } %>
-    <div class="panel-group" id="accordion">
-        <div class="panel panel-default">
-            <div class="panel-heading">
-                <h4 class="panel-title">
-                    <a data-toggle="collapse" data-parent="#accordion" href="#collapse1">
-                        <span class="text-center">New</span></a>
-                </h4>
-            </div>
-            <div id="collapse1" class="panel-collapse collapse">
-                <div class="panel-body">
-                    <form action="/input/new" method="post" class="form-horizontal">
-                        <div class="col-xs-12 col-sm-4">
-                            <label for="m_category">Main Category: </label>
-                            <input placeholder="Main Category of Article" name="m_category" type="text"/></div>
-                        <div class="col-xs-12 col-sm-4">
-                            <label for="s_category">Sub Category: </label>
-                            <input placeholder="Sub Category of Article" name="s_category" type="text"/></div>
-                        <div class="col-xs-12 col-sm-4">
-                            <label for="topic">Topic *: </label>
-                            <input placeholder="Topic of Article" name="topic" type="text"/></div>
-                        <div class="col-xs-12">
-                            <label for="contentText" valign="top">Content: </label>
-                            <textarea rows="30" name="contentText" wrap="virtual"
-                                      placeholder="Type Content Here"></textarea></div>
-                        <div class="col-xs-12">
-                            <label for="tag">Tags: </label>
-                            <input placeholder="Tags separated by space" name="tag" type="text" size="50"/></div>
-                        <div class="col-xs-12 col-sm-4">
-                            <input type="submit" value="Submit"/></div>
-                    </form>
+<ul class="collapsible" data-collapsible="accordion">
+    <li>
+        <div class="collapsible-header"><i class="mdi-content-add"></i>New</div>
+        <div class="collapsible-body">
+            <form ng-submit="processForm()">
+                <div class="container">
+                    <div class="row">
+                <div class="col s12 m4">
+                    <label for="m_category">Main Category: </label>
+                    <input placeholder="Main Category of Article" name="m_category" type="text" ng-model="formDatain.m_category"/></div>
+                <div class="col s12 m4">
+                    <label for="s_category">Sub Category: </label>
+                    <input placeholder="Sub Category of Article" name="s_category" type="text" ng-model="formDatain.s_category"/></div>
+                <div class="col s12 m4">
+                    <label for="topic">Topic *: </label>
+                    <input placeholder="Topic of Article" name="topic" type="text" ng-model="formDatain.topic"/></div></div>
+                <div class="col s12">
+                    <label for="contentText" >Content: </label>
+                            <textarea rows="20" name="contentText"
+                                      placeholder="Type Content Here" ng-model="formDatain.contentText" style="height:auto"></textarea></div>
+                <div class="col-xs-12">
+                    <label for="tag">Tags: </label>
+                    <input placeholder="Tags separated by space" name="tag" type="text" size="50" ng-model="formDatain.tag"/></div>
+                <div class="col s12 m4">
+                    <input class="btn" type="submit" value="Submit"/></div>
                 </div>
-            </div>
+            </form>
         </div>
-        <div class="panel panel-default">
-            <div class="panel-heading">
-                <h4 class="panel-title">
-                    <a data-toggle="collapse" data-parent="#accordion" href="#collapse2">
-                        <span class="text-center">Find And Edit</span></a>
-                </h4>
-            </div>
-            <div id="collapse2" class="panel-collapse collapse">
-                <div class="panel-body">
-                    <% if (results === null) { %>
-                    <form action="/input/find" method="post">
-                        <label for="topic">Topic</label>
-                        <input type="text" placeholder="Topic" name="f_topic"/>
-                        <input type="submit" value="Submit"/>
-                    </form>
-                    <% } %>
-                    <% if (results) { %>
-                    <form action="/input/edit" method="post" class="form-horizontal">
-                        <div class="col-xs-12 col-sm-4">
-                            <label for="m_category">Main Category: </label>
-                            <input placeholder="Main Category of Article" name="e_m_category" type="text"
-                                   value="<%= results.main_category %>"/></div>
-                        <div class="col-xs-12 col-sm-4">
-                            <label for="s_category">Sub Category: </label>
-                            <input placeholder="Sub Category of Article" name="e_s_category" type="text"
-                                   value="<%= results.sub_category %>"/></div>
-                        <div class="col-xs-12 col-sm-4">
-                            <label for="topic">Topic: </label>
-                            <input placeholder="Topic of Article" name="e_topic" type="text"
-                                   value="<%= results.topic %>"/></div>
-                        <div class="col-xs-12">
-                            <label for="contentText" valign="top">Content: </label>
+    </li>
+    <li>
+        <div class="collapsible-header"><i class="mdi-action-label"></i>Find And Edit</div>
+        <div class="collapsible-body">
+            <% if (results === null) { %>
+            <form action="/input/find" method="post">
+                <div class="container">
+                <label for="topic">Topic</label>
+                <input type="text" placeholder="Topic" name="f_topic"/>
+                <input class="btn" type="submit" value="Submit"/>
+                </div>
+            </form>
+            <% } %>
+            <% if (results) { %>
+            <form action="/input/edit" method="post" class="form-horizontal">
+                <div class="container">
+                <div class="row"> <div class="col s12 m4">
+                    <label for="m_category">Main Category: </label>
+                    <input placeholder="Main Category of Article" name="e_m_category" type="text"
+                           value="<%= results.main_category %>"/></div>
+                <div class="col s12 m4">
+                    <label for="s_category">Sub Category: </label>
+                    <input placeholder="Sub Category of Article" name="e_s_category" type="text"
+                           value="<%= results.sub_category %>"/></div>
+                <div class="col s12 m4">
+                    <label for="topic">Topic: </label>
+                    <input placeholder="Topic of Article" name="e_topic" type="text"
+                           value="<%= results.topic %>"/></div></div>
+                <div class="col s12">
+                    <label for="contentText" valign="top">Content: </label>
                             <textarea rows="30" name="e_contentText" wrap="virtual"
                                       placeholder="Type Content Here"><%= results.content %></textarea></div>
-                        <div class="col-xs-12">
-                            <label for="tag">Tags: </label>
-                            <input placeholder="Tags separated by space" name="e_tag" type="text" size="50"
-                                   value="<%= results.tags %>"/></div>
-                        <div class="col-xs-12 col-sm-4">
-                            <input type="submit" value="Submit"/></div>
-                    </form>
-                    <% } %>
+                <div class="col s12">
+                    <label for="tag">Tags: </label>
+                    <input placeholder="Tags separated by space" name="e_tag" type="text" size="50"
+                           value="<%= results.tags %>"/></div>
+                <div class="col s12 m4">
+                    <input class="btn" type="submit" value="Submit"/></div>
                 </div>
-            </div>
+            </form>
+            <% } %>
         </div>
-        <div class="panel panel-default">
-            <div class="panel-heading">
-                <h4 class="panel-title">
-                    <a data-toggle="collapse" data-parent="#accordion" href="#collapse3">
-                        <span class="text-center">Delete</span></a>
-                </h4>
-            </div>
-            <div id="collapse3" class="panel-collapse collapse">
-                <div class="panel-body">
-                    <form method="post" action="/input/delete">
-                        <label for="topic">Topic: </label>
-                        <input type="text" placeholder="Topic" name="d_topic"/>
-                        <input type="submit" value="Submit"/>
-                    </form>
+    </li>
+    <li>
+        <div class="collapsible-header"><i class="mdi-action-delete"></i>Delete</div>
+        <div class="collapsible-body"><form method="post" action="/input/delete">
+                <div class="container">
+                <label for="topic">Topic: </label>
+                <input type="text" placeholder="Topic" name="d_topic"/>
+                <input class="btn" type="submit" value="Submit"/></div>
+            </form></div>
+    </li>
+    <li>
+        <div class="collapsible-header"><i class="mdi-image-add-to-photos"></i>Upload Image</div>
+        <div class="collapsible-body">
+            <form method="post" action="/input/upload" enctype="multipart/form-data">
+                <div class="container">
+                <label for="imgfile">Upload Image File: </label>
+                <input type="file" name="imgfile" id="imgfile"/>
+                <input class="btn" type="submit" value="Upload" />
                 </div>
-            </div>
+            </form>
         </div>
-        <div class="panel panel-default">
-            <div class="panel-heading">
-                <h4 class="panel-title">
-                    <a data-toggle="collapse" data-parent="#accordion" href="#collapse4">
-                        <span class="text-center">Image Upload</span></a>
-                </h4>
-            </div>
-            <div id="collapse4" class="panel-collapse collapse">
-                <div class="panel-body">
-                    <form method="post" action="/input/upload" enctype="multipart/form-data">
-                        <label for="imgfile">Upload Image File: </label>
-                        <input type="file" name="imgfile" id="imgfile"/>
-                        <input type="submit" value="Upload" />
-                    </form>
-                </div>
-            </div>
-        </div>
-    </div>
+    </li>
+</ul>
+
 </div>
-</body>
-</html>

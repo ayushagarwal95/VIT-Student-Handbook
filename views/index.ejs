@@ -1,10 +1,11 @@
 <!DOCTYPE html>
-<html ng-app="appname">
+<html ng-app="handbook">
 
 <head>
     <script src="/angular/angular.js"></script>
     <script src="/angular-route/angular-route.min.js"></script>
-    <link href="/css/materialize.min.css" rel="stylesheet" />
+
+    <link href="/css/materialize.min.css" rel="stylesheet"/>
     <link href="/css/style-desktop.css" rel="stylesheet"/>
     <script src="/js/init.js"></script>
     <script src="/js/jquery-1.11.3.min.js"></script>
@@ -13,35 +14,73 @@
 </head>
 
 <body layout="column">
+<div id="hide" style="background: black;color: white">
+    <div class="center" style="margin-top: 7em ">Site is under Construction
+    <a href="#/input" class="btn" onclick="document.getElementById('hide').style.display = 'none'">
+        Enter Data
+    </a>
+    <a href="#/" class="btn" onclick="document.getElementById('hide').style.display = 'none'">
+        See Site
+    </a>
+    </div>
+</div>
+<script type="text/javascript">
+    function hid(){
+
+    var hide = document.getElementById('hide');
+        var n = window.innerHeight;
+    hide.style.height = n.toString() + 'px';
+    hide.style.width = '100%';
+    }
+    window.onload = hid();
+</script>
 <ul id="slide-out" class="side-nav collection left-align">
     <li class="collection-item avatar">
         <a href="browse.html">
-            <h4 class="circle Ac white-text center-align right z-depth-1-half tooltipped" data-delay="50" data-position="left" data-tooltip="Academics"><small>Ac</small></h4>
+            <h4 class="circle Ac white-text center-align right z-depth-1-half tooltipped" data-delay="50"
+                data-position="left" data-tooltip="Academics">
+                <small>Ac</small>
+            </h4>
         </a>
     </li>
     <li class="collection-item avatar">
         <a href="browse.html">
-            <h4 class="circle St white-text center-align right z-depth-1-half tooltipped" data-delay="50" data-position="left" data-tooltip="Student Organizations"><small>St</small></h4>
+            <h4 class="circle St white-text center-align right z-depth-1-half tooltipped" data-delay="50"
+                data-position="left" data-tooltip="Student Organizations">
+                <small>St</small>
+            </h4>
         </a>
     </li>
     <li class="collection-item avatar">
         <a href="browse.html">
-            <h4 class="circle Co white-text center-align right z-depth-1-half tooltipped" data-delay="50" data-position="left" data-tooltip="College"><small>Co</small></h4>
+            <h4 class="circle Co white-text center-align right z-depth-1-half tooltipped" data-delay="50"
+                data-position="left" data-tooltip="College">
+                <small>Co</small>
+            </h4>
         </a>
     </li>
     <li class="collection-item avatar">
         <a href="browse.html">
-            <h4 class="circle Li white-text center-align right z-depth-1-half tooltipped" data-delay="50" data-position="left" data-tooltip="Life Hack"><small>Li</small></h4>
+            <h4 class="circle Li white-text center-align right z-depth-1-half tooltipped" data-delay="50"
+                data-position="left" data-tooltip="Life Hack">
+                <small>Li</small>
+            </h4>
         </a>
     </li>
     <li class="collection-item avatar">
         <a href="browse.html">
-            <h4 class="circle Ho white-text center-align right z-depth-1-half tooltipped" data-delay="50" data-position="left" data-tooltip="Hostels"><small>Ho</small></h4>
+            <h4 class="circle Ho white-text center-align right z-depth-1-half tooltipped" data-delay="50"
+                data-position="left" data-tooltip="Hostels">
+                <small>Ho</small>
+            </h4>
         </a>
     </li>
     <li class="collection-item avatar">
         <a href="browse.html">
-            <h4 class="circle Ar white-text center-align right z-depth-1-half tooltipped" data-delay="50" data-position="left" data-tooltip="Around VIT"><small>Ar</small></h4>
+            <h4 class="circle Ar white-text center-align right z-depth-1-half tooltipped" data-delay="50"
+                data-position="left" data-tooltip="Around VIT">
+                <small>Ar</small>
+            </h4>
         </a>
     </li>
 </ul>
@@ -55,8 +94,9 @@
                     <i class="mdi-navigation-close"></i>
                 </div>
                 <ul class="right">
-                    <li><a id="categories" href="#" data-activates="slide-out" class="button-collapse white-text waves-effect waves-light">Categories</a></li>
-                    <li><a id="login" href="#modal1" class="modal-trigger white-text waves-effect waves-light"> <p>{{greeting.text}}, world </p>Login</a></li>
+                    <li><a id="categories" href="#" data-activates="slide-out"
+                           class="button-collapse white-text waves-effect waves-light">Categories</a></li>
+                    <li><a id="login" href="#modal1" class="modal-trigger white-text waves-effect waves-light">Login</a></li>
                 </ul>
             </div>
         </nav>
@@ -65,75 +105,10 @@
 <ng-view>
 
 </ng-view>
-<script type="text/javascript">
-    var appname = angular.module('appname', ['ngRoute']);
-    var controllers = {};
-    controllers.header = function($scope) {
-            $scope.greeting = { text: 'Text 2' };
-
-
-        };
-    controllers.newview = function($scope,$http){
-        $scope.formDatain={};
-        $scope.processForm = function() {
-        $http({
-            method  : 'POST',
-            url     : '/input/new',
-            data    : $.param($scope.formDatain),  // pass in data as strings
-            headers : { 'Content-Type': 'application/x-www-form-urlencoded' }  // set the headers so angular passing info as form data (not request payload)
-        })
-                .success(function(data) {
-                    console.log(data);
-
-                    if (!data) {
-                        // if not successful, bind errors to error variables
-                        $scope.error = data.errors;
-
-                    } else {
-                        // if successful, bind success message to message
-                        $scope.message = data;
-                        alert("Article Added Successfully");
-                    }
-                });
-    };
-
-        $scope.test = "asd";
-
-
-        /*$http.post('/input/new', {msg:'hello word!'}).
-                success(function(data, status, headers, config) {
-                    // this callback will be called asynchronously
-                    // when the response is available
-                }).
-                error(function(data, status, headers, config) {
-                    // called asynchronously if an error occurs
-                    // or server returns response with an error status.
-                });*/
-        $scope.$on('$routeChangeSuccess',test());
-
-    };
-    appname.controller(controllers);
-    appname.config(function($routeProvider) {
-        $routeProvider
-                .when('/input',{
-                    templateUrl: '/input',
-                    controller: 'newview'
-                })
-                .when('/route1',{
-                    templateUrl: 'views/route1.html',
-                    controller:'content'
-                })
-                .otherwise({
-                    redirectTo : '/'
-                });
-    });
-    function test(){
-
-        $('.collapsible').collapsible({
-            accordion : false // A setting that changes the collapsible behavior to expandable instead of the default accordion style
-        });
-    }
-</script>
+<script type="text/javascript" src="/js/angular-app.js"></script>
+<script type="text/javascript" src="/js/controllers.js"></script>
+<script type="text/javascript" src="/js/routes.js"></script>
+<script type="text/javascript" src="/js/helpers.js"></script>
 </body>
 
 </html>

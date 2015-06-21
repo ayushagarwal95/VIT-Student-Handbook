@@ -31,61 +31,64 @@
     <li>
         <div class="collapsible-header"><i class="mdi-action-label"></i>Find And Edit</div>
         <div class="collapsible-body">
-            <% if (results === null) { %>
-            <form action="/input/find" method="post">
+            <div ng-if="!findMessage">
+            <form ng-submit="findData()">
                 <div class="container">
                 <label for="topic">Topic</label>
-                <input type="text" placeholder="Topic" name="f_topic"/>
+                <input type="text" placeholder="Topic" name="f_topic" ng-model="formDataFind.f_topic"/>
                 <input class="btn" type="submit" value="Submit"/>
                 </div>
             </form>
-            <% } %>
-            <% if (results) { %>
-            <form action="/input/edit" method="post" class="form-horizontal">
+            </div>
+            <div ng-if="findMessage">
+            <form ng-submit="editArticle()">
                 <div class="container">
                 <div class="row"> <div class="col s12 m4">
-                    <label for="m_category">Main Category: </label>
+                    <label for="e_m_category">Main Category: </label>
                     <input placeholder="Main Category of Article" name="e_m_category" type="text"
-                           value="<%= results.main_category %>"/></div>
+                           ng-model="formDataGet.main_category"/></div>
                 <div class="col s12 m4">
-                    <label for="s_category">Sub Category: </label>
+                    <label for="e_s_category">Sub Category: </label>
                     <input placeholder="Sub Category of Article" name="e_s_category" type="text"
-                           value="<%= results.sub_category %>"/></div>
+                           ng-model="formDataGet.sub_category "/></div>
                 <div class="col s12 m4">
-                    <label for="topic">Topic: </label>
+                    <label for="e_topic">Topic: </label>
                     <input placeholder="Topic of Article" name="e_topic" type="text"
-                           value="<%= results.topic %>"/></div></div>
+                           ng-model="formDataGet.topic"/></div></div>
                 <div class="col s12">
-                    <label for="contentText" valign="top">Content: </label>
-                            <textarea rows="30" name="e_contentText" wrap="virtual"
-                                      placeholder="Type Content Here"><%= results.content %></textarea></div>
+                    <label for="e_contentText" valign="top">Content: </label>
+                            <textarea rows="20" name="e_contentText"
+                                      placeholder="Type Content Here" ng-model="formDataGet.content"  style="height:auto"></textarea></div>
                 <div class="col s12">
                     <label for="tag">Tags: </label>
                     <input placeholder="Tags separated by space" name="e_tag" type="text" size="50"
-                           value="<%= results.tags %>"/></div>
+                           ng-model=" formDataGet.tags "/></div>
                 <div class="col s12 m4">
                     <input class="btn" type="submit" value="Submit"/></div>
                 </div>
             </form>
-            <% } %>
+            </div>
         </div>
     </li>
     <li>
         <div class="collapsible-header"><i class="mdi-action-delete"></i>Delete</div>
-        <div class="collapsible-body"><form method="post" action="/input/delete">
+        <div class="collapsible-body">
+            <form ng-submit="deleteArticle()">
                 <div class="container">
                 <label for="topic">Topic: </label>
-                <input type="text" placeholder="Topic" name="d_topic"/>
+                <input type="text" placeholder="Topic" name="d_topic" ng-model="formDelete.d_topic"/>
                 <input class="btn" type="submit" value="Submit"/></div>
-            </form></div>
+            </form>
+        </div>
     </li>
     <li>
         <div class="collapsible-header"><i class="mdi-image-add-to-photos"></i>Upload Image</div>
         <div class="collapsible-body">
-            <form method="post" action="/input/upload" enctype="multipart/form-data">
+
+            <form ng-submit="addImage()">
                 <div class="container">
                 <label for="imgfile">Upload Image File: </label>
-                <input type="file" name="imgfile" id="imgfile"/>
+                <input type="file" name="imgfile" id="imgfile" file-model="File"/>
                 <input class="btn" type="submit" value="Upload" />
                 </div>
             </form>

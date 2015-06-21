@@ -6,6 +6,9 @@ var router = express.Router();
 router.get('/', function (request, response) {
     response.render('index');
 });
+router.get('/main',function(req,res){
+   res.render('main');
+});
 
 /* TODO
 router.get('/suggestions', function (request, response) {

@@ -22,7 +22,7 @@ router.post('/new', function (request, response) {
             console.log('error: ' + err);
         }
         else {
-            response.render('input', {message: 'Inserted', results: null})
+            response.status(200).send({"message": "Article Added"});
         }
     }
     collection.insert(article, onInsert);
@@ -36,11 +36,11 @@ router.post('/find', function (request, response) {
             console.log('error: ' + err);
         }
         else if (docs === null) {
-            response.render('input', {message: 'Not Found', results: null});
+            response.status(404).send({results: null, message: 'Not Found'});
         }
         else {
             console.log(docs);
-            response.render('input', {results: docs, message: 'Search Successful'});
+            response.status(200).send({results: docs, message: 'Search Successful'});
         }
     };
     collection.findOne({topic: topic}, onSearch);
@@ -63,7 +63,7 @@ router.post('/edit', function (request, response) {
             console.log('error: ' + err);
         }
         else {
-            response.render('input', {message: 'Updated', results: null});
+            response.status(200).send({message: 'Updated', results: null});
             var updateInfo = {
                 topic: newArticle.topic,
                 timestamp: newArticle.timestamp
@@ -120,7 +120,7 @@ router.post('/delete', function (request, response) {
         }
         else {
             console.log(results);
-            response.render('input', {message: 'Deleted', results: null});
+            response.status(200).send({message: 'Deleted', results: null});
         }
     };
     collection.remove({topic: topic}, onDelete);
@@ -128,6 +128,6 @@ router.post('/delete', function (request, response) {
 
 router.post('/upload', function (request, response) {
     console.log('Image uploaded: ' + request.files.name);
-    response.render('input', {message: 'Uploaded', results: null});
-})
+    response.status(200).send({message: 'Uploaded', results: null});
+});
 module.exports = router;

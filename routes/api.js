@@ -15,7 +15,7 @@ router.post('/updates', function (request, response) {
         }
     };
     var date = request.body.timestamp;
-    var parsedDate = new Date(date.toISOString());
+    var parsedDate = new Date(date);
     collection.find({
         timestamp: { $gte: parsedDate }
     }, onSearch);

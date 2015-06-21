@@ -32,5 +32,6 @@ node_modules
 #Visual Studio Code
 .settings
 
-#frontend dependencies
-public/bower_components
+#frontend dependencies angular
+public/angular
+public/angular-route

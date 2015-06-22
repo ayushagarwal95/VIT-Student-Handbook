@@ -10,24 +10,31 @@ var x = 0;
  * */
 controllers.header = function ($scope, $http, $q) {
 
+
     $scope.searchArt = function () {
         searchArticle($scope, $http, $q, testing);
 
     };
+    $scope.$on('$routeChangeSuccess', setDynamicElements());
 };
 controllers.browse = function ($scope, $http, $q) {
+
     $scope.searchArt = function () {
         searchArticle($scope, $http, $q, $scope.displayArt)
     };
     $scope.displayArt = function (data) {
-        console.log(data);
+        $scope.articles = data;
     };
+    $scope.$on('$routeChangeSuccess', setDynamicElements());
 };
 controllers.results = function ($scope) {
+    $scope.$on('$routeChangeSuccess', setDynamicElements(1));
     $scope.articles = [];
     resultsScope = $scope;
     $scope.fun = function () {
-
+        if($scope.articles.length == 0){
+            stickFooter();
+        }
         if (x == 0) {
             trans();
             x = 1;
@@ -39,7 +46,9 @@ controllers.results = function ($scope) {
 function testing(data) {
 
     resultsScope.articles = data;
-
+    if(!data){
+        stickFooter();
+    }
     setDynamicElements();
     resultsScope.fun();
 
@@ -48,7 +57,7 @@ function testing(data) {
  * Main
  */
 controllers.main = function ($scope, $http) {
-
+    $scope.$on('$routeChangeSuccess', setDynamicElements());
 };
 /***
  *  Input Controller
@@ -74,7 +83,7 @@ controllers.input = function ($scope, $http, FileUploader) {
         newArticle($http, $scope);
     };
     $scope.editArticle = function () {
-        var formDataEdit = {}
+        var formDataEdit = {};
         formDataEdit.e_m_category = $scope.formDataGet.main_category;
         formDataEdit.e_s_category = $scope.formDataGet.sub_category;
         formDataEdit.e_topic = $scope.formDataGet.topic;
@@ -83,12 +92,12 @@ controllers.input = function ($scope, $http, FileUploader) {
         formDataEdit.e_tag = $scope.formDataGet.tags;
 
         edit($http, $scope, formDataEdit);
-    }
+    };
     $scope.deleteArticle = function () {
         deleteArt($http, $scope);
-    }
+    };
     $scope.$on('$routeChangeSuccess', setDynamicElements());
 
-}
+};
 
 appname.controller(controllers);

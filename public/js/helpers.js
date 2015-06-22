@@ -1,25 +1,32 @@
 /**
  * Created by Shivam Mathur on 22-06-2015.
  */
-function setDynamicElements() {
+function setDynamicElements(s) {
 
     $('.collapsible').collapsible({
         accordion: false // A setting that changes the collapsible behavior to expandable instead of the default accordion style
     });
     $('#article_tabs .tabs').tabs();
     x = 0;
-    stickFooter();
+    if(s){
+        stickFooter();
+    }else{
+    removeSticky();
+    }
 }
 function stickFooter(){
-    if($('#footer').offset().top < window.innerHeight){
+
+    if($('#footer').offset().top + 10 < window.innerHeight){
         document.getElementById('footer').style.position = 'absolute';
         document.getElementById('footer').style.bottom = '0';
         document.getElementById('footer').style.width = '100%';
     }else{
-        document.getElementById('footer').style.position = 'relative';
+        removeSticky();
     }
 }
-
+function removeSticky(){
+    document.getElementById('footer').style.position = 'relative';
+}
 /***
  * Ajax Calls
  *

@@ -114,8 +114,11 @@ nav a.button-collapse {
     margin: 5% 0;
 }
 
-.avatar a .grey-text {
+.avatar a p {
     font-size: 1em;
+}
+.avatar p {
+    font-size: 0.5em !important;
 }
 .collection{
     border:none !important;
@@ -125,7 +128,7 @@ nav a.button-collapse {
     background: none;
 }
 #articles .collection li .title{
-    font-size: 150%;
+    font-size: 130%;
 }
 #articles .collection li p{
     font-size: 100%;

@@ -88,7 +88,8 @@
             <form ng-submit="addImage()">
                 <div class="container">
                 <label for="imgfile">Upload Image File: </label>
-                <input type="file" name="imgfile" id="imgfile" file-model="File"/>
+                <input type="file" name="imgfile" id="imgfile" nv-file-select uploader="uploader" options="{ url: '/input/upload',
+                 formData: $scope.uploader.queue[0].file.name}"/>
                 <input class="btn" type="submit" value="Upload" />
                 </div>
             </form>

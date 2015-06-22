@@ -1,4 +1,4 @@
-var appname = angular.module('handbook', ['ngRoute']);
+var appname = angular.module('handbook', ['ngRoute','angularFileUpload']);
 appname.directive('fileModel', ['$parse', function ($parse) {
     return {
         restrict: 'A',

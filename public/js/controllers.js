@@ -49,34 +49,18 @@ controllers.main = function($scope,$http){
 /***
  *  Input Controller
  * */
-controllers.input = function ($scope, $http) {
+controllers.input = function ($scope, $http,FileUploader) {
     $scope.formDatain = {};
     $scope.formDataFind = {};
     $scope.formDataGet = {};
     $scope.formDelete ={};
     $scope.formImage = {};
     $scope.findMessage = null;
+    $scope.uploader = new FileUploader({
+        url: '/input/upload'
+    });
     $scope.addImage = function(){
-        var fd = new FormData();
-        fd.append('file', $scope.File);
-        $http.post('/input/upload', fd, {
-            transformRequest: angular.identity,
-            headers: {'Content-Type': 'undefined'}
-        })
-            .success(function(data){
-                if (!data) {
-                    // if not successful, bind errors to error variables
-                    $scope.message = data.message;
-
-                } else {
-                    // if successful, bind success message to message
-                    $scope.message = data.message;
-                    alert($scope.message);
-
-                }
-            })
-            .error(function(){
-            });
+        $scope.uploader.queue[0].upload();
     };
 
     $scope.findData = function () {

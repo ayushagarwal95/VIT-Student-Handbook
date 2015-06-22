@@ -1,18 +1,51 @@
 /**
  * Created by Shivam Mathur on 22-06-2015.
  */
-
+var articles=[];
 var controllers = {};
-
+var resultsScope;
+var x = 0;
 /***
  *  header Controller
  * */
-controllers.header = function ($scope) {
+controllers.header = function($scope,$http,$q) {
+
+    $scope.searchArt = function(){
+        searchArticle($scope,$http,$q,testing);
+
+    };
+
 
 
 
 };
+controllers.results = function($scope){
+    $scope.articles=[];
+    resultsScope = $scope;
+    $scope.fun = function(){
 
+    if(x==0){
+        trans();
+        x = 1;
+    }
+    };
+
+
+};
+function testing(data){
+
+    resultsScope.articles = data;
+
+    setDynamicElements();
+    resultsScope.fun();
+
+}
+/***
+ * Main
+ */
+controllers.main = function($scope,$http){
+
+};
 /***
  *  Input Controller
  * */
@@ -28,7 +61,7 @@ controllers.input = function ($scope, $http) {
         fd.append('file', $scope.File);
         $http.post('/input/upload', fd, {
             transformRequest: angular.identity,
-            headers: {'Content-Type': ''}
+            headers: {'Content-Type': 'undefined'}
         })
             .success(function(data){
                 if (!data) {

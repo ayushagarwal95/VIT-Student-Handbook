@@ -14,8 +14,25 @@ appname.directive('fileModel', ['$parse', function ($parse) {
         }
     };
 }]);
+appname.service('share',function(){
+    var property = [];
+    return {
+        getProperty: function () {
+            return property;
+        },
+        setProperty: function(value) {
+            property = value;
+            console.log(property);
+        }
+    };
+});
 
+appname.directive('testDir', function() {
+    return function(scope, element, attrs) {
 
+        if (scope.$last){
+           trans();
 
-
-
+        }
+    };
+})

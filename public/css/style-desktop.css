@@ -5,6 +5,7 @@ body {
     display: flex;
     min-height: 100vh;
     flex-direction: column;
+
 }
 /*--------------Color Scheme------------*/
 .Ac {
@@ -114,8 +115,35 @@ nav a.button-collapse {
 }
 
 .avatar a .grey-text {
-    font-size: 60%;
+    font-size: 1em;
 }
 .collection{
     border:none !important;
+}
+.input-field button{
+    border:none;
+    background: none;
+}
+#articles .collection li .title{
+    font-size: 150%;
+}
+#articles .collection li p{
+    font-size: 100%;
+}
+#articles_top li{
+    height:auto;
+}
+#article_tabs li{
+    display: block;
+    float: none;
+    padding:5% 0;
+    opacity: 0;
+
+}
+#article_tabs li .title{
+    font-size: 1.7em;
+}
+
+#article_tabs .indicator{
+    display:none;
 }

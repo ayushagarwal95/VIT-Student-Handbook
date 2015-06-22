@@ -6,6 +6,8 @@ function setDynamicElements() {
     $('.collapsible').collapsible({
         accordion: false // A setting that changes the collapsible behavior to expandable instead of the default accordion style
     });
+    $('#article_tabs .tabs').tabs();
+    x = 0;
 }
 
 
@@ -109,3 +111,24 @@ function find_article($http, $scope) {
         });
 }
 
+function searchArticle($scope,$http,$q,callback){
+    var deferred = $q.defer();
+
+    $http({
+        method: 'GET',
+        url: '/articles',
+        params: {main_category: $scope.search}
+    }).success(function(data){
+        deferred.resolve(data);
+        deferred.promise.then(function(data){
+            console.log(data);
+            callback(data);
+        });
+
+    });
+
+}
+function trans(){
+    Materialize.showStaggeredList("#article_tabs ul");
+
+}

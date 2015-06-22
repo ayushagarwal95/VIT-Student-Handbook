@@ -11,9 +11,9 @@ appname.config(function ($routeProvider) {
             templateUrl: '/input',
             controller: 'input'
         })
-        .when('/route1', {
-            templateUrl: 'views/route1.html',
-            controller: 'content'
+        .when('/results', {
+            templateUrl: '/results',
+            controller: 'results'
         })
         .otherwise({
             redirectTo: '/'

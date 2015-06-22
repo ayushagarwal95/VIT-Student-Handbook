@@ -126,7 +126,7 @@ function searchArticle($scope,$http,$q,callback){
     $http({
         method: 'GET',
         url: '/articles',
-        params: {main_category: $scope.search}
+        params: {sub_category: $scope.search}
     }).success(function(data){
         deferred.resolve(data);
         deferred.promise.then(function(data){

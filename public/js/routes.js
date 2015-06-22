@@ -15,6 +15,10 @@ appname.config(function ($routeProvider) {
             templateUrl: '/results',
             controller: 'results'
         })
+        .when('/browse',{
+            templateUrl: '/browse',
+            controller: 'browse'
+        })
         .otherwise({
             redirectTo: '/'
         });

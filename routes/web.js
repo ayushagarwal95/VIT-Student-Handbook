@@ -12,7 +12,9 @@ router.get('/main',function(req,res){
 router.get('/results',function(req,res){
     res.render('results');
 });
-
+router.get('/browse',function(req,res){
+    res.render('browse');
+});
 /* TODO
 router.get('/suggestions', function (request, response) {
     var collection = request.db.collection('articles');

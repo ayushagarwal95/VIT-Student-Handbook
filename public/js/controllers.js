@@ -1,38 +1,42 @@
 /**
  * Created by Shivam Mathur on 22-06-2015.
  */
-var articles=[];
+var articles = [];
 var controllers = {};
 var resultsScope;
 var x = 0;
 /***
  *  header Controller
  * */
-controllers.header = function($scope,$http,$q) {
+controllers.header = function ($scope, $http, $q) {
 
-    $scope.searchArt = function(){
-        searchArticle($scope,$http,$q,testing);
+    $scope.searchArt = function () {
+        searchArticle($scope, $http, $q, testing);
 
     };
-
-
-
-
 };
-controllers.results = function($scope){
-    $scope.articles=[];
+controllers.browse = function ($scope, $http, $q) {
+    $scope.searchArt = function () {
+        searchArticle($scope, $http, $q, $scope.displayArt)
+    };
+    $scope.displayArt = function (data) {
+        console.log(data);
+    };
+};
+controllers.results = function ($scope) {
+    $scope.articles = [];
     resultsScope = $scope;
-    $scope.fun = function(){
+    $scope.fun = function () {
 
-    if(x==0){
-        trans();
-        x = 1;
-    }
+        if (x == 0) {
+            trans();
+            x = 1;
+        }
     };
 
 
 };
-function testing(data){
+function testing(data) {
 
     resultsScope.articles = data;
 
@@ -43,23 +47,23 @@ function testing(data){
 /***
  * Main
  */
-controllers.main = function($scope,$http){
+controllers.main = function ($scope, $http) {
 
 };
 /***
  *  Input Controller
  * */
-controllers.input = function ($scope, $http,FileUploader) {
+controllers.input = function ($scope, $http, FileUploader) {
     $scope.formDatain = {};
     $scope.formDataFind = {};
     $scope.formDataGet = {};
-    $scope.formDelete ={};
+    $scope.formDelete = {};
     $scope.formImage = {};
     $scope.findMessage = null;
     $scope.uploader = new FileUploader({
         url: '/input/upload'
     });
-    $scope.addImage = function(){
+    $scope.addImage = function () {
         $scope.uploader.queue[0].upload();
     };
 
@@ -71,16 +75,16 @@ controllers.input = function ($scope, $http,FileUploader) {
     };
     $scope.editArticle = function () {
         var formDataEdit = {}
-        formDataEdit.e_m_category= $scope.formDataGet.main_category;
-        formDataEdit.e_s_category= $scope.formDataGet.sub_category;
-        formDataEdit.e_topic= $scope.formDataGet.topic;
-        formDataEdit.e_heading= $scope.formDataGet.heading;
-        formDataEdit.e_contentText= $scope.formDataGet.content;
-        formDataEdit.e_tag= $scope.formDataGet.tags;
+        formDataEdit.e_m_category = $scope.formDataGet.main_category;
+        formDataEdit.e_s_category = $scope.formDataGet.sub_category;
+        formDataEdit.e_topic = $scope.formDataGet.topic;
+        formDataEdit.e_heading = $scope.formDataGet.heading;
+        formDataEdit.e_contentText = $scope.formDataGet.content;
+        formDataEdit.e_tag = $scope.formDataGet.tags;
 
         edit($http, $scope, formDataEdit);
     }
-    $scope.deleteArticle = function(){
+    $scope.deleteArticle = function () {
         deleteArt($http, $scope);
     }
     $scope.$on('$routeChangeSuccess', setDynamicElements());

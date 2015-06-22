@@ -8,8 +8,17 @@ function setDynamicElements() {
     });
     $('#article_tabs .tabs').tabs();
     x = 0;
+    stickFooter();
 }
-
+function stickFooter(){
+    if($('#footer').offset().top < window.innerHeight){
+        document.getElementById('footer').style.position = 'absolute';
+        document.getElementById('footer').style.bottom = '0';
+        document.getElementById('footer').style.width = '100%';
+    }else{
+        document.getElementById('footer').style.position = 'relative';
+    }
+}
 
 /***
  * Ajax Calls

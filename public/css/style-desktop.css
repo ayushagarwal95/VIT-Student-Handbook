@@ -193,5 +193,5 @@ nav a.button-collapse {
     color: white;
 }
 p{
-    white-space: pre !important;
+    white-space: pre-wrap !important;
 }

@@ -90,7 +90,7 @@ controllers.input = function ($scope, $http, FileUploader) {
         formDataEdit.e_heading = $scope.formDataGet.heading;
         formDataEdit.e_contentText = $scope.formDataGet.content;
         formDataEdit.e_tag = $scope.formDataGet.tags;
-
+        console.log(formDataEdit);
         edit($http, $scope, formDataEdit);
     };
     $scope.deleteArticle = function () {

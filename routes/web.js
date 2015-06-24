@@ -36,10 +36,14 @@ router.get('/suggestions', function (request, response) {
 router.get('/search', function (request, response) {
     var searchText = request.query.tag;
     var collection = request.db.collection('articles');
-    collection.find({tags: {
-        '$regex': '*.;' + searchText + ';.*'
-            }
-        }).toArray(function (err, docs) {
+    var query = {}
+    query['tags'] = {'$regex': '*.;' + searchText + ';.*'};
+    collection.find({
+        '$text':
+        {
+            '$search': searchText
+        }
+    }).toArray(function (err, docs) {
       if(err) {
         response.status(500).send('Internal Server Error');
       }

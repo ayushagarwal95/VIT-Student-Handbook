@@ -177,6 +177,6 @@ function searchCat($scope,$http,$q,category,callback){
 }
 
 function trans() {
-    Materialize.showStaggeredList("#article_tabs ul");
+  //  Materialize.showStaggeredList("#article_tabs ul");
 
 }

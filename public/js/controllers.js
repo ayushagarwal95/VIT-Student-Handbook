@@ -24,6 +24,7 @@ controllers.sideBar = function ($scope, $http, $q) {
 
     $scope.b = function(v){
         var category;
+        if(!v){v=1;}
         b = v;
         if(v == 1)
             category = "Academics";
@@ -59,6 +60,10 @@ controllers.browse = function ($scope) {
 function catArt(data){
     broScope.articles = data;
     broScope.brow();
+    setcard();
+}
+function setcard(){
+    document.getElementById('browse_card').style.height = window.innerHeight + 'px';
 }
 
 controllers.results = function ($scope) {
@@ -71,8 +76,6 @@ controllers.results = function ($scope) {
             stickFooter();
         }
         if (x == 0) {
-            trans();
-            x = 1;
         }
     };
 

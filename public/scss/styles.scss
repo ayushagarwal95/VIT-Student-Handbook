@@ -10,6 +10,7 @@
 @import 'components/_dropdown.scss';
 @import 'components/_buttons.scss';
 @import 'components/_waves.scss';
+
 /*Import necessary components of materialize framework in the components folder*/
 
 /*--------------------Site Styles--------------------------*/
@@ -65,44 +66,44 @@
       display: -webkit-flex;
       display: flex;
       -webkit-box-direction: normal;
-         -moz-box-direction: normal;
+      -moz-box-direction: normal;
       -webkit-box-orient: horizontal;
-         -moz-box-orient: horizontal;
+      -moz-box-orient: horizontal;
       -webkit-flex-direction: row;
-          -ms-flex-direction: row;
-              flex-direction: row;
+      -ms-flex-direction: row;
+      flex-direction: row;
       -webkit-flex-wrap: nowrap;
-          -ms-flex-wrap: nowrap;
-              flex-wrap: nowrap;
+      -ms-flex-wrap: nowrap;
+      flex-wrap: nowrap;
       -webkit-box-pack: justify;
-         -moz-box-pack: justify;
-         -ms-flex-pack: justify;
+      -moz-box-pack: justify;
+      -ms-flex-pack: justify;
       -webkit-justify-content: space-between;
-              justify-content: space-between;
+      justify-content: space-between;
       -webkit-align-content: stretch;
       -ms-flex-line-pack: stretch;
-           align-content: stretch;
+      align-content: stretch;
       -webkit-box-align: start;
-         -moz-box-align: start;
+      -moz-box-align: start;
       -webkit-align-items: flex-start;
-           -ms-flex-align: start;
-              align-items: flex-start;
+      -ms-flex-align: start;
+      align-items: flex-start;
       overflow-x: scroll;
       overflow-y: hidden;
       .sugg-item {
         -webkit-box-ordinal-group: 1;
-           -moz-box-ordinal-group: 1;
-         -webkit-order: 0;
+        -moz-box-ordinal-group: 1;
+        -webkit-order: 0;
         -ms-flex-order: 0;
-                 order: 0;
+        order: 0;
         -webkit-box-flex: 0;
-           -moz-box-flex: 0;
+        -moz-box-flex: 0;
         -webkit-flex: 0 1 auto;
-            -ms-flex: 0 1 auto;
-                flex: 0 1 auto;
-         -webkit-align-self: auto;
+        -ms-flex: 0 1 auto;
+        flex: 0 1 auto;
+        -webkit-align-self: auto;
         -ms-flex-item-align: auto;
-                 align-self: auto;
+        align-self: auto;
         width: 58px;
         min-width: 58px;
         height: 56px;
@@ -111,7 +112,7 @@
         margin: 0 2%;
         span {
           display: block;
-          font-family: Roboto,sans-serif;
+          font-family: Roboto, sans-serif;
           font-weight: 300;
           font-size: 26px;
           color: #FFFFFF;
@@ -164,6 +165,7 @@
     }
   }
 }
+
 /*---------------------------------------------------------*/
 
 /*---------------------Media Queries-----------------------*/
@@ -203,4 +205,5 @@
     }
   }
 }
+
 /*---------------------------------------------------------*/

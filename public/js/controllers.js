@@ -5,6 +5,7 @@ var articles = [];
 var controllers = {};
 var resultsScope;
 var x = 0;
+var b=1;
 /***
  *  header Controller
  * */
@@ -32,7 +33,8 @@ controllers.results = function ($scope) {
     $scope.articles = [];
     resultsScope = $scope;
     $scope.fun = function () {
-        if($scope.articles.length == 0){
+        setDynamicElements();
+        if ($scope.articles.length == 0) {
             stickFooter();
         }
         if (x == 0) {
@@ -46,7 +48,7 @@ controllers.results = function ($scope) {
 function testing(data) {
 
     resultsScope.articles = data;
-    if(!data){
+    if (!data) {
         stickFooter();
     }
     setDynamicElements();
@@ -90,7 +92,7 @@ controllers.input = function ($scope, $http, FileUploader) {
         formDataEdit.e_heading = $scope.formDataGet.heading;
         formDataEdit.e_contentText = $scope.formDataGet.content;
         formDataEdit.e_tag = $scope.formDataGet.tags;
-
+        console.log(formDataEdit);
         edit($http, $scope, formDataEdit);
     };
     $scope.deleteArticle = function () {

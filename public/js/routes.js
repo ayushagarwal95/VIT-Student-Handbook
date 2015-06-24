@@ -3,8 +3,8 @@
  */
 appname.config(function ($routeProvider) {
     $routeProvider
-        .when('/',{
-            templateUrl:'/main',
+        .when('/', {
+            templateUrl: '/main',
             controller: 'main'
         })
         .when('/input', {
@@ -15,7 +15,7 @@ appname.config(function ($routeProvider) {
             templateUrl: '/results',
             controller: 'results'
         })
-        .when('/browse',{
+        .when('/browse', {
             templateUrl: '/browse',
             controller: 'browse'
         })

@@ -8,30 +8,30 @@ function setDynamicElements(s) {
     });
     $('#article_tabs .tabs').tabs();
     x = 0;
-    if(s){
+    if (s) {
         stickFooter();
-    }else{
-    removeSticky();
-    }
-}
-function stickFooter(){
-
-    if($('#footer').offset().top + 10 < window.innerHeight){
-        document.getElementById('footer').style.position = 'absolute';
-        document.getElementById('footer').style.bottom = '0';
-        document.getElementById('footer').style.width = '100%';
-    }else{
+    } else {
         removeSticky();
     }
 }
-function removeSticky(){
+function stickFooter() {
+
+    if ($('#footer').offset().top + 10 < window.innerHeight) {
+        document.getElementById('footer').style.position = 'absolute';
+        document.getElementById('footer').style.bottom = '0';
+        document.getElementById('footer').style.width = '100%';
+    } else {
+        removeSticky();
+    }
+}
+function removeSticky() {
     document.getElementById('footer').style.position = 'relative';
 }
 /***
  * Ajax Calls
  *
  */
-function edit($http,$scope,editData){
+function edit($http, $scope, editData) {
     $http({
         method: 'POST',
         url: '/input/edit',
@@ -40,17 +40,11 @@ function edit($http,$scope,editData){
     })
         .success(function (data) {
             console.log(data);
-
-            if (!data) {
-                // if not successful, bind errors to error variables
-                $scope.msg = data.message;
-
-            } else {
-                // if successful, bind success message to message
+            // if successful, bind success message to message
                 $scope.msg = data.message;
                 alert($scope.msg);
                 clearData($scope);
-            }
+
         });
 }
 function newArticle($http, $scope) {
@@ -75,7 +69,7 @@ function newArticle($http, $scope) {
             }
         });
 }
-function deleteArt($http, $scope){
+function deleteArt($http, $scope) {
     $http({
         method: 'POST',
         url: '/input/delete',
@@ -124,19 +118,26 @@ function find_article($http, $scope) {
                 console.log(data);
             }
             alert($scope.findMessage);
+        }).error(function(data,status){
+            if(status==404)
+                alert(data.message);
+            else if(status==500)
+                alert('Internal Server Error');
+            else
+                console.log(status);
         });
 }
 
-function searchArticle($scope,$http,$q,callback){
+function searchArticle($scope, $http, $q, callback) {
     var deferred = $q.defer();
 
     $http({
         method: 'GET',
-        url: '/articles',
-        params: {sub_category: $scope.search}
-    }).success(function(data){
+        url: '/search',
+        params: {tag: $scope.search}
+    }).success(function (data) {
         deferred.resolve(data);
-        deferred.promise.then(function(data){
+        deferred.promise.then(function (data) {
             console.log(data);
             callback(data);
         });
@@ -144,7 +145,7 @@ function searchArticle($scope,$http,$q,callback){
     });
 
 }
-function trans(){
+function trans() {
     Materialize.showStaggeredList("#article_tabs ul");
 
 }

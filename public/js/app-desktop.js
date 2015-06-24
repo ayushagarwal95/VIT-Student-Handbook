@@ -17,15 +17,15 @@ $(document).ready(function () {
     $('.modal-trigger').leanModal();
 
     /*----------Search Bar Script---------*/
-    $("#SearchBar").focusin(function() {
-        $('.search').css({'background-color':'#ffffff'});
+    $("#SearchBar").focusin(function () {
+        $('.search').css({'background-color': '#ffffff'});
     });
-    $("#SearchBar").blur(function() {
-        $('.search').css({'background-color':'#3B5998'});
+    $("#SearchBar").blur(function () {
+        $('.search').css({'background-color': '#3B5998'});
     });
 
     /*--------Suggestions Script----------*/
-    if(window.localStorage.suggestions == 1) {
+    if (window.localStorage.suggestions == 1) {
         $('#SuggestionsCheck').click();
         $('#SuggestionsSwitch').attr('checked', true);
         $('#SuggestionsCheck').click();
@@ -69,12 +69,12 @@ $(document).ready(function () {
     $("#SecondLevelMenu .mdi-navigation-arrow-back").click(function () {
         $.fn.CloseSecondLevel();
     });
-    $(".callCard").click(function() {
+    $(".callCard").click(function () {
         var idName = 'Holds' + $.fn.getType(this);
         $('#' + idName).fadeIn(750);
         $.fn.toggleOverlay();
         $.fn.ShowSecondLevelMenu(idName);
-        if(!$.fn.CheckIfLoaded(idName)) {
+        if (!$.fn.CheckIfLoaded(idName)) {
             $.fn.AddCard(idName);
             $.fn.AddCard(idName);
             $.fn.AddCard(idName);
@@ -82,12 +82,12 @@ $(document).ready(function () {
             $.fn.initDropDown();
         }
     });
-    $(".callList").click(function() {
+    $(".callList").click(function () {
         var idName = 'Holds' + $.fn.getType(this) + 'Sugg';
         $('#' + idName).fadeIn(750);
         $.fn.toggleOverlay();
         $.fn.ShowSecondLevelMenu(idName);
-        if(!$.fn.CheckIfLoaded(idName)) {
+        if (!$.fn.CheckIfLoaded(idName)) {
             $.fn.AddList(idName);
             $.fn.AddToList(idName);
             $.fn.AddToList(idName);
@@ -97,7 +97,7 @@ $(document).ready(function () {
         }
     });
 
-    $(document.body).on('click','i.toggle',function () {
+    $(document.body).on('click', 'i.toggle', function () {
         $(this).toggleClass("mdi-navigation-expand-more mdi-navigation-expand-less");
         $(this).parent().parent().parent().find('.hideContent').toggleClass('showContent');
         $(this).parent().parent().toggleClass('showDropDown');
@@ -124,59 +124,59 @@ $.fn.CloseSecondLevel = function () {
 var num = 0;
 $.fn.AddCard = function (idName) {
     $('#Secondpage #' + idName + '>div').append($(
-        '<div class="card min">'+
-            '<div class="card-content">'+
-                '<a class="dropdown-button" href="#" data-activates="dropdown' + num + '">'+
-                    '<i class="mdi-navigation-more-vert black-text">'+'</i>'+
-                '</a>'+
-                '<ul id="dropdown' + num + '" class="dropdown-content">'+
-                    '<li>'+'<a href="#">'+'This is a link'+'</a>'+'</li>'+
-                    '<li>'+'<a href="#">'+'This is a link'+'</a>'+'</li>'+
-                    '<li>'+'<a href="#">'+'This is a link'+'</a>'+'</li>'+
-                '</ul>'+
-                '<span class="card-title grey-text text-darken-4">'+'Main Title'+'<i class="mdi-navigation-expand-more right toggle">'+'</i>'+'</span>'+
-                '<p class="">'+'Card Title'+'</p>'+
-            '</div>'+
-            '<div class="hideContent">' +
-                '<div class="card-image waves-effect waves-block waves-light">'+
-                    '<img src="img/image1.png">'+
-                '</div>'+
-                '<div class="card-content">'+
-                    '<p class="">'+'Card Text'+'</p>'+
-                '</div>'+
-                '<div class="card-action">'+
-                    '<a class="activator">'+'This is a link'+'</a>'+
-                    '<a class="activator">'+'This is a link'+'</a>'+
-                '</div>'+
-                '<div class="card-reveal">'+
-                    '<span class="card-title grey-text text-darken-4">'+'Card Title'+ '<i class="mdi-navigation-close right">'+'</i>'+'</span>'+
-                    '<p>'+'Here is some more information about this product that is only revealed once clicked on.'+'</p>'+
-                '</div>'+
-            '</div>' +
+        '<div class="card min">' +
+        '<div class="card-content">' +
+        '<a class="dropdown-button" href="#" data-activates="dropdown' + num + '">' +
+        '<i class="mdi-navigation-more-vert black-text">' + '</i>' +
+        '</a>' +
+        '<ul id="dropdown' + num + '" class="dropdown-content">' +
+        '<li>' + '<a href="#">' + 'This is a link' + '</a>' + '</li>' +
+        '<li>' + '<a href="#">' + 'This is a link' + '</a>' + '</li>' +
+        '<li>' + '<a href="#">' + 'This is a link' + '</a>' + '</li>' +
+        '</ul>' +
+        '<span class="card-title grey-text text-darken-4">' + 'Main Title' + '<i class="mdi-navigation-expand-more right toggle">' + '</i>' + '</span>' +
+        '<p class="">' + 'Card Title' + '</p>' +
+        '</div>' +
+        '<div class="hideContent">' +
+        '<div class="card-image waves-effect waves-block waves-light">' +
+        '<img src="img/image1.png">' +
+        '</div>' +
+        '<div class="card-content">' +
+        '<p class="">' + 'Card Text' + '</p>' +
+        '</div>' +
+        '<div class="card-action">' +
+        '<a class="activator">' + 'This is a link' + '</a>' +
+        '<a class="activator">' + 'This is a link' + '</a>' +
+        '</div>' +
+        '<div class="card-reveal">' +
+        '<span class="card-title grey-text text-darken-4">' + 'Card Title' + '<i class="mdi-navigation-close right">' + '</i>' + '</span>' +
+        '<p>' + 'Here is some more information about this product that is only revealed once clicked on.' + '</p>' +
+        '</div>' +
+        '</div>' +
         '</div>'
     ));
-    num ++;
+    num++;
 };
 
 $.fn.AddList = function (idName) {
     $('#Secondpage #' + idName + '>div').append($(
-        '<ul class="collapsible popout" data-collapsible="accordion">'+
+        '<ul class="collapsible popout" data-collapsible="accordion">' +
         '</ul>'
     ));
 };
 
 $.fn.AddToList = function (idName) {
     $('#Secondpage #' + idName + '>div>ul').append($(
-        '<li>'+
-            '<div class="collapsible-header">'+'Title'+'</div>'+
-            '<div class="collapsible-body">'+'<p>'+'Lorem ipsum dolor sit amet.'+'</p>'+'<img src="img/image1.png">'+'</div>'+
+        '<li>' +
+        '<div class="collapsible-header">' + 'Title' + '</div>' +
+        '<div class="collapsible-body">' + '<p>' + 'Lorem ipsum dolor sit amet.' + '</p>' + '<img src="img/image1.png">' + '</div>' +
         '</li>'
     ));
 };
 
 $.fn.initCollapsible = function () {
     $('.collapsible').collapsible({
-        accordion : false
+        accordion: false
     });
 };
 
@@ -195,17 +195,17 @@ $.fn.CheckIfLoaded = function (idName) {
 };
 
 $.fn.getType = function (element) {
-    if($(element).hasClass('Ac') || $(element).hasClass('hoverAc')) {
+    if ($(element).hasClass('Ac') || $(element).hasClass('hoverAc')) {
         return 'Ac';
-    } else if($(element).hasClass('Co') || $(element).hasClass('hoverCo')) {
+    } else if ($(element).hasClass('Co') || $(element).hasClass('hoverCo')) {
         return 'Co';
-    } else if($(element).hasClass('St') || $(element).hasClass('hoverSt')) {
+    } else if ($(element).hasClass('St') || $(element).hasClass('hoverSt')) {
         return 'St';
-    } else if($(element).hasClass('Li') || $(element).hasClass('hoverLi')) {
+    } else if ($(element).hasClass('Li') || $(element).hasClass('hoverLi')) {
         return 'Li';
-    } else if($(element).hasClass('Ho') || $(element).hasClass('hoverHo')) {
+    } else if ($(element).hasClass('Ho') || $(element).hasClass('hoverHo')) {
         return 'Ho';
-    } else if($(element).hasClass('Ar') || $(element).hasClass('hoverAr')) {
+    } else if ($(element).hasClass('Ar') || $(element).hasClass('hoverAr')) {
         return 'Ar';
     } else {
         return null;

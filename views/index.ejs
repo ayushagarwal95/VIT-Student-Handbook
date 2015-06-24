@@ -6,6 +6,7 @@
     <script src="/angular/angular.js"></script>
     <script src="/angular-route/angular-route.min.js"></script>
     <script src="/angular-file-upload/angular-file-upload.min.js"></script>
+    <script src="/angular-loading-bar/build/loading-bar.min.js"></script>
     <link href="/css/materialize.min.css" rel="stylesheet"/>
     <link href="/css/style-desktop.css" rel="stylesheet"/>
     <script src="/js/init.js"></script>
@@ -36,7 +37,7 @@
     }
     window.onload = hid();
 </script>-->
-<ul id="slide-out" class="side-nav collection left-align">
+<ul id="slide-out" class="side-nav collection left-align" data-ng-controller="browse" >
     <li class="collection-item avatar">
         <a href="#/browse">
             <h4 class="circle Ac white-text center-align right z-depth-1-half tooltipped" data-delay="50"
@@ -87,46 +88,50 @@
     </li>
 </ul>
 <div ng-controller="header">
-<header class="VIT" >
-    <div class="navbar-fixed">
-        <nav>
-            <div class="nav-wrapper VIT">
-                <div class="input-field left">
-                    <form ng-submit="searchArt()" onsubmit="window.location.href = '#/results';">
-                    <input id="search" placeholder="Search..." type="search" ng-model="search" >
-                    <label for="search"><button type="submit" ><i class="mdi-action-search"></i></button></label>
-                    <i class="mdi-navigation-close"></i>
-                    </form>
+    <header class="VIT">
+        <div class="navbar-fixed">
+            <nav>
+                <div class="nav-wrapper VIT">
+                    <div class="input-field left">
+                        <form ng-submit="searchArt()" onsubmit="window.location.href = '#/results';">
+                            <input id="search" placeholder="Search..." type="search" ng-model="search">
+                            <label for="search">
+                                <button type="submit"><i class="mdi-action-search"></i></button>
+                            </label>
+                            <i class="mdi-navigation-close"></i>
+                        </form>
+                    </div>
+                    <ul class="right">
+                        <li><a id="categories" href="#" data-activates="slide-out"
+                               class="button-collapse white-text waves-effect waves-light">Categories</a></li>
+                        <li><a id="login" href="#modal1" class="modal-trigger white-text waves-effect waves-light"
+                               onclick="setDynamicElements()">Login</a></li>
+                    </ul>
                 </div>
-                <ul class="right">
-                    <li><a id="categories" href="#" data-activates="slide-out"
-                           class="button-collapse white-text waves-effect waves-light">Categories</a></li>
-                    <li><a id="login" href="#modal1" class="modal-trigger white-text waves-effect waves-light" onclick="setDynamicElements()">Login</a></li>
-                </ul>
-            </div>
-        </nav>
-    </div>
-</header>
-<div id="modal1" class="modal">
-    <div class="modal-content">
-        <h4 class="center-align teal-text text-darken-3">Login</h4>
-        <div class="input-field center-align">
-            <i class="mdi-action-account-box prefix"></i>
-            <input id="reg_no" type="text" class="validate">
-            <label for="reg_no" class="text-darken-4">Registration Number</label>
+            </nav>
         </div>
-        <div class="remember">
-            <div class="right">
-                <input type="checkbox" id="rem"/>
-                <label for="rem">Remember</label>
+    </header>
+    <div id="modal1" class="modal">
+        <div class="modal-content">
+            <h4 class="center-align teal-text text-darken-3">Login</h4>
+
+            <div class="input-field center-align">
+                <i class="mdi-action-account-box prefix"></i>
+                <input id="reg_no" type="text" class="validate">
+                <label for="reg_no" class="text-darken-4">Registration Number</label>
+            </div>
+            <div class="remember">
+                <div class="right">
+                    <input type="checkbox" id="rem"/>
+                    <label for="rem">Remember</label>
+                </div>
             </div>
         </div>
+        <div class="modal-footer">
+            <a href="#" class=" modal-action modal-close waves-effect waves-blue btn">Login</a>
+        </div>
     </div>
-    <div class="modal-footer">
-        <a href="#" class=" modal-action modal-close waves-effect waves-blue btn">Login</a>
-    </div>
-</div>
-<!-- ***************************** ARTICLES **********************-->
+    <!-- ***************************** ARTICLES **********************-->
 </div>
 <ng-view>
 

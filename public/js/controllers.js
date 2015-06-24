@@ -54,7 +54,7 @@ controllers.browse = function ($scope) {
 
     broScope = $scope;
     $scope.brow = function(){
-    console.log($scope.articles);
+    //console.log($scope.articles);
     };
     $scope.$on('$routeChangeSuccess');
 };
@@ -69,9 +69,9 @@ function setcard(){
 
 controllers.results = function ($scope) {
     $scope.setup = function(){
-
+        $scope.err = 'No Articles Found';
         setDynamicElements();
-
+        resultsScope = $scope;
     };
     $scope.$on('$routeChangeSuccess', setDynamicElements(1));
     $scope.articles = [];
@@ -134,7 +134,7 @@ controllers.input = function ($scope, $http, FileUploader) {
         formDataEdit.e_heading = $scope.formDataGet.heading;
         formDataEdit.e_contentText = $scope.formDataGet.content;
         formDataEdit.e_tag = $scope.formDataGet.tags;
-        console.log(formDataEdit);
+       // console.log(formDataEdit);
         edit($http, $scope, formDataEdit);
     };
     $scope.deleteArticle = function () {

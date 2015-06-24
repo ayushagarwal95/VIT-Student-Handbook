@@ -41,7 +41,7 @@ function edit($http, $scope, editData) {
         headers: {'Content-Type': 'application/x-www-form-urlencoded'}  // set the headers so angular passing info as form data (not request payload)
     })
         .success(function (data) {
-            console.log(data);
+        //    console.log(data);
             // if successful, bind success message to message
                 $scope.msg = data.message;
                 alert($scope.msg);
@@ -57,7 +57,7 @@ function newArticle($http, $scope) {
         headers: {'Content-Type': 'application/x-www-form-urlencoded'}  // set the headers so angular passing info as form data (not request payload)
     })
         .success(function (data) {
-            console.log(data);
+          //  console.log(data);
 
             if (!data) {
                 // if not successful, bind errors to error variables
@@ -79,7 +79,7 @@ function deleteArt($http, $scope) {
         headers: {'Content-Type': 'application/x-www-form-urlencoded'}  // set the headers so angular passing info as form data (not request payload)
     })
         .success(function (data) {
-            console.log(data);
+           // console.log(data);
 
             if (!data) {
                 // if not successful, bind errors to error variables
@@ -106,7 +106,7 @@ function find_article($http, $scope) {
         headers: {'Content-Type': 'application/x-www-form-urlencoded'}  // set the headers so angular passing info as form data (not request payload)
     })
         .success(function (data) {
-            console.log(data);
+           // console.log(data);
 
             if (!data) {
                 // if not successful, bind errors to error variables
@@ -117,7 +117,7 @@ function find_article($http, $scope) {
                 $scope.findMessage = data.message;
 
                 $scope.formDataGet = data.results;
-                console.log(data);
+               // console.log(data);
             }
             alert($scope.findMessage);
         }).error(function(data,status){
@@ -132,7 +132,7 @@ function find_article($http, $scope) {
 
 function searchArticle($scope, $http, $q, callback) {
     var deferred = $q.defer();
-
+    resultsScope.err = "Loading";
     $http({
         method: 'GET',
         url: '/search',
@@ -140,16 +140,23 @@ function searchArticle($scope, $http, $q, callback) {
     }).success(function (data) {
         deferred.resolve(data);
         deferred.promise.then(function (data) {
-            console.log(data);
+          //  console.log(data);
             callback(data);
         });
-
+        resultsScope.err = "No Articles Found";
+    }).error(function(data,status){
+        if(status==404)
+            resultsScope.err = "No Articles Found";
+        if(status==500)
+            resultsScope.err = "Internal Sever Error";
+        else
+            console.log(data);
     });
 
 }
 function searchCat($scope,$http,$q,category,callback){
     var deferred = $q.defer();
-
+    broScope.err = "Loading";
     $http({
         method: 'GET',
         url: '/articles',
@@ -157,9 +164,9 @@ function searchCat($scope,$http,$q,category,callback){
     }).success(function (data) {
         deferred.resolve(data);
         deferred.promise.then(function (data) {
-            console.log(data);
+           // console.log(data);
             broScope.err = "No Articles Found";
-            console.log($scope.err);
+           // console.log($scope.err);
             callback(data);
         })})
             .error(function(err,status){

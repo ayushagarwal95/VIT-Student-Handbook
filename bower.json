@@ -15,5 +15,8 @@
     "angular": "~1.4.1",
     "angular-file-upload": "~1.1.5",
     "angular-loading-bar": "~0.8.0"
-  }
+  },
+  "resolutions": {
+  "angular": "1.2.0-rc.3"
+}
 }

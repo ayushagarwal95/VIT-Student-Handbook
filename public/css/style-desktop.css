@@ -192,3 +192,6 @@ nav a.button-collapse {
 #footer a{
     color: white;
 }
+p{
+    white-space: pre !important;
+}

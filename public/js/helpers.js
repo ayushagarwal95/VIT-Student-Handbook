@@ -27,6 +27,8 @@ function stickFooter() {
 function removeSticky() {
     document.getElementById('footer').style.position = 'relative';
 }
+
+
 /***
  * Ajax Calls
  *
@@ -145,6 +147,35 @@ function searchArticle($scope, $http, $q, callback) {
     });
 
 }
+function searchCat($scope,$http,$q,category,callback){
+    var deferred = $q.defer();
+
+    $http({
+        method: 'GET',
+        url: '/articles',
+        params: {main_category: category}
+    }).success(function (data) {
+        deferred.resolve(data);
+        deferred.promise.then(function (data) {
+            console.log(data);
+            broScope.err = "No Articles Found";
+            console.log($scope.err);
+            callback(data);
+        })})
+            .error(function(err,status){
+            if(status==404)
+                broScope.err = "Articles not found";
+            else if(status==500)
+                broScope.err = "Internal Server Error";
+
+            console.log(err);
+
+
+
+    });
+
+}
+
 function trans() {
     Materialize.showStaggeredList("#article_tabs ul");
 

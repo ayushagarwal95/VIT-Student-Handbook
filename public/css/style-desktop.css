@@ -164,7 +164,7 @@ nav a.button-collapse {
 }
 
 #articles .collection li p {
-    font-size: 100%;
+    font-size: 130%;
 }
 
 #articles_top li {
@@ -178,6 +178,9 @@ nav a.button-collapse {
     opacity: 0;
 
 }
+#article_tabs li p{
+    font-size: 100%!important;
+}
 
 #article_tabs li .title {
     font-size: 1.7em;
@@ -188,10 +191,22 @@ nav a.button-collapse {
 }
 #article_tabs .tab{
     width: 100%!important;
+    text-transform: none!important;
 }
 #footer a{
     color: white;
 }
 p{
     white-space: pre-wrap !important;
+    text-transform: none!important;
+}
+.avatar .active .grey-text{
+    color:rgba(0,0,0,0.6) !important;
+}
+
+#SearchPanel2{
+    position: relative; background-color: white!important;border-bottom: 1px solid rgba(0,0,0,0.2);
+}
+#SearchPanel2 input{
+    border: 1px solid rgba(0,0,0,0.2)
 }

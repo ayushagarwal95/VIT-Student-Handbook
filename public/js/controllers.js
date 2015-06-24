@@ -6,6 +6,8 @@ var controllers = {};
 var resultsScope;
 var x = 0;
 var b=1;
+var catArticles = [];
+var broScope;
 /***
  *  header Controller
  * */
@@ -18,16 +20,47 @@ controllers.header = function ($scope, $http, $q) {
     };
     $scope.$on('$routeChangeSuccess', setDynamicElements());
 };
-controllers.browse = function ($scope, $http, $q) {
+controllers.sideBar = function ($scope, $http, $q) {
 
-    $scope.searchArt = function () {
-        searchArticle($scope, $http, $q, $scope.displayArt)
+    $scope.b = function(v){
+        var category;
+        b = v;
+        if(v == 1)
+            category = "Academics";
+        else if(v==2)
+            category = "Student Organization";
+        else if(v==3)
+            category = "College";
+        else if(v==4)
+            category = "LifeHack";
+        else if(v==5)
+            category = "Hostel";
+        else if(v==6)
+            category = "Around VIT";
+
+        searchCat($scope,$http,$q,category,catArt);
     };
-    $scope.displayArt = function (data) {
-        $scope.articles = data;
-    };
-    $scope.$on('$routeChangeSuccess', setDynamicElements());
+
+
 };
+controllers.browse = function ($scope) {
+    $scope.setup = function(){
+        $scope.articles = [];
+        $scope.err = "No Articles Found";
+
+    };
+
+    broScope = $scope;
+    $scope.brow = function(){
+    console.log($scope.articles);
+    };
+    $scope.$on('$routeChangeSuccess');
+};
+function catArt(data){
+    broScope.articles = data;
+    broScope.brow();
+}
+
 controllers.results = function ($scope) {
     $scope.$on('$routeChangeSuccess', setDynamicElements(1));
     $scope.articles = [];

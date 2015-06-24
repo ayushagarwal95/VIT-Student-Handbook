@@ -6,6 +6,7 @@
     <script src="/angular/angular.js"></script>
     <script src="/angular-route/angular-route.min.js"></script>
     <script src="/angular-file-upload/angular-file-upload.min.js"></script>
+    <script src="/angular-loading-bar/build/loading-bar.min.js"></script>
     <link href="/css/materialize.min.css" rel="stylesheet"/>
     <link href="/css/style-desktop.css" rel="stylesheet"/>
     <script src="/js/init.js"></script>
@@ -36,7 +37,7 @@
     }
     window.onload = hid();
 </script>-->
-<ul id="slide-out" class="side-nav collection left-align">
+<ul id="slide-out" class="side-nav collection left-align" data-ng-controller="browse" >
     <li class="collection-item avatar">
         <a href="#/browse">
             <h4 class="circle Ac white-text center-align right z-depth-1-half tooltipped" data-delay="50"

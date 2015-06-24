@@ -40,17 +40,11 @@ function edit($http, $scope, editData) {
     })
         .success(function (data) {
             console.log(data);
-
-            if (!data) {
-                // if not successful, bind errors to error variables
-                $scope.msg = data.message;
-
-            } else {
-                // if successful, bind success message to message
+            // if successful, bind success message to message
                 $scope.msg = data.message;
                 alert($scope.msg);
                 clearData($scope);
-            }
+
         });
 }
 function newArticle($http, $scope) {
@@ -124,6 +118,13 @@ function find_article($http, $scope) {
                 console.log(data);
             }
             alert($scope.findMessage);
+        }).error(function(data,status){
+            if(status==404)
+                alert(data.message);
+            else if(status==500)
+                alert('Internal Server Error');
+            else
+                console.log(status);
         });
 }
 

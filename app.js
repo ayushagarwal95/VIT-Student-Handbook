@@ -36,7 +36,7 @@ app.use(multer({
 }));
 
 var mongoURI = process.env.MONGO_LAB_URI || 'mongodb://localhost/handbook';
-var db = mongojs.connect(mongoURI);
+var db = mongojs(mongoURI);
 
 app.use(function (request, response, next) {
     request.db = db;

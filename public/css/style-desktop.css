@@ -186,3 +186,9 @@ nav a.button-collapse {
 #article_tabs .indicator {
     display: none;
 }
+#article_tabs .tab{
+    width: 100%!important;
+}
+#footer a{
+    color: white;
+}

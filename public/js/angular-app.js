@@ -1,4 +1,4 @@
-var appname = angular.module('handbook', ['ngRoute', 'angularFileUpload']);
+var appname = angular.module('handbook', ['ngRoute', 'angularFileUpload','angular-loading-bar']);
 appname.directive('fileModel', ['$parse', function ($parse) {
     return {
         restrict: 'A',
@@ -11,6 +11,25 @@ appname.directive('fileModel', ['$parse', function ($parse) {
                     modelSetter(scope, element[0].files[0]);
                 });
             });
+        }
+    };
+}]);
+appname.directive('ngRepeatFinish', function() {
+    return function(scope, element, attrs) {
+        angular.element(element).css('color','blue');
+        if (scope.$last){
+            setDynamicElements();
+        }
+    };
+});
+appname.directive('ngElementReady', [function() {
+    return {
+        priority: -1000, // a low number so this directive loads after all other directives have loaded.
+        restrict: "A", // attribute only
+        link: function($scope, $element, $attributes) {
+            console.log(" -- Element ready!");
+            setDynamicElements();
+            // do what you want here.
         }
     };
 }]);
@@ -35,4 +54,7 @@ appname.directive('testDir', function () {
 
         }
     };
-})
+});
+appname.config(['cfpLoadingBarProvider', function(cfpLoadingBarProvider) {
+    cfpLoadingBarProvider.latencyThreshold = 0;
+}]);

@@ -5,6 +5,7 @@ var articles = [];
 var controllers = {};
 var resultsScope;
 var x = 0;
+var b=1;
 /***
  *  header Controller
  * */
@@ -32,6 +33,7 @@ controllers.results = function ($scope) {
     $scope.articles = [];
     resultsScope = $scope;
     $scope.fun = function () {
+        setDynamicElements();
         if ($scope.articles.length == 0) {
             stickFooter();
         }

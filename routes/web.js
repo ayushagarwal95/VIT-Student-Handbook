@@ -44,6 +44,7 @@ router.get('/search', function (request, response) {
         response.status(500).send('Internal Server Error');
       }
       else {
+          console.log(docs);
          response.json(docs);
       }
     });

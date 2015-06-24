@@ -28,7 +28,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use(multer({
     dest: './public/images',
     rename: function (fieldname, filename) {
-        return filename.replace(/\s+/g,"-").toLowerCase();
+        return filename.replace(/\s+/g, "-").toLowerCase();
     },
     limits: {
         files: 1

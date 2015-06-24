@@ -4,9 +4,9 @@
 var y = window.innerHeight;
 var x = window.innerWidth;
 window.onload = mobile_check;
-    function mobile_check(){
-     return x < 1000;
-    }
+function mobile_check() {
+    return x < 1000;
+}
 window.onresize = mobile_check;
 
 /** mobile check returns 'true' if device is mobile

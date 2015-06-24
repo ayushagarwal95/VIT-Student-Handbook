@@ -8,30 +8,30 @@ function setDynamicElements(s) {
     });
     $('#article_tabs .tabs').tabs();
     x = 0;
-    if(s){
+    if (s) {
         stickFooter();
-    }else{
-    removeSticky();
-    }
-}
-function stickFooter(){
-
-    if($('#footer').offset().top + 10 < window.innerHeight){
-        document.getElementById('footer').style.position = 'absolute';
-        document.getElementById('footer').style.bottom = '0';
-        document.getElementById('footer').style.width = '100%';
-    }else{
+    } else {
         removeSticky();
     }
 }
-function removeSticky(){
+function stickFooter() {
+
+    if ($('#footer').offset().top + 10 < window.innerHeight) {
+        document.getElementById('footer').style.position = 'absolute';
+        document.getElementById('footer').style.bottom = '0';
+        document.getElementById('footer').style.width = '100%';
+    } else {
+        removeSticky();
+    }
+}
+function removeSticky() {
     document.getElementById('footer').style.position = 'relative';
 }
 /***
  * Ajax Calls
  *
  */
-function edit($http,$scope,editData){
+function edit($http, $scope, editData) {
     $http({
         method: 'POST',
         url: '/input/edit',
@@ -75,7 +75,7 @@ function newArticle($http, $scope) {
             }
         });
 }
-function deleteArt($http, $scope){
+function deleteArt($http, $scope) {
     $http({
         method: 'POST',
         url: '/input/delete',
@@ -127,16 +127,16 @@ function find_article($http, $scope) {
         });
 }
 
-function searchArticle($scope,$http,$q,callback){
+function searchArticle($scope, $http, $q, callback) {
     var deferred = $q.defer();
 
     $http({
         method: 'GET',
         url: '/search',
         params: {tag: $scope.search}
-    }).success(function(data){
+    }).success(function (data) {
         deferred.resolve(data);
-        deferred.promise.then(function(data){
+        deferred.promise.then(function (data) {
             console.log(data);
             callback(data);
         });
@@ -144,7 +144,7 @@ function searchArticle($scope,$http,$q,callback){
     });
 
 }
-function trans(){
+function trans() {
     Materialize.showStaggeredList("#article_tabs ul");
 
 }

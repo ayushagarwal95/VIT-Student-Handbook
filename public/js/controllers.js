@@ -32,7 +32,7 @@ controllers.results = function ($scope) {
     $scope.articles = [];
     resultsScope = $scope;
     $scope.fun = function () {
-        if($scope.articles.length == 0){
+        if ($scope.articles.length == 0) {
             stickFooter();
         }
         if (x == 0) {
@@ -46,7 +46,7 @@ controllers.results = function ($scope) {
 function testing(data) {
 
     resultsScope.articles = data;
-    if(!data){
+    if (!data) {
         stickFooter();
     }
     setDynamicElements();

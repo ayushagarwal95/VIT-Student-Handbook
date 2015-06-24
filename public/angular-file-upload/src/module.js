@@ -32,7 +32,7 @@ module
 
 
     .factory('FileUploader', ['fileUploaderOptions', '$rootScope', '$http', '$window', '$compile',
-        function(fileUploaderOptions, $rootScope, $http, $window, $compile) {
+        function (fileUploaderOptions, $rootScope, $http, $window, $compile) {
             /**
              * Creates an instance of FileUploader
              * @param {Object} [options]
@@ -51,6 +51,7 @@ module
                 this.filters.unshift({name: 'queueLimit', fn: this._queueLimitFilter});
                 this.filters.unshift({name: 'folder', fn: this._folderFilter});
             }
+
             /**********************
              * PUBLIC
              **********************/
@@ -66,13 +67,13 @@ module
              * @param {Object} [options]
              * @param {Array<Function>|String} filters
              */
-            FileUploader.prototype.addToQueue = function(files, options, filters) {
-                var list = this.isArrayLikeObject(files) ? files: [files];
+            FileUploader.prototype.addToQueue = function (files, options, filters) {
+                var list = this.isArrayLikeObject(files) ? files : [files];
                 var arrayOfFilters = this._getFilters(filters);
                 var count = this.queue.length;
                 var addedFileItems = [];
 
-                angular.forEach(list, function(some /*{File|HTMLInputElement|Object}*/) {
+                angular.forEach(list, function (some /*{File|HTMLInputElement|Object}*/) {
                     var temp = new FileUploader.FileLikeObject(some);
 
                     if (this._isValidFile(temp, arrayOfFilters, options)) {
@@ -86,7 +87,7 @@ module
                     }
                 }, this);
 
-                if(this.queue.length !== count) {
+                if (this.queue.length !== count) {
                     this._onAfterAddingAll(addedFileItems);
                     this.progress = this._getTotalProgress();
                 }
@@ -98,7 +99,7 @@ module
              * Remove items from the queue. Remove last: index = -1
              * @param {FileItem|Number} value
              */
-            FileUploader.prototype.removeFromQueue = function(value) {
+            FileUploader.prototype.removeFromQueue = function (value) {
                 var index = this.getIndexOfItem(value);
                 var item = this.queue[index];
                 if (item.isUploading) item.cancel();
@@ -109,8 +110,8 @@ module
             /**
              * Clears the queue
              */
-            FileUploader.prototype.clearQueue = function() {
-                while(this.queue.length) {
+            FileUploader.prototype.clearQueue = function () {
+                while (this.queue.length) {
                     this.queue[0].remove();
                 }
                 this.progress = 0;
@@ -119,13 +120,13 @@ module
              * Uploads a item from the queue
              * @param {FileItem|Number} value
              */
-            FileUploader.prototype.uploadItem = function(value) {
+            FileUploader.prototype.uploadItem = function (value) {
                 var index = this.getIndexOfItem(value);
                 var item = this.queue[index];
                 var transport = this.isHTML5 ? '_xhrTransport' : '_iframeTransport';
 
                 item._prepareToUploading();
-                if(this.isUploading) return;
+                if (this.isUploading) return;
 
                 this.isUploading = true;
                 this[transport](item);
@@ -134,7 +135,7 @@ module
              * Cancels uploading of item from the queue
              * @param {FileItem|Number} value
              */
-            FileUploader.prototype.cancelItem = function(value) {
+            FileUploader.prototype.cancelItem = function (value) {
                 var index = this.getIndexOfItem(value);
                 var item = this.queue[index];
                 var prop = this.isHTML5 ? '_xhr' : '_form';
@@ -143,13 +144,13 @@ module
             /**
              * Uploads all not uploaded items of queue
              */
-            FileUploader.prototype.uploadAll = function() {
-                var items = this.getNotUploadedItems().filter(function(item) {
+            FileUploader.prototype.uploadAll = function () {
+                var items = this.getNotUploadedItems().filter(function (item) {
                     return !item.isUploading;
                 });
                 if (!items.length) return;
 
-                angular.forEach(items, function(item) {
+                angular.forEach(items, function (item) {
                     item._prepareToUploading();
                 });
                 items[0].upload();
@@ -157,9 +158,9 @@ module
             /**
              * Cancels all uploads
              */
-            FileUploader.prototype.cancelAll = function() {
+            FileUploader.prototype.cancelAll = function () {
                 var items = this.getNotUploadedItems();
-                angular.forEach(items, function(item) {
+                angular.forEach(items, function (item) {
                     item.cancel();
                 });
             };
@@ -169,7 +170,7 @@ module
              * @returns {Boolean}
              * @private
              */
-            FileUploader.prototype.isFile = function(value) {
+            FileUploader.prototype.isFile = function (value) {
                 var fn = $window.File;
                 return (fn && value instanceof fn);
             };
@@ -179,7 +180,7 @@ module
              * @returns {Boolean}
              * @private
              */
-            FileUploader.prototype.isFileLikeObject = function(value) {
+            FileUploader.prototype.isFileLikeObject = function (value) {
                 return value instanceof FileUploader.FileLikeObject;
             };
             /**
@@ -187,7 +188,7 @@ module
              * @param {*} value
              * @returns {Boolean}
              */
-            FileUploader.prototype.isArrayLikeObject = function(value) {
+            FileUploader.prototype.isArrayLikeObject = function (value) {
                 return (angular.isObject(value) && 'length' in value);
             };
             /**
@@ -195,15 +196,15 @@ module
              * @param {Item|Number} value
              * @returns {Number}
              */
-            FileUploader.prototype.getIndexOfItem = function(value) {
+            FileUploader.prototype.getIndexOfItem = function (value) {
                 return angular.isNumber(value) ? value : this.queue.indexOf(value);
             };
             /**
              * Returns not uploaded items
              * @returns {Array}
              */
-            FileUploader.prototype.getNotUploadedItems = function() {
-                return this.queue.filter(function(item) {
+            FileUploader.prototype.getNotUploadedItems = function () {
+                return this.queue.filter(function (item) {
                     return !item.isUploaded;
                 });
             };
@@ -211,21 +212,21 @@ module
              * Returns items ready for upload
              * @returns {Array}
              */
-            FileUploader.prototype.getReadyItems = function() {
+            FileUploader.prototype.getReadyItems = function () {
                 return this.queue
-                    .filter(function(item) {
+                    .filter(function (item) {
                         return (item.isReady && !item.isUploading);
                     })
-                    .sort(function(item1, item2) {
+                    .sort(function (item1, item2) {
                         return item1.index - item2.index;
                     });
             };
             /**
              * Destroys instance of FileUploader
              */
-            FileUploader.prototype.destroy = function() {
-                angular.forEach(this._directives, function(key) {
-                    angular.forEach(this._directives[key], function(object) {
+            FileUploader.prototype.destroy = function () {
+                angular.forEach(this._directives, function (key) {
+                    angular.forEach(this._directives[key], function (object) {
                         object.destroy();
                     }, this);
                 }, this);
@@ -234,12 +235,14 @@ module
              * Callback
              * @param {Array} fileItems
              */
-            FileUploader.prototype.onAfterAddingAll = function(fileItems) {};
+            FileUploader.prototype.onAfterAddingAll = function (fileItems) {
+            };
             /**
              * Callback
              * @param {FileItem} fileItem
              */
-            FileUploader.prototype.onAfterAddingFile = function(fileItem) {};
+            FileUploader.prototype.onAfterAddingFile = function (fileItem) {
+            };
             /**
              * Callback
              * @param {File|Object} item
@@ -247,23 +250,27 @@ module
              * @param {Object} options
              * @private
              */
-            FileUploader.prototype.onWhenAddingFileFailed = function(item, filter, options) {};
+            FileUploader.prototype.onWhenAddingFileFailed = function (item, filter, options) {
+            };
             /**
              * Callback
              * @param {FileItem} fileItem
              */
-            FileUploader.prototype.onBeforeUploadItem = function(fileItem) {};
+            FileUploader.prototype.onBeforeUploadItem = function (fileItem) {
+            };
             /**
              * Callback
              * @param {FileItem} fileItem
              * @param {Number} progress
              */
-            FileUploader.prototype.onProgressItem = function(fileItem, progress) {};
+            FileUploader.prototype.onProgressItem = function (fileItem, progress) {
+            };
             /**
              * Callback
              * @param {Number} progress
              */
-            FileUploader.prototype.onProgressAll = function(progress) {};
+            FileUploader.prototype.onProgressAll = function (progress) {
+            };
             /**
              * Callback
              * @param {FileItem} item
@@ -271,7 +278,8 @@ module
              * @param {Number} status
              * @param {Object} headers
              */
-            FileUploader.prototype.onSuccessItem = function(item, response, status, headers) {};
+            FileUploader.prototype.onSuccessItem = function (item, response, status, headers) {
+            };
             /**
              * Callback
              * @param {FileItem} item
@@ -279,7 +287,8 @@ module
              * @param {Number} status
              * @param {Object} headers
              */
-            FileUploader.prototype.onErrorItem = function(item, response, status, headers) {};
+            FileUploader.prototype.onErrorItem = function (item, response, status, headers) {
+            };
             /**
              * Callback
              * @param {FileItem} item
@@ -287,7 +296,8 @@ module
              * @param {Number} status
              * @param {Object} headers
              */
-            FileUploader.prototype.onCancelItem = function(item, response, status, headers) {};
+            FileUploader.prototype.onCancelItem = function (item, response, status, headers) {
+            };
             /**
              * Callback
              * @param {FileItem} item
@@ -295,11 +305,13 @@ module
              * @param {Number} status
              * @param {Object} headers
              */
-            FileUploader.prototype.onCompleteItem = function(item, response, status, headers) {};
+            FileUploader.prototype.onCompleteItem = function (item, response, status, headers) {
+            };
             /**
              * Callback
              */
-            FileUploader.prototype.onCompleteAll = function() {};
+            FileUploader.prototype.onCompleteAll = function () {
+            };
             /**********************
              * PRIVATE
              **********************/
@@ -309,8 +321,8 @@ module
              * @returns {Number}
              * @private
              */
-            FileUploader.prototype._getTotalProgress = function(value) {
-                if(this.removeAfterUpload) return value || 0;
+            FileUploader.prototype._getTotalProgress = function (value) {
+                if (this.removeAfterUpload) return value || 0;
 
                 var notUploaded = this.getNotUploadedItems().length;
                 var uploaded = notUploaded ? this.queue.length - notUploaded : this.queue.length;
@@ -325,11 +337,11 @@ module
              * @returns {Array<Function>}
              * @private
              */
-            FileUploader.prototype._getFilters = function(filters) {
+            FileUploader.prototype._getFilters = function (filters) {
                 if (angular.isUndefined(filters)) return this.filters;
                 if (angular.isArray(filters)) return filters;
                 var names = filters.match(/[^\s,]+/g);
-                return this.filters.filter(function(filter) {
+                return this.filters.filter(function (filter) {
                     return names.indexOf(filter.name) !== -1;
                 }, this);
             };
@@ -337,7 +349,7 @@ module
              * Updates html
              * @private
              */
-            FileUploader.prototype._render = function() {
+            FileUploader.prototype._render = function () {
                 if (!$rootScope.$$phase) $rootScope.$apply();
             };
             /**
@@ -346,7 +358,7 @@ module
              * @returns {Boolean}
              * @private
              */
-            FileUploader.prototype._folderFilter = function(item) {
+            FileUploader.prototype._folderFilter = function (item) {
                 return !!(item.size || item.type);
             };
             /**
@@ -354,7 +366,7 @@ module
              * @returns {Boolean}
              * @private
              */
-            FileUploader.prototype._queueLimitFilter = function() {
+            FileUploader.prototype._queueLimitFilter = function () {
                 return this.queue.length < this.queueLimit;
             };
             /**
@@ -365,9 +377,9 @@ module
              * @returns {Boolean}
              * @private
              */
-            FileUploader.prototype._isValidFile = function(file, filters, options) {
+            FileUploader.prototype._isValidFile = function (file, filters, options) {
                 this._failFilterIndex = -1;
-                return !filters.length ? true : filters.every(function(filter) {
+                return !filters.length ? true : filters.every(function (filter) {
                     this._failFilterIndex++;
                     return filter.fn.call(this, file, options);
                 }, this);
@@ -378,7 +390,7 @@ module
              * @returns {Boolean}
              * @private
              */
-            FileUploader.prototype._isSuccessCode = function(status) {
+            FileUploader.prototype._isSuccessCode = function (status) {
                 return (status >= 200 && status < 300) || status === 304;
             };
             /**
@@ -388,9 +400,9 @@ module
              * @returns {*}
              * @private
              */
-            FileUploader.prototype._transformResponse = function(response, headers) {
+            FileUploader.prototype._transformResponse = function (response, headers) {
                 var headersGetter = this._headersGetter(headers);
-                angular.forEach($http.defaults.transformResponse, function(transformFn) {
+                angular.forEach($http.defaults.transformResponse, function (transformFn) {
                     response = transformFn(response, headersGetter);
                 });
                 return response;
@@ -402,12 +414,12 @@ module
              * @see https://github.com/angular/angular.js/blob/master/src/ng/http.js
              * @private
              */
-            FileUploader.prototype._parseHeaders = function(headers) {
+            FileUploader.prototype._parseHeaders = function (headers) {
                 var parsed = {}, key, val, i;
 
                 if (!headers) return parsed;
 
-                angular.forEach(headers.split('\n'), function(line) {
+                angular.forEach(headers.split('\n'), function (line) {
                     i = line.indexOf(':');
                     key = line.slice(0, i).trim().toLowerCase();
                     val = line.slice(i + 1).trim();
@@ -425,8 +437,8 @@ module
              * @returns {Function}
              * @private
              */
-            FileUploader.prototype._headersGetter = function(parsedHeaders) {
-                return function(name) {
+            FileUploader.prototype._headersGetter = function (parsedHeaders) {
+                return function (name) {
                     if (name) {
                         return parsedHeaders[name.toLowerCase()] || null;
                     }
@@ -438,27 +450,27 @@ module
              * @param {FileItem} item
              * @private
              */
-            FileUploader.prototype._xhrTransport = function(item) {
+            FileUploader.prototype._xhrTransport = function (item) {
                 var xhr = item._xhr = new XMLHttpRequest();
                 var form = new FormData();
                 var that = this;
 
                 that._onBeforeUploadItem(item);
 
-                angular.forEach(item.formData, function(obj) {
-                    angular.forEach(obj, function(value, key) {
+                angular.forEach(item.formData, function (obj) {
+                    angular.forEach(obj, function (value, key) {
                         form.append(key, value);
                     });
                 });
 
                 form.append(item.alias, item._file, item.file.name);
 
-                xhr.upload.onprogress = function(event) {
+                xhr.upload.onprogress = function (event) {
                     var progress = Math.round(event.lengthComputable ? event.loaded * 100 / event.total : 0);
                     that._onProgressItem(item, progress);
                 };
 
-                xhr.onload = function() {
+                xhr.onload = function () {
                     var headers = that._parseHeaders(xhr.getAllResponseHeaders());
                     var response = that._transformResponse(xhr.response, headers);
                     var gist = that._isSuccessCode(xhr.status) ? 'Success' : 'Error';
@@ -467,14 +479,14 @@ module
                     that._onCompleteItem(item, response, xhr.status, headers);
                 };
 
-                xhr.onerror = function() {
+                xhr.onerror = function () {
                     var headers = that._parseHeaders(xhr.getAllResponseHeaders());
                     var response = that._transformResponse(xhr.response, headers);
                     that._onErrorItem(item, response, xhr.status, headers);
                     that._onCompleteItem(item, response, xhr.status, headers);
                 };
 
-                xhr.onabort = function() {
+                xhr.onabort = function () {
                     var headers = that._parseHeaders(xhr.getAllResponseHeaders());
                     var response = that._transformResponse(xhr.response, headers);
                     that._onCancelItem(item, response, xhr.status, headers);
@@ -485,7 +497,7 @@ module
 
                 xhr.withCredentials = item.withCredentials;
 
-                angular.forEach(item.headers, function(value, name) {
+                angular.forEach(item.headers, function (value, name) {
                     xhr.setRequestHeader(name, value);
                 });
 
@@ -497,7 +509,7 @@ module
              * @param {FileItem} item
              * @private
              */
-            FileUploader.prototype._iframeTransport = function(item) {
+            FileUploader.prototype._iframeTransport = function (item) {
                 var form = angular.element('<form style="display: none;" />');
                 var iframe = angular.element('<iframe name="iframeTransport' + Date.now() + '">');
                 var input = item._input;
@@ -510,8 +522,8 @@ module
 
                 input.prop('name', item.alias);
 
-                angular.forEach(item.formData, function(obj) {
-                    angular.forEach(obj, function(value, key) {
+                angular.forEach(item.formData, function (obj) {
+                    angular.forEach(obj, function (value, key) {
                         var element = angular.element('<input type="hidden" name="' + key + '" />');
                         element.val(value);
                         form.append(element);
@@ -526,7 +538,7 @@ module
                     encoding: 'multipart/form-data' // old IE
                 });
 
-                iframe.bind('load', function() {
+                iframe.bind('load', function () {
                     try {
                         // Fix for legacy IE browsers that loads internal error page
                         // when failed WS response received. In consequence iframe
@@ -541,7 +553,8 @@ module
 
                         // fixed angular.contents() for iframes
                         var html = iframe[0].contentDocument.body.innerHTML;
-                    } catch (e) {}
+                    } catch (e) {
+                    }
 
                     var xhr = {response: html, status: 200, dummy: true};
                     var headers = {};
@@ -551,7 +564,7 @@ module
                     that._onCompleteItem(item, response, xhr.status, headers);
                 });
 
-                form.abort = function() {
+                form.abort = function () {
                     var xhr = {status: 0, dummy: true};
                     var headers = {};
                     var response;
@@ -576,21 +589,21 @@ module
              * @param {Object} options
              * @private
              */
-            FileUploader.prototype._onWhenAddingFileFailed = function(item, filter, options) {
+            FileUploader.prototype._onWhenAddingFileFailed = function (item, filter, options) {
                 this.onWhenAddingFileFailed(item, filter, options);
             };
             /**
              * Inner callback
              * @param {FileItem} item
              */
-            FileUploader.prototype._onAfterAddingFile = function(item) {
+            FileUploader.prototype._onAfterAddingFile = function (item) {
                 this.onAfterAddingFile(item);
             };
             /**
              * Inner callback
              * @param {Array<FileItem>} items
              */
-            FileUploader.prototype._onAfterAddingAll = function(items) {
+            FileUploader.prototype._onAfterAddingAll = function (items) {
                 this.onAfterAddingAll(items);
             };
             /**
@@ -598,7 +611,7 @@ module
              * @param {FileItem} item
              * @private
              */
-            FileUploader.prototype._onBeforeUploadItem = function(item) {
+            FileUploader.prototype._onBeforeUploadItem = function (item) {
                 item._onBeforeUpload();
                 this.onBeforeUploadItem(item);
             };
@@ -608,7 +621,7 @@ module
              * @param {Number} progress
              * @private
              */
-            FileUploader.prototype._onProgressItem = function(item, progress) {
+            FileUploader.prototype._onProgressItem = function (item, progress) {
                 var total = this._getTotalProgress(progress);
                 this.progress = total;
                 item._onProgress(progress);
@@ -624,7 +637,7 @@ module
              * @param {Object} headers
              * @private
              */
-            FileUploader.prototype._onSuccessItem = function(item, response, status, headers) {
+            FileUploader.prototype._onSuccessItem = function (item, response, status, headers) {
                 item._onSuccess(response, status, headers);
                 this.onSuccessItem(item, response, status, headers);
             };
@@ -636,7 +649,7 @@ module
              * @param {Object} headers
              * @private
              */
-            FileUploader.prototype._onErrorItem = function(item, response, status, headers) {
+            FileUploader.prototype._onErrorItem = function (item, response, status, headers) {
                 item._onError(response, status, headers);
                 this.onErrorItem(item, response, status, headers);
             };
@@ -648,7 +661,7 @@ module
              * @param {Object} headers
              * @private
              */
-            FileUploader.prototype._onCancelItem = function(item, response, status, headers) {
+            FileUploader.prototype._onCancelItem = function (item, response, status, headers) {
                 item._onCancel(response, status, headers);
                 this.onCancelItem(item, response, status, headers);
             };
@@ -660,14 +673,14 @@ module
              * @param {Object} headers
              * @private
              */
-            FileUploader.prototype._onCompleteItem = function(item, response, status, headers) {
+            FileUploader.prototype._onCompleteItem = function (item, response, status, headers) {
                 item._onComplete(response, status, headers);
                 this.onCompleteItem(item, response, status, headers);
 
                 var nextItem = this.getReadyItems()[0];
                 this.isUploading = false;
 
-                if(angular.isDefined(nextItem)) {
+                if (angular.isDefined(nextItem)) {
                     nextItem.upload();
                     return;
                 }
@@ -700,7 +713,7 @@ module
              * @param {Function} target
              * @param {Function} source
              */
-            FileUploader.inherit = function(target, source) {
+            FileUploader.inherit = function (target, source) {
                 target.prototype = Object.create(source.prototype);
                 target.prototype.constructor = target;
                 target.super_ = source;
@@ -732,7 +745,7 @@ module
              * @param {String} path
              * @private
              */
-            FileLikeObject.prototype._createFromFakePath = function(path) {
+            FileLikeObject.prototype._createFromFakePath = function (path) {
                 this.lastModifiedDate = null;
                 this.size = null;
                 this.type = 'like/' + path.slice(path.lastIndexOf('.') + 1).toLowerCase();
@@ -743,7 +756,7 @@ module
              * @param {File|FileLikeObject} object
              * @private
              */
-            FileLikeObject.prototype._createFromObject = function(object) {
+            FileLikeObject.prototype._createFromObject = function (object) {
                 this.lastModifiedDate = angular.copy(object.lastModifiedDate);
                 this.size = object.size;
                 this.type = object.type;
@@ -789,73 +802,80 @@ module
 
                 if (input) this._replaceNode(input);
             }
+
             /**********************
              * PUBLIC
              **********************/
             /**
              * Uploads a FileItem
              */
-            FileItem.prototype.upload = function() {
+            FileItem.prototype.upload = function () {
                 this.uploader.uploadItem(this);
             };
             /**
              * Cancels uploading of FileItem
              */
-            FileItem.prototype.cancel = function() {
+            FileItem.prototype.cancel = function () {
                 this.uploader.cancelItem(this);
             };
             /**
              * Removes a FileItem
              */
-            FileItem.prototype.remove = function() {
+            FileItem.prototype.remove = function () {
                 this.uploader.removeFromQueue(this);
             };
             /**
              * Callback
              * @private
              */
-            FileItem.prototype.onBeforeUpload = function() {};
+            FileItem.prototype.onBeforeUpload = function () {
+            };
             /**
              * Callback
              * @param {Number} progress
              * @private
              */
-            FileItem.prototype.onProgress = function(progress) {};
+            FileItem.prototype.onProgress = function (progress) {
+            };
             /**
              * Callback
              * @param {*} response
              * @param {Number} status
              * @param {Object} headers
              */
-            FileItem.prototype.onSuccess = function(response, status, headers) {};
+            FileItem.prototype.onSuccess = function (response, status, headers) {
+            };
             /**
              * Callback
              * @param {*} response
              * @param {Number} status
              * @param {Object} headers
              */
-            FileItem.prototype.onError = function(response, status, headers) {};
+            FileItem.prototype.onError = function (response, status, headers) {
+            };
             /**
              * Callback
              * @param {*} response
              * @param {Number} status
              * @param {Object} headers
              */
-            FileItem.prototype.onCancel = function(response, status, headers) {};
+            FileItem.prototype.onCancel = function (response, status, headers) {
+            };
             /**
              * Callback
              * @param {*} response
              * @param {Number} status
              * @param {Object} headers
              */
-            FileItem.prototype.onComplete = function(response, status, headers) {};
+            FileItem.prototype.onComplete = function (response, status, headers) {
+            };
             /**********************
              * PRIVATE
              **********************/
             /**
              * Inner callback
              */
-            FileItem.prototype._onBeforeUpload = function() {
+            FileItem.prototype._onBeforeUpload = function () {
                 this.isReady = true;
                 this.isUploading = true;
                 this.isUploaded = false;
@@ -870,7 +890,7 @@ module
              * @param {Number} progress
              * @private
              */
-            FileItem.prototype._onProgress = function(progress) {
+            FileItem.prototype._onProgress = function (progress) {
                 this.progress = progress;
                 this.onProgress(progress);
             };
@@ -881,7 +901,7 @@ module
              * @param {Object} headers
              * @private
              */
-            FileItem.prototype._onSuccess = function(response, status, headers) {
+            FileItem.prototype._onSuccess = function (response, status, headers) {
                 this.isReady = false;
                 this.isUploading = false;
                 this.isUploaded = true;
@@ -899,7 +919,7 @@ module
              * @param {Object} headers
              * @private
              */
-            FileItem.prototype._onError = function(response, status, headers) {
+            FileItem.prototype._onError = function (response, status, headers) {
                 this.isReady = false;
                 this.isUploading = false;
                 this.isUploaded = true;
@@ -917,7 +937,7 @@ module
              * @param {Object} headers
              * @private
              */
-            FileItem.prototype._onCancel = function(response, status, headers) {
+            FileItem.prototype._onCancel = function (response, status, headers) {
                 this.isReady = false;
                 this.isUploading = false;
                 this.isUploaded = false;
@@ -935,14 +955,14 @@ module
              * @param {Object} headers
              * @private
              */
-            FileItem.prototype._onComplete = function(response, status, headers) {
+            FileItem.prototype._onComplete = function (response, status, headers) {
                 this.onComplete(response, status, headers);
                 if (this.removeAfterUpload) this.remove();
             };
             /**
              * Destroys a FileItem
              */
-            FileItem.prototype._destroy = function() {
+            FileItem.prototype._destroy = function () {
                 if (this._input) this._input.remove();
                 if (this._form) this._form.remove();
                 delete this._form;
@@ -952,7 +972,7 @@ module
              * Prepares to uploading
              * @private
              */
-            FileItem.prototype._prepareToUploading = function() {
+            FileItem.prototype._prepareToUploading = function () {
                 this.index = this.index || ++this.uploader._nextIndex;
                 this.isReady = true;
             };
@@ -961,7 +981,7 @@ module
              * @param {JQLite|jQuery} input
              * @private
              */
-            FileItem.prototype._replaceNode = function(input) {
+            FileItem.prototype._replaceNode = function (input) {
                 var clone = $compile(input.clone())(input.scope());
                 clone.prop('value', null); // FF fix
                 input.css('display', 'none');
@@ -985,6 +1005,7 @@ module
                 this._saveLinks();
                 this.bind();
             }
+
             /**
              * Map of events
              * @type {Object}
@@ -993,8 +1014,8 @@ module
             /**
              * Binds events handles
              */
-            FileDirective.prototype.bind = function() {
-                for(var key in this.events) {
+            FileDirective.prototype.bind = function () {
+                for (var key in this.events) {
                     var prop = this.events[key];
                     this.element.bind(key, this[prop]);
                 }
@@ -1002,15 +1023,15 @@ module
             /**
              * Unbinds events handles
              */
-            FileDirective.prototype.unbind = function() {
-                for(var key in this.events) {
+            FileDirective.prototype.unbind = function () {
+                for (var key in this.events) {
                     this.element.unbind(key, this.events[key]);
                 }
             };
             /**
              * Destroys directive
              */
-            FileDirective.prototype.destroy = function() {
+            FileDirective.prototype.destroy = function () {
                 var index = this.uploader._directives[this.prop].indexOf(this);
                 this.uploader._directives[this.prop].splice(index, 1);
                 this.unbind();
@@ -1020,8 +1041,8 @@ module
              * Saves links to functions
              * @private
              */
-            FileDirective.prototype._saveLinks = function() {
-                for(var key in this.events) {
+            FileDirective.prototype._saveLinks = function () {
+                for (var key in this.events) {
                     var prop = this.events[key];
                     this[prop] = this[prop].bind(this);
                 }
@@ -1039,11 +1060,12 @@ module
             function FileSelect(options) {
                 FileSelect.super_.apply(this, arguments);
 
-                if(!this.uploader.isHTML5) {
+                if (!this.uploader.isHTML5) {
                     this.element.removeAttr('multiple');
                 }
                 this.element.prop('value', null); // FF fix
             }
+
             /**
              * Map of events
              * @type {Object}
@@ -1061,23 +1083,25 @@ module
              * Returns options
              * @return {Object|undefined}
              */
-            FileSelect.prototype.getOptions = function() {};
+            FileSelect.prototype.getOptions = function () {
+            };
             /**
              * Returns filters
              * @return {Array<Function>|String|undefined}
              */
-            FileSelect.prototype.getFilters = function() {};
+            FileSelect.prototype.getFilters = function () {
+            };
             /**
              * If returns "true" then HTMLInputElement will be cleared
              * @returns {Boolean}
              */
-            FileSelect.prototype.isEmptyAfterSelection = function() {
+            FileSelect.prototype.isEmptyAfterSelection = function () {
                 return !!this.element.attr('multiple');
             };
             /**
              * Event handler
              */
-            FileSelect.prototype.onChange = function() {
+            FileSelect.prototype.onChange = function () {
                 var files = this.uploader.isHTML5 ? this.element[0].files : this.element[0];
                 var options = this.getOptions();
                 var filters = this.getFilters();
@@ -1099,6 +1123,7 @@ module
             function FileDrop(options) {
                 FileDrop.super_.apply(this, arguments);
             }
+
             /**
              * Map of events
              * @type {Object}
@@ -1118,16 +1143,18 @@ module
              * Returns options
              * @return {Object|undefined}
              */
-            FileDrop.prototype.getOptions = function() {};
+            FileDrop.prototype.getOptions = function () {
+            };
             /**
              * Returns filters
              * @return {Array<Function>|String|undefined}
              */
-            FileDrop.prototype.getFilters = function() {};
+            FileDrop.prototype.getFilters = function () {
+            };
             /**
              * Event handler
              */
-            FileDrop.prototype.onDrop = function(event) {
+            FileDrop.prototype.onDrop = function (event) {
                 var transfer = this._getTransfer(event);
                 if (!transfer) return;
                 var options = this.getOptions();
@@ -1139,9 +1166,9 @@ module
             /**
              * Event handler
              */
-            FileDrop.prototype.onDragOver = function(event) {
+            FileDrop.prototype.onDragOver = function (event) {
                 var transfer = this._getTransfer(event);
-                if(!this._haveFiles(transfer.types)) return;
+                if (!this._haveFiles(transfer.types)) return;
                 transfer.dropEffect = 'copy';
                 this._preventAndStop(event);
                 angular.forEach(this.uploader._directives.over, this._addOverClass, this);
@@ -1149,7 +1176,7 @@ module
             /**
              * Event handler
              */
-            FileDrop.prototype.onDragLeave = function(event) {
+            FileDrop.prototype.onDragLeave = function (event) {
                 if (event.currentTarget !== this.element[0]) return;
                 this._preventAndStop(event);
                 angular.forEach(this.uploader._directives.over, this._removeOverClass, this);
@@ -1157,13 +1184,13 @@ module
             /**
              * Helper
              */
-            FileDrop.prototype._getTransfer = function(event) {
+            FileDrop.prototype._getTransfer = function (event) {
                 return event.dataTransfer ? event.dataTransfer : event.originalEvent.dataTransfer; // jQuery fix;
             };
             /**
              * Helper
              */
-            FileDrop.prototype._preventAndStop = function(event) {
+            FileDrop.prototype._preventAndStop = function (event) {
                 event.preventDefault();
                 event.stopPropagation();
             };
@@ -1171,11 +1198,11 @@ module
              * Returns "true" if types contains files
              * @param {Object} types
              */
-            FileDrop.prototype._haveFiles = function(types) {
+            FileDrop.prototype._haveFiles = function (types) {
                 if (!types) return false;
                 if (types.indexOf) {
                     return types.indexOf('Files') !== -1;
-                } else if(types.contains) {
+                } else if (types.contains) {
                     return types.contains('Files');
                 } else {
                     return false;
@@ -1184,13 +1211,13 @@ module
             /**
              * Callback
              */
-            FileDrop.prototype._addOverClass = function(item) {
+            FileDrop.prototype._addOverClass = function (item) {
                 item.addOverClass();
             };
             /**
              * Callback
              */
-            FileDrop.prototype._removeOverClass = function(item) {
+            FileDrop.prototype._removeOverClass = function (item) {
                 item.removeOverClass();
             };
 
@@ -1206,6 +1233,7 @@ module
             function FileOver(options) {
                 FileOver.super_.apply(this, arguments);
             }
+
             /**
              * Map of events
              * @type {Object}
@@ -1226,20 +1254,20 @@ module
             /**
              * Adds over class
              */
-            FileOver.prototype.addOverClass = function() {
+            FileOver.prototype.addOverClass = function () {
                 this.element.addClass(this.getOverClass());
             };
             /**
              * Removes over class
              */
-            FileOver.prototype.removeOverClass = function() {
+            FileOver.prototype.removeOverClass = function () {
                 this.element.removeClass(this.getOverClass());
             };
             /**
              * Returns over class
              * @returns {String}
              */
-            FileOver.prototype.getOverClass = function() {
+            FileOver.prototype.getOverClass = function () {
                 return this.overClass;
             };
 
@@ -1247,9 +1275,9 @@ module
         }])
 
 
-    .directive('nvFileSelect', ['$parse', 'FileUploader', function($parse, FileUploader) {
+    .directive('nvFileSelect', ['$parse', 'FileUploader', function ($parse, FileUploader) {
         return {
-            link: function(scope, element, attributes) {
+            link: function (scope, element, attributes) {
                 var uploader = scope.$eval(attributes.uploader);
 
                 if (!(uploader instanceof FileUploader)) {
@@ -1262,15 +1290,17 @@ module
                 });
 
                 object.getOptions = $parse(attributes.options).bind(object, scope);
-                object.getFilters = function() {return attributes.filters;};
+                object.getFilters = function () {
+                    return attributes.filters;
+                };
             }
         };
     }])
 
 
-    .directive('nvFileDrop', ['$parse', 'FileUploader', function($parse, FileUploader) {
+    .directive('nvFileDrop', ['$parse', 'FileUploader', function ($parse, FileUploader) {
         return {
-            link: function(scope, element, attributes) {
+            link: function (scope, element, attributes) {
                 var uploader = scope.$eval(attributes.uploader);
 
                 if (!(uploader instanceof FileUploader)) {
@@ -1285,15 +1315,17 @@ module
                 });
 
                 object.getOptions = $parse(attributes.options).bind(object, scope);
-                object.getFilters = function() {return attributes.filters;};
+                object.getFilters = function () {
+                    return attributes.filters;
+                };
             }
         };
     }])
 
 
-    .directive('nvFileOver', ['FileUploader', function(FileUploader) {
+    .directive('nvFileOver', ['FileUploader', function (FileUploader) {
         return {
-            link: function(scope, element, attributes) {
+            link: function (scope, element, attributes) {
                 var uploader = scope.$eval(attributes.uploader);
 
                 if (!(uploader instanceof FileUploader)) {
@@ -1305,7 +1337,7 @@ module
                     element: element
                 });
 
-                object.getOverClass = function() {
+                object.getOverClass = function () {
                     return attributes.overClass || this.overClass;
                 };
             }

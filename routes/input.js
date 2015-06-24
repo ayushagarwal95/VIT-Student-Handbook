@@ -64,17 +64,18 @@ router.post('/edit', function (request, response) {
             response.status(200).send({message: 'Updated', results: null});
         }
     };
-    collection.findAndModify({ query: {topic: newArticle.topic},
-        update: {
-            $set: {
-                main_category: newArticle.main_category,
-                sub_category: newArticle.sub_category,
-                content: newArticle.content,
-                tags: newArticle.tags,
-                timestamp: newArticle.timestamp
-            }
-        },
-        new: true,
+    collection.findAndModify({
+            query: {topic: newArticle.topic},
+            update: {
+                $set: {
+                    main_category: newArticle.main_category,
+                    sub_category: newArticle.sub_category,
+                    content: newArticle.content,
+                    tags: newArticle.tags,
+                    timestamp: newArticle.timestamp
+                }
+            },
+            new: true,
         }, onUpdate
     );
 });

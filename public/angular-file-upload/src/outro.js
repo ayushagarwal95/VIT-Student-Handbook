@@ -1,2 +1,3 @@
-    return module;
-}));
+return module;
+}))
+;

@@ -6,32 +6,32 @@ var router = express.Router();
 router.get('/', function (request, response) {
     response.render('index');
 });
-router.get('/main',function(req,res){
-   res.render('main');
+router.get('/main', function (req, res) {
+    res.render('main');
 });
-router.get('/results',function(req,res){
+router.get('/results', function (req, res) {
     res.render('results');
 });
-router.get('/browse',function(req,res){
+router.get('/browse', function (req, res) {
     res.render('browse');
 });
 /* TODO
-router.get('/suggestions', function (request, response) {
-    var collection = request.db.collection('articles');
-    var regNo = request.query.regno;
-    var category = request.query.category;
-    var query = {};
-    query['main_category'] = category;
-    //query['tags'] =
-    collection.find(query).toArray(function (err, docs) {
-        if (err) {
-            response.status(500).send('Internal Server Error');
-        }
-        else {
-            response.json(docs);
-        }
-    });
-});*/
+ router.get('/suggestions', function (request, response) {
+ var collection = request.db.collection('articles');
+ var regNo = request.query.regno;
+ var category = request.query.category;
+ var query = {};
+ query['main_category'] = category;
+ //query['tags'] =
+ collection.find(query).toArray(function (err, docs) {
+ if (err) {
+ response.status(500).send('Internal Server Error');
+ }
+ else {
+ response.json(docs);
+ }
+ });
+ });*/
 
 router.get('/search', function (request, response) {
     var searchText = request.query.tag;
@@ -39,18 +39,17 @@ router.get('/search', function (request, response) {
     var query = {}
     query['tags'] = {'$regex': '*.;' + searchText + ';.*'};
     collection.find({
-        '$text':
-        {
+        '$text': {
             '$search': searchText
         }
     }).toArray(function (err, docs) {
-      if(err) {
-        response.status(500).send('Internal Server Error');
-      }
-      else {
-          console.log(docs);
-         response.json(docs);
-      }
+        if (err) {
+            response.status(500).send('Internal Server Error');
+        }
+        else {
+            console.log(docs);
+            response.json(docs);
+        }
     });
 });
 

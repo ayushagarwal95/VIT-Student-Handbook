@@ -48,6 +48,7 @@ controllers.browse = function ($scope) {
     $scope.setup = function(){
         $scope.articles = [];
         $scope.err = "No Articles Found";
+        setDynamicElements();
 
     };
 
@@ -67,6 +68,11 @@ function setcard(){
 }
 
 controllers.results = function ($scope) {
+    $scope.setup = function(){
+
+        setDynamicElements();
+
+    };
     $scope.$on('$routeChangeSuccess', setDynamicElements(1));
     $scope.articles = [];
     resultsScope = $scope;

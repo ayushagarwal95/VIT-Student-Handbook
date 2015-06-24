@@ -1,8 +1,8 @@
-<div class="row col s12 " ng-init="setup()">
+<div class="row col s12 " ng-init="setup()" onmouseover="setDynamicElements()">
     <div class="row col s10 offset-s1 card " id="browse_card" style="overflow-y: scroll">
         <div ng-if="articles.length!=0" style="height: inherit;">
 
-            <div class="col s4 " id="article_tabs" onmouseover="setDynamicElements()"  style="height: inherit;">
+            <div class="col s4 " id="article_tabs" onmouseover=""  style="height: inherit;">
                 <div id = "SearchPanel2" class="input-field row col s12 left-align" style="" >
                     <a href="#" class="grey-text center-align" style="">
                         <i id ="SearchIcon2" class="mdi-action-search prefix"></i>
@@ -44,7 +44,7 @@
                         </a></li>
                 </ul>
             </div>
-            <div class="col s8" id="articles"  onmouseover="setDynamicElements()" style="border-left: 1px rgba(0,0,0,0.2) solid;" >
+            <div class="col s8" id="articles" style="border-left: 1px rgba(0,0,0,0.2) solid;" >
 
                 <div class="row" ng-repeat="a in articles" id="{{a._id}}" style="display:block" >
                     <div class="col s12">

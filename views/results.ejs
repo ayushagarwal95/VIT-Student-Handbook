@@ -5,6 +5,8 @@
             <ul class=" tabs collection center-align  z-depth-1-half " style=" height:auto;margin-top: 2%" >
                 <li style="height:auto;width: auto;" class=" col s12 collection-item avatar tab " ng-repeat="a in articles" test-dir="">
                     <a href="#{{a._id}}">
+                        <span class="title grey-text text-darken-2 center center-align" style="white-space: normal; ">{{a.topic}}</span>
+
 
                         <h4 class="circle center-align Ac white-text " ng-if="a.main_category == 'Academics'">
                             <small>Ac</small>
@@ -24,9 +26,6 @@
                         <h4 class="circle center-align Ar white-text " ng-if="a.main_category == 'Around VIT'">
                             <small>Ar</small>
                         </h4>
-
-                        <span class="title grey-text text-daren-2">{{a.topic}}</span>
-
                         <p class="grey-text darken-1"  >{{a.sub_category}} </p>
 
                     </a></li>

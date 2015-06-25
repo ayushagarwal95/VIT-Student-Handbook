@@ -14,37 +14,7 @@ appname.directive('fileModel', ['$parse', function ($parse) {
         }
     };
 }]);
-appname.directive('ngRepeatFinish', function() {
-    return function(scope, element, attrs) {
-        angular.element(element).css('color','blue');
-        if (scope.$last){
-            setDynamicElements();
-        }
-    };
-});
-appname.directive('ngElementReady', [function() {
-    return {
-        priority: -1000, // a low number so this directive loads after all other directives have loaded.
-        restrict: "A", // attribute only
-        link: function($scope, $element, $attributes) {
-            console.log(" -- Element ready!");
-            setDynamicElements();
-            // do what you want here.
-        }
-    };
-}]);
-appname.service('share', function () {
-    var property = [];
-    return {
-        getProperty: function () {
-            return property;
-        },
-        setProperty: function (value) {
-            property = value;
-            console.log(property);
-        }
-    };
-});
+/*
 
 appname.directive('testDir', function () {
     return function (scope, element, attrs) {
@@ -54,7 +24,13 @@ appname.directive('testDir', function () {
 
         }
     };
-});
+});*/
 appname.config(['cfpLoadingBarProvider', function(cfpLoadingBarProvider) {
     cfpLoadingBarProvider.latencyThreshold = 0;
 }]);
+
+appname.run(function($rootScope) {
+    $rootScope.searchTag = [];
+    $rootScope.searchCat = [];
+    $rootScope.err = '';
+});

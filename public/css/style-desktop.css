@@ -12,29 +12,49 @@ body {
 .Ac {
     background-color: #fecd16;
 }
+.Ac-text{
+    color: #fecd16;
+}
 
 .Co {
     background-color: #75ba5b;
 }
-
+.Co-text {
+    color: #75ba5b;
+}
 .Ho {
     background-color: #ff5b5b;
+}
+.Ho-text {
+    color: #ff5b5b;
 }
 
 .St {
     background-color: #7c54f0;
 }
+.St-text {
+    color: #7c54f0;
+}
 
 .Li {
     background-color: #cc35ba;
+}
+.Li-text {
+    color: #cc35ba;
 }
 
 .Ar {
     background-color: #4aa0e0;
 }
+.Ar-text {
+    color: #4aa0e0;
+}
 
 .VIT {
     background-color: #3B5998;
+}
+.VIT-text {
+    color: #3B5998;
 }
 
 /*--------------------------------------*/
@@ -208,4 +228,7 @@ p{
 }
 #SearchPanel2 input{
     border: 1px solid rgba(0,0,0,0.2)
+}
+.heading{
+    text-shadow: 1px 1px 3px rgba(200,200,252,1)!important;
 }

@@ -1,26 +1,22 @@
 /**
  * Created by Shivam Mathur on 22-06-2015.
  */
-var articles = [];
 var controllers = {};
-var resultsScope;
 var x = 0;
 var b=1;
-var catArticles = [];
-var broScope;
 /***
  *  header Controller
  * */
-controllers.header = function ($scope, $http, $q) {
+controllers.header = function ($scope, $http, $q,$rootScope) {
 
 
     $scope.searchArt = function () {
-        searchArticle($scope, $http, $q, testing);
+        searchArticle($scope, $http, $q,$rootScope);
 
     };
     $scope.$on('$routeChangeSuccess', setDynamicElements());
 };
-controllers.sideBar = function ($scope, $http, $q) {
+controllers.sideBar = function ($scope, $http, $q,$rootScope) {
 
     $scope.b = function(v){
         var category;
@@ -37,66 +33,49 @@ controllers.sideBar = function ($scope, $http, $q) {
         else if(v==5)
             category = "Hostel";
         else if(v==6)
-            category = "Around VIT";
+            category = "Around VIT and Vellore";
 
-        searchCat($scope,$http,$q,category,catArt);
+        searchCat($rootScope,$http,$q,category);
+      //  console.log($rootScope.err);
     };
 
 
 };
-controllers.browse = function ($scope) {
+controllers.browse = function ($scope,$rootScope) {
     $scope.setup = function(){
-        $scope.articles = [];
-        $scope.err = "No Articles Found";
+        $rootScope.err = 'Please choose a category from the category section.';
+        setcard();
         setDynamicElements();
-
+    };
+    $scope.cat = function(){
+        if( $rootScope.err != 'Please choose a category from the category section.')
+            return b;
+        else
+            return 0;
     };
 
-    broScope = $scope;
     $scope.brow = function(){
-    //console.log($scope.articles);
+        return $rootScope.searchCat;
     };
     $scope.$on('$routeChangeSuccess');
 };
-function catArt(data){
-    broScope.articles = data;
-    broScope.brow();
-    setcard();
-}
 function setcard(){
     document.getElementById('browse_card').style.height = window.innerHeight + 'px';
 }
 
-controllers.results = function ($scope) {
+controllers.results = function ($scope,$rootScope) {
     $scope.setup = function(){
-        $scope.err = 'No Articles Found';
+        $rootScope.err = 'Use the Search Bar to search for Articles';
         setDynamicElements();
-        resultsScope = $scope;
     };
     $scope.$on('$routeChangeSuccess', setDynamicElements(1));
-    $scope.articles = [];
-    resultsScope = $scope;
-    $scope.fun = function () {
-        setDynamicElements();
-        if ($scope.articles.length == 0) {
-            stickFooter();
-        }
-        if (x == 0) {
-        }
+    $scope.res = function(){
+        return $rootScope.searchTag;
     };
 
 
 };
-function testing(data) {
 
-    resultsScope.articles = data;
-    if (!data) {
-        stickFooter();
-    }
-    setDynamicElements();
-    resultsScope.fun();
-
-}
 /***
  * Main
  */

@@ -130,9 +130,9 @@ function find_article($http, $scope) {
         });
 }
 
-function searchArticle($scope, $http, $q, callback) {
+function searchArticle($scope, $http, $q,$rootScope) {
     var deferred = $q.defer();
-    resultsScope.err = "Loading";
+    $rootScope.err = "Loading";
     $http({
         method: 'GET',
         url: '/search',
@@ -141,22 +141,22 @@ function searchArticle($scope, $http, $q, callback) {
         deferred.resolve(data);
         deferred.promise.then(function (data) {
           //  console.log(data);
-            callback(data);
+            $rootScope.searchTag = data;
         });
-        resultsScope.err = "No Articles Found";
+        $rootScope.err = "No Articles Found";
     }).error(function(data,status){
         if(status==404)
-            resultsScope.err = "No Articles Found";
+            $rootScope.err = "No Articles Found";
         if(status==500)
-            resultsScope.err = "Internal Sever Error";
+            $rootScope.err = "Internal Sever Error";
         else
             console.log(data);
     });
 
 }
-function searchCat($scope,$http,$q,category,callback){
+function searchCat($rootScope,$http,$q,category){
     var deferred = $q.defer();
-    broScope.err = "Loading";
+    $rootScope.err = "Loading";
     $http({
         method: 'GET',
         url: '/articles',
@@ -165,15 +165,15 @@ function searchCat($scope,$http,$q,category,callback){
         deferred.resolve(data);
         deferred.promise.then(function (data) {
            // console.log(data);
-            broScope.err = "No Articles Found";
+            $rootScope.err = "No Articles Found";
            // console.log($scope.err);
-            callback(data);
+            $rootScope.searchCat = data;
         })})
             .error(function(err,status){
             if(status==404)
-                broScope.err = "Articles not found";
+                $rootScope.err = "Articles not found";
             else if(status==500)
-                broScope.err = "Internal Server Error";
+                $rootScope.err = "Internal Server Error";
 
             console.log(err);
 

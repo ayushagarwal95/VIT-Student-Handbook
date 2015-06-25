@@ -1,6 +1,15 @@
 <div class="row col s12 " ng-init="setup()" onmouseover="setDynamicElements()">
+    <div class="col s4 offset-s4 center">
+        <h4 ng-if="cat()==1" class="Ac-text heading" > Academics</h4>
+        <h4 ng-if="cat()==2" class="St-text heading" > Student Organizations</h4>
+        <h4 ng-if="cat()==3" class="Co-text heading" > College </h4>
+        <h4 ng-if="cat()==4" class="Li-text heading" > Life Hacks</h4>
+        <h4 ng-if="cat()==5" class="Ho-text heading" > Hostel</h4>
+        <h4 ng-if="cat()==6" class="Ar-text heading" > Around VIT and Vellore</h4>
+    </div>
     <div class="row col s10 offset-s1 card " id="browse_card" style="overflow-y: scroll">
-        <div ng-if="articles.length!=0" style="height: inherit;">
+
+        <div ng-if="brow().length!=0" style="height: inherit;">
 
             <div class="col s4 " id="article_tabs" onmouseover=""  style="height: inherit;">
                 <div id = "SearchPanel2" class="input-field row col s12 left-align" style="" >
@@ -15,7 +24,7 @@
                 <ul class=" tabs collection center-align  " style="height:inherit; margin-top: 2%;overflow-y: scroll">
 
 
-                    <li style="height:auto;width: auto;text-align: center" class=" col s12 collection-item avatar tab " ng-repeat="a in articles | filter : query " test-dir="">
+                    <li style="height:auto;width: auto;text-align: center" class=" col s12 collection-item avatar tab " ng-repeat="a in brow() | filter : query ">
                         <a href="#{{a._id}}">
                             <p class="title grey-text center center-align" style="white-space: normal;font-size:120%!important;  ">{{a.topic}}</p>
 
@@ -35,7 +44,7 @@
                             <h4 class="circle center-align Ho white-text " ng-if="a.main_category == 'Hostel'">
                                 <small>Ho</small>
                             </h4>
-                            <h4 class="circle center-align Ar white-text " ng-if="a.main_category == 'Around VIT'">
+                            <h4 class="circle center-align Ar white-text " ng-if="a.main_category == 'Around VIT and Vellore'">
                                 <small>Ar</small>
                             </h4>
                             <p class="grey-text darken-1"  >{{a.sub_category}} </p>
@@ -47,7 +56,7 @@
             </div>
             <div class="col s8" id="articles" style="border-left: 1px rgba(0,0,0,0.2) solid;" >
 
-                <div class="row" ng-repeat="a in articles" id="{{a._id}}" style="display:block" >
+                <div class="row" ng-repeat="a in brow()" id="{{a._id}}" style="display:block" >
                     <div class="col s12">
                         <div class="">
                             <div class="card-title" style="box-shadow: 0 5px 2px 1px rgba(0,0,0,0.05)">
@@ -68,7 +77,7 @@
                                         <h4 class="circle center-align Ho white-text " ng-if="a.main_category == 'Hostel'">
                                             <small>Ho</small>
                                         </h4>
-                                        <h4 class="circle center-align Ar white-text " ng-if="a.main_category == 'Around VIT'">
+                                        <h4 class="circle center-align Ar white-text " ng-if="a.main_category == 'Around VIT and Vellore'">
                                             <small>Ar</small>
                                         </h4>
 
@@ -89,7 +98,7 @@
                 </div>
             </div>
         </div>
-        <div ng-if="articles.length==0"  >
+        <div ng-if="brow().length==0"  >
             <div class="col s12">
                 <div class="card-title black-text center ">
                     {{err}}
@@ -101,3 +110,4 @@
 
 
 </div>
+{{}}

@@ -133,6 +133,7 @@ function find_article($http, $scope) {
 function searchArticle($scope, $http, $q,$rootScope) {
     var deferred = $q.defer();
     $rootScope.err = "Loading";
+    $rootScope.searchTag = [];
     $http({
         method: 'GET',
         url: '/search',
@@ -142,6 +143,7 @@ function searchArticle($scope, $http, $q,$rootScope) {
         deferred.promise.then(function (data) {
           //  console.log(data);
             $rootScope.searchTag = data;
+            console.log(data);
         });
         $rootScope.err = "No Articles Found";
     }).error(function(data,status){
@@ -157,6 +159,7 @@ function searchArticle($scope, $http, $q,$rootScope) {
 function searchCat($rootScope,$http,$q,category){
     var deferred = $q.defer();
     $rootScope.err = "Loading";
+    $rootScope.searchCat = [];
     $http({
         method: 'GET',
         url: '/articles',
@@ -168,6 +171,7 @@ function searchCat($rootScope,$http,$q,category){
             $rootScope.err = "No Articles Found";
            // console.log($scope.err);
             $rootScope.searchCat = data;
+            console.log(data);
         })})
             .error(function(err,status){
             if(status==404)

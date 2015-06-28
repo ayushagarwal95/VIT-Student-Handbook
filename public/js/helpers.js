@@ -16,7 +16,7 @@ function setDynamicElements(s) {
         setDynEle =  setDynEle+1;
         console.log('done');
     }
-    console.log('extra call');
+
 }
 function stickFooter() {
 
@@ -182,7 +182,7 @@ function searchCat($rootScope,$http,$q,category){
         })})
             .error(function(err,status){
             if(status==404)
-                $rootScope.err = "Articles not found";
+                $rootScope.err = "Articles Not found";
             else if(status==500)
                 $rootScope.err = "Internal Server Error";
 
@@ -198,7 +198,11 @@ function trans() {
   //  Materialize.showStaggeredList("#article_tabs ul");
 
 }
+var x = 0;
+var current_open;
+var current_liActive;
 function hbtab(){
+
         var tabList = [];
         var li = document.getElementsByClassName('hb-tabs');
         var test = 0;
@@ -206,8 +210,17 @@ function hbtab(){
         var tab;
         var openTab;
         var newTab = {};
-
         var liActive;
+    console.log(current_open);
+        if(current_open){
+         openTab = current_open;
+           liActive = current_liActive;
+            test = 2;console.log(test);
+        }
+    if(current_liActive){
+        test =2;
+    }
+
         for (x in li) {
 
             //console.log(li[x]);
@@ -216,37 +229,50 @@ function hbtab(){
             if (tabList[i] == null) {
                 break;
             }
-            if(i!=0)
-                tabList[i].style.display = "none";
-            if (test == 0) {
+            if(test==2){}else if(i!=0){
+                tabList[i].style.display = "none";}
+            if (test == 0&&x!=1) {
                 test = 1;
                 liActive = li[x];
-
-                liActive.childNodes[1].className = '';
+                liActive.childNodes[2].className = '';
+                liActive.childNodes[4].className = '';
                 liActive.className = liActive.className + ' active_tab';
                 openTab = tabList[0];
+
                 console.log(openTab);
                 openTab.style.display = "block";
                 console.log(liActive.childNodes[1]);
+                current_open=openTab;
+                current_liActive = liActive;
 
             }
-
             li[x].onclick = function () {
                 newTab.id = this.id + "_tab";
 
                 liActive.className = liActive.className.replace( /(?:^|\s)active_tab(?!\S)/g , '' );
-                liActive.childNodes[1].className = 'grey-text';
+                console.log( liActive.childNodes);
+                liActive.childNodes[2].className = 'grey-text';
+                liActive.childNodes[4].className = 'grey-text';
                 liActive = this;
                 liActive.className = liActive.className + ' active_tab';
-                liActive.childNodes[1].className = '';
+                liActive.childNodes[2].className = '';
+                liActive.childNodes[4].className = '';
                 newTab.element = document.getElementById(newTab.id);
                 openTab.style.display = "none";
                 openTab = newTab.element;
                 openTab.style.display = "block";
+                if(test==2){
+                    if(current_open != openTab){
+                    current_open.style.display = "none";
+                    current_open = openTab;}
+                    current_liActive = liActive;
+                }else{
+                current_open = openTab;
+                current_liActive = liActive;}
 
             };
             i = i + 1;
         }
         console.log(tabList);
-
+        x = 1;
 }

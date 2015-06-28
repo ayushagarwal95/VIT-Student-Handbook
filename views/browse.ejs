@@ -12,15 +12,15 @@
         <div ng-if="brow().length!=0" style="height: inherit;">
 
             <div class="col s4 " id="article_tabs" onmouseover="" style="position: relative">
-                <ul style="">
+                <ul style="height: inherit;overflow-y: auto">
                     <li>
-                        <div id="SearchPanel2" class="input-field row col s12 left-align" style="position: relative;">
+                        <div id="SearchPanel2" class="input-field row col s12 left-align" style="position: relative;z-index: 5;background: none">
                             <a href="#" class="grey-text center-align" style="">
                                 <i id="SearchIcon2" class="mdi-action-search prefix"></i>
                             </a>
                             <input id="SearchBar2" placeholder="Search by Topic" type="search"
                                    class="validate z-depth-1"
-                                   ng-model="query.topic" style="">
+                                   ng-model="query.topic" style="" onkeydown="setDynEle=0;setDynamicElements(1)">
 
                         </div>
                     </li>
@@ -29,32 +29,34 @@
                             <li>
                                     <h5 class="Ac-text"
                                         ng-if="top.main_category == 'Academics'">
-                                         {{top.sub_category}} 
+                                         {{top.sub_category}}
                                     </h5>
                                     <h5 class="St-text"
-                                        ng-if="top.main_category == 'Student Organization'">
-                                         {{top.sub_category}} 
+                                        ng-if="top.main_category == 'Student Organizations'">
+                                         {{top.sub_category}}
                                     </h5>
                                     <h5 class="Co-text"
                                         ng-if="top.main_category == 'College'">
-                                         {{top.sub_category}} 
+                                         {{top.sub_category}}
                                     </h5>
                                     <h5 class="Li-text "
                                         ng-if="top.main_category == 'LifeHacks'">
-                                         {{top.sub_category}} 
+                                         {{top.sub_category}}
                                     </h5>
                                     <h5 class="Ho-text "
                                         ng-if="top.main_category == 'Hostel'">
-                                         {{top.sub_category}} 
+                                         {{top.sub_category}}
                                     </h5>
                                     <h5 class="Ar-text "
                                         ng-if="top.main_category == 'Around VIT and Vellore'">
-                                         {{top.sub_category}} 
+                                         {{top.sub_category}}
                                     </h5>
                                     <ul>
                                          <li style="text-align: center"  ng-repeat="a in brow() | filter : top.sub_category ">
                                             <a href="javascript:0" class="hb-tabs" id="{{a._id}}">
-                                                <p class=" grey-text " style="font-size:120%!important;">{{a.topic}}</p>
+                                                <p ng-if="a.topic" class=" grey-text " style="font-size:120%!important;">{{a.topic}}</p>
+                                                <p ng-if="!a.topic" class=" grey-text " style="font-size:120%!important;">Topic Not Found</p>
+
                                             </a>
                                         </li>
                                     </ul>
@@ -77,7 +79,7 @@
                                             <small>Ac</small>
                                         </h4>
                                         <h4 class="circle center-align St white-text "
-                                            ng-if="a.main_category == 'Student Organization'">
+                                            ng-if="a.main_category == 'Student Organizations'">
                                             <small>St</small>
                                         </h4>
                                         <h4 class="circle center-align Co white-text "

@@ -26,7 +26,7 @@ controllers.sideBar = function ($scope, $http, $q,$rootScope) {
         if(v == 1)
             category = "Academics";
         else if(v==2)
-            category = "Student Organization";
+            category = "Student Organizations";
         else if(v==3)
             category = "College";
         else if(v==4)
@@ -128,7 +128,8 @@ controllers.input = function ($scope, $http, FileUploader) {
     $scope.deleteArticle = function () {
         deleteArt($http, $scope);
     };
-    
+
+    $scope.$on('$routeChangeSuccess',setDynamicElements());
 
 };
 

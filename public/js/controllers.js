@@ -11,9 +11,9 @@ controllers.header = function ($scope, $http, $q,$rootScope) {
 
 
     $scope.searchArt = function () {
-        setDynEle = 0;
-        searchArticle($scope, $http, $q,$rootScope);
 
+        searchArticle($scope, $http, $q,$rootScope);
+        setDynEle = 0;
     };
     
 };
@@ -35,8 +35,9 @@ controllers.sideBar = function ($scope, $http, $q,$rootScope) {
             category = "Hostel";
         else if(v==6)
             category = "Around VIT and Vellore";
-        setDynEle = 0;
+
         searchCat($rootScope,$http,$q,category);
+        setDynEle = 0;
       //  console.log($rootScope.err);
     };
 

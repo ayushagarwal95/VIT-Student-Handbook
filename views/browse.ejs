@@ -1,92 +1,112 @@
-<div class="row">
-    <div class=" col s4 grey-text center-align row" id="browser_suggestions">
-        <h3>Suggestions</h3>
-        <ul class="collection left-align col s10 offset-l1">
-            <li class="collection-item avatar  z-depth-1">
-                <a href="#">
-                    <img src="img/user-default.png" alt="" class="circle">
-                    <span class="title grey-text text-darken-2">FFCS</span>
-
-                    <p class="grey-text">Add / Drop </p>
-                </a>
-            </li>
-            <li class="collection-item avatar  z-depth-1">
-                <a href="#">
-                    <img src="img/user-default.png" alt="" class="circle">
-                    <span class="title grey-text text-darken-2">FFCS</span>
-
-                    <p class="grey-text">Add / Drop </p>
-                </a>
-            </li>
-            <li class="collection-item avatar  z-depth-1">
-                <a href="#">
-                    <img src="img/user-default.png" alt="" class="circle">
-                    <span class="title grey-text text-darken-2">FFCS</span>
-
-                    <p class="grey-text">Add / Drop </p>
-                </a>
-            </li>
-            <li class="collection-item avatar  z-depth-1">
-                <a href="#">
-                    <img src="img/user-default.png" alt="" class="circle">
-                    <span class="title grey-text text-darken-2">FFCS</span>
-
-                    <p class="grey-text">Add / Drop </p>
-                </a>
-            </li>
-        </ul>
+<div class="row col s12 " ng-init="setup()" onmouseover="setDynamicElements()">
+    <div class="col s4 offset-s4 center">
+        <h4 ng-if="cat()==1" class="Ac-text heading"> Academics</h4>
+        <h4 ng-if="cat()==2" class="St-text heading"> Student Organizations</h4>
+        <h4 ng-if="cat()==3" class="Co-text heading"> College </h4>
+        <h4 ng-if="cat()==4" class="Li-text heading"> Life Hacks</h4>
+        <h4 ng-if="cat()==5" class="Ho-text heading"> Hostel</h4>
+        <h4 ng-if="cat()==6" class="Ar-text heading"> Around VIT and Vellore</h4>
     </div>
-    <div class=" col s8 grey-text center-align">
-        <h3>Browse</h3>
+    <div class="row col s10 offset-s1 card " id="browse_card" style="">
 
-        <div id="SearchPanel2" class="input-field row col s12 left-align"
-             style="position: relative; background-color: white!important;">
-            <form ng-submit="searchArt()">
-                <button class="grey-text center-align" style="position: relative" type="submit">
-                    <i id="SearchIcon2" class="mdi-action-search prefix"></i>
-                </button>
-                <input id="SearchBar2" placeholder="Search..." type="search" class="validate" ng-model="search">
-                <i class="mdi-navigation-close"></i>
-            </form>
-        </div>
-        <div ng-if="articles">
+        <div ng-if="brow().length!=0" style="height: inherit;">
 
-            <div class="col s4 " id="article_tabs" style="display: none">
-                <ul class=" collection center-align  z-depth-1-half " style=" height:auto;margin-top: 2%">
-                    <li style="height:auto;width: auto;" class=" col s12 collection-item avatar "
-                        ng-repeat="a in articles"
-                        test-dir=""><a href="#{{a._id}}">
+            <div class="col s4 " id="article_tabs" onmouseover="" style="position: relative;height: inherit">
+                <ul style="height: inherit;overflow-y: auto">
+                    <li>
+                        <div id="SearchPanel2" class="input-field row col s12 left-align" style="position: relative;z-index: 5;background: none">
+                            <a href="#" class="grey-text center-align" style="">
+                                <i id="SearchIcon2" class="mdi-action-search prefix"></i>
+                            </a>
+                            <input id="SearchBar2" placeholder="Search by Topic" type="search"
+                                   class="validate z-depth-1"
+                                   ng-model="query.topic" style="" onkeydown="setDynEle=0;setDynamicElements(1)">
 
-                            <h4 class="circle center-align yellow white-text ">
-                                <small>{{a.main_category}}</small>
-                            </h4>
-                            <span class="title grey-text text-daren-2">{{a.topic}}</span>
+                        </div>
+                    </li>
+                    <li ng-repeat="top in subUnique() | filter : query" style="">
+                        <ul class="" style="position: relative;">
+                            <li>
+                                    <h5 class="Ac-text"
+                                        ng-if="top.main_category == 'Academics'">
+                                         {{top.sub_category}}
+                                    </h5>
+                                    <h5 class="St-text"
+                                        ng-if="top.main_category == 'Student Organizations'">
+                                         {{top.sub_category}}
+                                    </h5>
+                                    <h5 class="Co-text"
+                                        ng-if="top.main_category == 'College'">
+                                         {{top.sub_category}}
+                                    </h5>
+                                    <h5 class="Li-text "
+                                        ng-if="top.main_category == 'LifeHacks'">
+                                         {{top.sub_category}}
+                                    </h5>
+                                    <h5 class="Ho-text "
+                                        ng-if="top.main_category == 'Hostel'">
+                                         {{top.sub_category}}
+                                    </h5>
+                                    <h5 class="Ar-text "
+                                        ng-if="top.main_category == 'Around VIT and Vellore'">
+                                         {{top.sub_category}}
+                                    </h5>
+                                    <ul>
+                                         <li style="text-align: center"  ng-repeat="a in brow() | filter : top.sub_category ">
+                                            <a href="javascript:0" class="hb-tabs" id="{{a._id}}">
+                                                <p ng-if="a.topic" class=" grey-text " style="font-size:120%!important;">{{a.topic}}</p>
+                                                <p ng-if="!a.topic" class=" grey-text " style="font-size:120%!important;">Topic Not Found</p>
 
-                            <p class="grey-text">{{a.sub_category}} </p>
+                                            </a>
+                                        </li>
+                                    </ul>
+                            </li>
+                        </ul>
 
-                        </a></li>
-
+                    </li>
                 </ul>
             </div>
-            <div class="col s12" id="articles">
+            <div class="col s8" id="articles" style="border-left: 1px rgba(0,0,0,0.2) solid;height: inherit;overflow-y: auto">
 
-                <div class="row" ng-repeat="a in articles" id="{{a._id}}" style="display:block">
+                <div class="row hb-tab" ng-repeat="a in brow()" id="{{a._id}}_tab" style="display:block;">
                     <div class="col s12">
-                        <div class="card">
+                        <div class="">
                             <div class="card-title" style="box-shadow: 0 5px 2px 1px rgba(0,0,0,0.05)">
                                 <ul class="collection left-align">
                                     <li class="collection-item avatar">
-                                        <h4 class="circle center-align purple white-text ">
-                                            <small>{{a.main_category}}</small>
+                                        <h4 class="circle center-align Ac white-text "
+                                            ng-if="a.main_category == 'Academics'">
+                                            <small>Ac</small>
                                         </h4>
+                                        <h4 class="circle center-align St white-text "
+                                            ng-if="a.main_category == 'Student Organizations'">
+                                            <small>St</small>
+                                        </h4>
+                                        <h4 class="circle center-align Co white-text "
+                                            ng-if="a.main_category == 'College'">
+                                            <small>Co</small>
+                                        </h4>
+                                        <h4 class="circle center-align Li white-text "
+                                            ng-if="a.main_category == 'LifeHacks'">
+                                            <small>Li</small>
+                                        </h4>
+                                        <h4 class="circle center-align Ho white-text "
+                                            ng-if="a.main_category == 'Hostel'">
+                                            <small>Ho</small>
+                                        </h4>
+                                        <h4 class="circle center-align Ar white-text "
+                                            ng-if="a.main_category == 'Around VIT and Vellore'">
+                                            <small>Ar</small>
+                                        </h4>
+
                                         <span class="title grey-text text-darken-2">{{a.topic}}</span>
 
-                                        <p class="grey-text">{{a.sub_category}}</p>
+                                        <p class="grey-text text-darken-2">{{a.sub_category}}</p>
                                     </li>
                                 </ul>
                             </div>
                             <div class="card-content">
-                                <p>{{a.content}}</p>
+                                <p class="grey-text text-darken-2" ng-bind-html="a.content"></p>
                             </div>
                             <div class="card-image">
                                 <img src="img/sample-1.jpg">
@@ -96,13 +116,16 @@
                 </div>
             </div>
         </div>
-        <div ng-if="articles.length==0">
-            <div class="col s12 card">
+        <div ng-if="brow().length==0">
+            <div class="col s12">
                 <div class="card-title black-text center ">
-                    Article Not Found
+                    {{err}}
                 </div>
             </div>
 
         </div>
     </div>
+
+
 </div>
+{{}}

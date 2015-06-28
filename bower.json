@@ -12,9 +12,11 @@
   "private": true,
   "dependencies": {
     "angular-route": "~1.4.1",
-    "angular": "~1.4.1"
-    },
-    "resolutions": {
-        "angular": ">=1"
-    }
+    "angular": "~1.4.1",
+    "angular-file-upload": "~1.1.5",
+    "angular-sanitize": "~1.4.1"
+  },
+  "resolutions": {
+    "angular": "1.4.1"
+  }
 }

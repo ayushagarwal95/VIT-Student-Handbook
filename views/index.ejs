@@ -7,8 +7,10 @@
     <script src="/angular-route/angular-route.min.js"></script>
     <script src="/angular-file-upload/angular-file-upload.min.js"></script>
     <script src="/angular-loading-bar/build/loading-bar.min.js"></script>
+    <script src="/angular-sanitize/angular-sanitize.min.js"></script>
     <link href="/css/materialize.min.css" rel="stylesheet"/>
     <link href="/css/style-desktop.css" rel="stylesheet"/>
+    <link href="/angular-loading-bar/build/loading-bar.min.css"  rel="stylesheet"/>
     <script src="/js/init.js"></script>
     <script src="/js/jquery-1.11.3.min.js"></script>
     <script src="/js/materialize.min.js"></script>
@@ -37,9 +39,9 @@
     }
     window.onload = hid();
 </script>-->
-<ul id="slide-out" class="side-nav collection left-align" data-ng-controller="browse" >
+<ul id="slide-out" class="side-nav collection left-align" data-ng-controller="sideBar" >
     <li class="collection-item avatar">
-        <a href="#/browse">
+        <a href="#/browse" ng-click="b(1)">
             <h4 class="circle Ac white-text center-align right z-depth-1-half tooltipped" data-delay="50"
                 data-position="left" data-tooltip="Academics">
                 <small>Ac</small>
@@ -47,7 +49,7 @@
         </a>
     </li>
     <li class="collection-item avatar">
-        <a href="#/browse">
+        <a href="#/browse" ng-click="b(2)">
             <h4 class="circle St white-text center-align right z-depth-1-half tooltipped" data-delay="50"
                 data-position="left" data-tooltip="Student Organizations">
                 <small>St</small>
@@ -55,7 +57,7 @@
         </a>
     </li>
     <li class="collection-item avatar">
-        <a href="#/browse">
+        <a href="#/browse" ng-click="b(3)">
             <h4 class="circle Co white-text center-align right z-depth-1-half tooltipped" data-delay="50"
                 data-position="left" data-tooltip="College">
                 <small>Co</small>
@@ -63,7 +65,7 @@
         </a>
     </li>
     <li class="collection-item avatar">
-        <a href="#/browse">
+        <a href="#/browse" ng-click="b(4)">
             <h4 class="circle Li white-text center-align right z-depth-1-half tooltipped" data-delay="50"
                 data-position="left" data-tooltip="Life Hack">
                 <small>Li</small>
@@ -71,7 +73,7 @@
         </a>
     </li>
     <li class="collection-item avatar">
-        <a href="#/browse">
+        <a href="#/browse" ng-click="b(5)">
             <h4 class="circle Ho white-text center-align right z-depth-1-half tooltipped" data-delay="50"
                 data-position="left" data-tooltip="Hostels">
                 <small>Ho</small>
@@ -79,7 +81,7 @@
         </a>
     </li>
     <li class="collection-item avatar">
-        <a href="#/browse">
+        <a href="#/browse" ng-click="b(6)">
             <h4 class="circle Ar white-text center-align right z-depth-1-half tooltipped" data-delay="50"
                 data-position="left" data-tooltip="Around VIT">
                 <small>Ar</small>

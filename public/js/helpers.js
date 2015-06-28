@@ -216,7 +216,8 @@ function hbtab(){
             if (tabList[i] == null) {
                 break;
             }
-            tabList[i].style.display = "none";
+            if(i!=0)
+                tabList[i].style.display = "none";
             if (test == 0) {
                 test = 1;
                 liActive = li[x];

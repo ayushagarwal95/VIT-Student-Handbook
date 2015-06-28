@@ -201,6 +201,7 @@ function trans() {
 var x = 0;
 var current_open;
 var current_liActive;
+var routec = 0;
 function hbtab(){
 
         var tabList = [];
@@ -219,6 +220,9 @@ function hbtab(){
         }
     if(current_liActive){
         test =2;
+    }
+    if(routec=1){
+        test = 0;
     }
 
         for (x in li) {

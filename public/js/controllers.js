@@ -38,6 +38,7 @@ controllers.sideBar = function ($scope, $http, $q,$rootScope) {
 
         searchCat($rootScope,$http,$q,category);
         setDynEle = 0;
+        routec = 1;
       //  console.log($rootScope.err);
     };
 

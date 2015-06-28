@@ -11,10 +11,11 @@ controllers.header = function ($scope, $http, $q,$rootScope) {
 
 
     $scope.searchArt = function () {
+        setDynEle = 0;
         searchArticle($scope, $http, $q,$rootScope);
 
     };
-    $scope.$on('$routeChangeSuccess', setDynamicElements());
+    
 };
 controllers.sideBar = function ($scope, $http, $q,$rootScope) {
 
@@ -34,7 +35,7 @@ controllers.sideBar = function ($scope, $http, $q,$rootScope) {
             category = "Hostel";
         else if(v==6)
             category = "Around VIT and Vellore";
-
+        setDynEle = 0;
         searchCat($rootScope,$http,$q,category);
       //  console.log($rootScope.err);
     };
@@ -45,7 +46,7 @@ controllers.browse = function ($scope,$rootScope) {
     $scope.setup = function(){
         $rootScope.err = 'Please choose a category from the category section.';
         setcard();
-        setDynamicElements();
+        setDynEle = 0;
     };
     $scope.cat = function(){
         if( $rootScope.err != 'Please choose a category from the category section.')
@@ -66,9 +67,9 @@ function setcard(){
 controllers.results = function ($scope,$rootScope) {
     $scope.setup = function(){
         $rootScope.err = 'Use the Search Bar to search for Articles';
-        setDynamicElements();
+        setcard();
+        setDynEle = 0;
     };
-    $scope.$on('$routeChangeSuccess', setDynamicElements(1));
     $scope.res = function(){
         return $rootScope.searchTag;
     };
@@ -80,12 +81,19 @@ controllers.results = function ($scope,$rootScope) {
  * Main
  */
 controllers.main = function ($scope, $http) {
-    $scope.$on('$routeChangeSuccess', setDynamicElements());
+    $scope.setup = function(){
+        setDynEle = 0;
+    };
+    
 };
 /***
  *  Input Controller
  * */
 controllers.input = function ($scope, $http, FileUploader) {
+    $scope.setup = function(){
+        setDynEle = 0;
+    };
+
     $scope.formDatain = {};
     $scope.formDataFind = {};
     $scope.formDataGet = {};
@@ -119,7 +127,7 @@ controllers.input = function ($scope, $http, FileUploader) {
     $scope.deleteArticle = function () {
         deleteArt($http, $scope);
     };
-    $scope.$on('$routeChangeSuccess', setDynamicElements());
+    
 
 };
 

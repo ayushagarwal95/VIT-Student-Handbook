@@ -194,7 +194,7 @@ nav a.button-collapse {
 #article_tabs li {
     display: block;
     float: none;
-    padding: 5% 0;
+
 
 }
 #article_tabs li p{
@@ -212,11 +212,16 @@ nav a.button-collapse {
     width: 100%!important;
     text-transform: none!important;
 }
+#article_tabs .collapsible{
+    background: none;
+    box-shadow: none;
+    border: none;
+}
 #footer a{
     color: white;
 }
 p{
-    white-space: pre-wrap !important;
+    white-space: pre-wrap;
     text-transform: none!important;
 }
 .avatar .active .grey-text{
@@ -231,4 +236,7 @@ p{
 }
 .heading{
     text-shadow: 1px 1px 3px rgba(200,200,252,1)!important;
+}
+.active_tab {
+    color: rgba(59,89,152,0.8);
 }

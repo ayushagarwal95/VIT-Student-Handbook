@@ -2,17 +2,21 @@
  * Created by Shivam Mathur on 22-06-2015.
  */
 function setDynamicElements(s) {
-
-    $('.collapsible').collapsible({
-        accordion: false // A setting that changes the collapsible behavior to expandable instead of the default accordion style
-    });
-    $('#article_tabs .tabs').tabs();
-    x = 0;
-    if (s) {
-        stickFooter();
-    } else {
-        removeSticky();
+    if(setDynEle <2) {
+        $('.collapsible').collapsible({
+            accordion: false // A setting that changes the collapsible behavior to expandable instead of the default accordion style
+        });
+        hbtab();
+        x = 0;
+        if (s) {
+            stickFooter();
+        } else {
+            removeSticky();
+        }
+        setDynEle =  setDynEle+1;
+        console.log('done');
     }
+    console.log('extra call');
 }
 function stickFooter() {
 
@@ -189,5 +193,55 @@ function searchCat($rootScope,$http,$q,category){
 
 function trans() {
   //  Materialize.showStaggeredList("#article_tabs ul");
+
+}
+function hbtab(){
+        var tabList = [];
+        var li = document.getElementsByClassName('hb-tabs');
+        var test = 0;
+        var i = 0;
+        var tab;
+        var openTab;
+        var newTab = {};
+
+        var liActive;
+        for (x in li) {
+
+            //console.log(li[x]);
+            tab = li[x].id + "_tab";
+            tabList[i] = document.getElementById(tab);
+            if (tabList[i] == null) {
+                break;
+            }
+            tabList[i].style.display = "none";
+            if (test == 0) {
+                test = 1;
+                openTab = tabList[0];
+                liActive = li[x];
+                console.log(openTab);
+                openTab.style.display = "block";
+                liActive.childNodes[1].className = '';
+                liActive.className = liActive.className + ' active_tab';
+                console.log(liActive.childNodes[1]);
+
+            }
+
+            li[x].onclick = function () {
+                newTab.id = this.id + "_tab";
+
+                liActive.className = liActive.className.replace( /(?:^|\s)active_tab(?!\S)/g , '' );
+                liActive.childNodes[1].className = 'grey-text';
+                liActive = this;
+                liActive.className = liActive.className + ' active_tab';
+                liActive.childNodes[1].className = '';
+                newTab.element = document.getElementById(newTab.id);
+                openTab.style.display = "none";
+                openTab = newTab.element;
+                openTab.style.display = "block";
+
+            };
+            i = i + 1;
+        }
+        console.log(tabList);
 
 }

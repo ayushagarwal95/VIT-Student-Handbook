@@ -1,4 +1,4 @@
-var appname = angular.module('handbook', ['ngRoute', 'angularFileUpload','angular-loading-bar']);
+var appname = angular.module('handbook', ['ngRoute', 'angularFileUpload','angular-loading-bar','ngSanitize']);
 appname.directive('fileModel', ['$parse', function ($parse) {
     return {
         restrict: 'A',
@@ -14,6 +14,7 @@ appname.directive('fileModel', ['$parse', function ($parse) {
         }
     };
 }]);
+var setDynEle = 0;
 /*
 
 appname.directive('testDir', function () {

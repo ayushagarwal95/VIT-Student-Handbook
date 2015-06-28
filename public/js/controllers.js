@@ -60,6 +60,27 @@ controllers.browse = function ($scope,$rootScope) {
     $scope.brow = function(){
         return $rootScope.searchCat;
     };
+    $scope.subUnique = function(){
+        var sub = [];
+        sub[0] = $rootScope.searchCat[0];
+        var flag = 0;
+        for(x in $rootScope.searchCat){
+
+            flag =0;
+            for(y in sub){
+               // console.log(y);
+                if($rootScope.searchCat[x].sub_category == sub[y].sub_category){
+                    flag = 1;
+                    break;
+                }
+            }
+            if(flag==0){
+                sub[sub.length] = $rootScope.searchCat[x];
+            }
+        }
+
+        return sub;
+    };
     $scope.$on('$routeChangeSuccess');
 };
 function setcard(){

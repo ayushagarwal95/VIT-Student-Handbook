@@ -2,18 +2,18 @@
  * Created by Shivam Mathur on 22-06-2015.
  */
 function setDynamicElements(s) {
-    if(setDynEle <2) {
+    if (setDynEle < 2) {
         $('.collapsible').collapsible({
             accordion: false // A setting that changes the collapsible behavior to expandable instead of the default accordion style
         });
-        hbtab();
+        hbtab(s);
         x = 0;
         if (s) {
-            stickFooter();
+            //   stickFooter();
         } else {
-            removeSticky();
+            //  removeSticky();
         }
-        setDynEle =  setDynEle+1;
+        setDynEle = setDynEle + 1;
         console.log('done');
     }
 
@@ -45,11 +45,11 @@ function edit($http, $scope, editData) {
         headers: {'Content-Type': 'application/x-www-form-urlencoded'}  // set the headers so angular passing info as form data (not request payload)
     })
         .success(function (data) {
-        //    console.log(data);
+            //    console.log(data);
             // if successful, bind success message to message
-                $scope.msg = data.message;
-                alert($scope.msg);
-                clearData($scope);
+            $scope.msg = data.message;
+            alert($scope.msg);
+            clearData($scope);
 
         });
 }
@@ -61,7 +61,7 @@ function newArticle($http, $scope) {
         headers: {'Content-Type': 'application/x-www-form-urlencoded'}  // set the headers so angular passing info as form data (not request payload)
     })
         .success(function (data) {
-          //  console.log(data);
+            //  console.log(data);
 
             if (!data) {
                 // if not successful, bind errors to error variables
@@ -83,7 +83,7 @@ function deleteArt($http, $scope) {
         headers: {'Content-Type': 'application/x-www-form-urlencoded'}  // set the headers so angular passing info as form data (not request payload)
     })
         .success(function (data) {
-           // console.log(data);
+            // console.log(data);
 
             if (!data) {
                 // if not successful, bind errors to error variables
@@ -110,7 +110,7 @@ function find_article($http, $scope) {
         headers: {'Content-Type': 'application/x-www-form-urlencoded'}  // set the headers so angular passing info as form data (not request payload)
     })
         .success(function (data) {
-           // console.log(data);
+            // console.log(data);
 
             if (!data) {
                 // if not successful, bind errors to error variables
@@ -121,20 +121,20 @@ function find_article($http, $scope) {
                 $scope.findMessage = data.message;
 
                 $scope.formDataGet = data.results;
-               // console.log(data);
+                // console.log(data);
             }
             alert($scope.findMessage);
-        }).error(function(data,status){
-            if(status==404)
+        }).error(function (data, status) {
+            if (status == 404)
                 alert(data.message);
-            else if(status==500)
+            else if (status == 500)
                 alert('Internal Server Error');
             else
                 console.log(status);
         });
 }
 
-function searchArticle($scope, $http, $q,$rootScope) {
+function searchArticle($scope, $http, $q, $rootScope) {
     var deferred = $q.defer();
     $rootScope.err = "Loading";
     $rootScope.searchTag = [];
@@ -145,24 +145,24 @@ function searchArticle($scope, $http, $q,$rootScope) {
     }).success(function (data) {
         deferred.resolve(data);
         deferred.promise.then(function (data) {
-          //  console.log(data);
+            //  console.log(data);
             $rootScope.searchTag = data;
             console.log(data);
             setDynEle = 0;
             setDynamicElements();
         });
         $rootScope.err = "No Articles Found";
-    }).error(function(data,status){
-        if(status==404)
+    }).error(function (data, status) {
+        if (status == 404)
             $rootScope.err = "No Articles Found";
-        if(status==500)
+        if (status == 500)
             $rootScope.err = "Internal Sever Error";
         else
             console.log(data);
     });
 
 }
-function searchCat($rootScope,$http,$q,category){
+function searchCat($rootScope, $http, $q, category) {
     var deferred = $q.defer();
     $rootScope.err = "Loading";
     $rootScope.searchCat = [];
@@ -173,110 +173,119 @@ function searchCat($rootScope,$http,$q,category){
     }).success(function (data) {
         deferred.resolve(data);
         deferred.promise.then(function (data) {
-           // console.log(data);
+            // console.log(data);
             $rootScope.err = "No Articles Found";
-           // console.log($scope.err);
+            // console.log($scope.err);
             $rootScope.searchCat = data;
-            console.log(data);setDynEle = 0;
+            console.log(data);
+            setDynEle = 0;
             setDynamicElements();
-        })})
-            .error(function(err,status){
-            if(status==404)
+        })
+    })
+        .error(function (err, status) {
+            if (status == 404)
                 $rootScope.err = "Articles Not found";
-            else if(status==500)
+            else if (status == 500)
                 $rootScope.err = "Internal Server Error";
 
             console.log(err);
 
 
-
-    });
+        });
 
 }
 
 function trans() {
-  //  Materialize.showStaggeredList("#article_tabs ul");
+    //  Materialize.showStaggeredList("#article_tabs ul");
 
 }
 var x = 0;
 var current_open;
 var current_liActive;
 var routec = 0;
-function hbtab(){
+function hbtab(s) {
 
-        var tabList = [];
-        var li = document.getElementsByClassName('hb-tabs');
-        var test = 0;
-        var i = 0;
-        var tab;
-        var openTab;
-        var newTab = {};
-        var liActive;
+    var tabList = [];
+    var li = document.getElementsByClassName('hb-tabs');
+    var test = 0;
+    var i = 0;
+    var tab;
+    var openTab;
+    var newTab = {};
+    var liActive;
     console.log(current_open);
-        if(current_open){
-         openTab = current_open;
-           liActive = current_liActive;
-            test = 2;console.log(test);
-        }
-    if(current_liActive){
-        test =2;
+    if (current_open) {
+        openTab = current_open;
+        liActive = current_liActive;
+        test = 2;
+
     }
-    if(routec=1){
+    if (current_liActive||s==1) {
+        test = 2;
+    }
+    if (routec == 1) {
         test = 0;
     }
 
-        for (x in li) {
+    for (x in li) {
 
-            //console.log(li[x]);
-            tab = li[x].id + "_tab";
-            tabList[i] = document.getElementById(tab);
-            if (tabList[i] == null) {
-                break;
-            }
-            if(test==2){}else if(i!=0){
-                tabList[i].style.display = "none";}
-            if (test == 0&&x!=1) {
-                test = 1;
-                liActive = li[x];
-                liActive.childNodes[2].className = '';
-                liActive.childNodes[4].className = '';
-                liActive.className = liActive.className + ' active_tab';
-                openTab = tabList[0];
-
-                console.log(openTab);
-                openTab.style.display = "block";
-                console.log(liActive.childNodes[1]);
-                current_open=openTab;
-                current_liActive = liActive;
-
-            }
-            li[x].onclick = function () {
-                newTab.id = this.id + "_tab";
-
-                liActive.className = liActive.className.replace( /(?:^|\s)active_tab(?!\S)/g , '' );
-                console.log( liActive.childNodes);
-                liActive.childNodes[2].className = 'grey-text';
-                liActive.childNodes[4].className = 'grey-text';
-                liActive = this;
-                liActive.className = liActive.className + ' active_tab';
-                liActive.childNodes[2].className = '';
-                liActive.childNodes[4].className = '';
-                newTab.element = document.getElementById(newTab.id);
-                openTab.style.display = "none";
-                openTab = newTab.element;
-                openTab.style.display = "block";
-                if(test==2){
-                    if(current_open != openTab){
-                    current_open.style.display = "none";
-                    current_open = openTab;}
-                    current_liActive = liActive;
-                }else{
-                current_open = openTab;
-                current_liActive = liActive;}
-
-            };
-            i = i + 1;
+        //console.log(li[x]);
+        tab = li[x].id + "_tab";
+        tabList[i] = document.getElementById(tab);
+        if (tabList[i] == null) {
+            break;
         }
-        console.log(tabList);
-        x = 1;
+
+        if (test == 2) {
+        } else if (i != 0) {
+            tabList[i].style.display = "none";
+        }
+        if(s==1){console.log(test);}
+        if(test == 0){
+            test = 1;
+            liActive = li[x];
+            liActive.childNodes[2].className = '';
+            liActive.childNodes[4].className = '';
+            liActive.className = liActive.className + ' active_tab';
+            openTab = tabList[0];
+
+            console.log(openTab);
+            openTab.style.display = "block";
+            console.log(liActive.childNodes[1]);
+            current_open = openTab;
+            current_liActive = liActive;
+
+        }
+        li[x].onclick = function(){
+            newTab.id = this.id + "_tab";
+
+            liActive.className = liActive.className.replace(/(?:^|\s)active_tab(?!\S)/g, '');
+            console.log(liActive.childNodes);
+            liActive.childNodes[2].className = 'grey-text';
+            liActive.childNodes[4].className = 'grey-text';
+            liActive = this;
+            liActive.className = liActive.className + ' active_tab';
+            liActive.childNodes[2].className = '';
+            liActive.childNodes[4].className = '';
+            newTab.element = document.getElementById(newTab.id);
+            openTab.style.display = "none";
+            openTab = newTab.element;
+            openTab.style.display = "block";
+            if (test == 2) {
+                console.log('click');
+                if (current_open != openTab) {
+                    current_open.style.display = "none";
+                    current_open = openTab;
+                }
+                current_liActive = liActive;
+            } else {
+                console.log('click2');
+                current_open = openTab;
+                current_liActive = liActive;
+            }
+
+        };
+        i = i + 1;
+    }
+    routec = 0;
 }

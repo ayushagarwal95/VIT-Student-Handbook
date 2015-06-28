@@ -7,6 +7,7 @@ function setDynamicElements(s) {
             accordion: false // A setting that changes the collapsible behavior to expandable instead of the default accordion style
         });
         hbtab(s);
+        $('#article_tabs .tabs').tabs();
         x = 0;
         if (s) {
             //   stickFooter();
@@ -15,6 +16,9 @@ function setDynamicElements(s) {
         }
         setDynEle = setDynEle + 1;
         console.log('done');
+    }
+    else{
+        routec =0;
     }
 
 }
@@ -287,5 +291,5 @@ function hbtab(s) {
         };
         i = i + 1;
     }
-    routec = 0;
+
 }

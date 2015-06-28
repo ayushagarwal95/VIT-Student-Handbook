@@ -194,8 +194,9 @@ nav a.button-collapse {
 #article_tabs li {
     display: block;
     float: none;
-
-
+}
+#article_tabs .tabs li{
+    padding:5% 0 !important;
 }
 #article_tabs li p{
     font-size: 100%!important;

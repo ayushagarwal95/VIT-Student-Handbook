@@ -147,7 +147,9 @@ function searchArticle($scope, $http, $q,$rootScope) {
         deferred.promise.then(function (data) {
           //  console.log(data);
             $rootScope.searchTag = data;
-            console.log(data);setDynEle = 0;
+            console.log(data);
+            setDynEle = 0;
+            setDynamicElements();
         });
         $rootScope.err = "No Articles Found";
     }).error(function(data,status){
@@ -176,6 +178,7 @@ function searchCat($rootScope,$http,$q,category){
            // console.log($scope.err);
             $rootScope.searchCat = data;
             console.log(data);setDynEle = 0;
+            setDynamicElements();
         })})
             .error(function(err,status){
             if(status==404)
@@ -216,12 +219,13 @@ function hbtab(){
             tabList[i].style.display = "none";
             if (test == 0) {
                 test = 1;
-                openTab = tabList[0];
                 liActive = li[x];
-                console.log(openTab);
-                openTab.style.display = "block";
+
                 liActive.childNodes[1].className = '';
                 liActive.className = liActive.className + ' active_tab';
+                openTab = tabList[0];
+                console.log(openTab);
+                openTab.style.display = "block";
                 console.log(liActive.childNodes[1]);
 
             }

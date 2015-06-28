@@ -147,7 +147,7 @@ function searchArticle($scope, $http, $q,$rootScope) {
         deferred.promise.then(function (data) {
           //  console.log(data);
             $rootScope.searchTag = data;
-            console.log(data);
+            console.log(data);setDynEle = 0;
         });
         $rootScope.err = "No Articles Found";
     }).error(function(data,status){
@@ -175,7 +175,7 @@ function searchCat($rootScope,$http,$q,category){
             $rootScope.err = "No Articles Found";
            // console.log($scope.err);
             $rootScope.searchCat = data;
-            console.log(data);
+            console.log(data);setDynEle = 0;
         })})
             .error(function(err,status){
             if(status==404)

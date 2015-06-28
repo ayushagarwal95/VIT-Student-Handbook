@@ -7,7 +7,7 @@
         <h4 ng-if="cat()==5" class="Ho-text heading"> Hostel</h4>
         <h4 ng-if="cat()==6" class="Ar-text heading"> Around VIT and Vellore</h4>
     </div>
-    <div class="row col s10 offset-s1 card " id="browse_card" style="overflow-y: auto">
+    <div class="row col s10 offset-s1 card " id="browse_card" style="">
 
         <div ng-if="brow().length!=0" style="height: inherit;">
 
@@ -66,9 +66,9 @@
                     </li>
                 </ul>
             </div>
-            <div class="col s8" id="articles" style="border-left: 1px rgba(0,0,0,0.2) solid;">
+            <div class="col s8" id="articles" style="border-left: 1px rgba(0,0,0,0.2) solid;height: inherit;overflow-y: auto">
 
-                <div class="row hb-tab" ng-repeat="a in brow()" id="{{a._id}}_tab" style="display:block">
+                <div class="row hb-tab" ng-repeat="a in brow()" id="{{a._id}}_tab" style="display:block;height: inherit">
                     <div class="col s12">
                         <div class="">
                             <div class="card-title" style="box-shadow: 0 5px 2px 1px rgba(0,0,0,0.05)">

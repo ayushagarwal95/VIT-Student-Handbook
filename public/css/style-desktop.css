@@ -240,3 +240,6 @@ p{
 .active_tab {
     color: rgba(59,89,152,0.8);
 }
+#browse_card{
+    padding-right: 0 !important;
+}

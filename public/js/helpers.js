@@ -198,6 +198,37 @@ function searchCat($rootScope, $http, $q, category) {
         });
 
 }
+function getSuggestions($rootScope, $http, $q) {
+    var deferred = $q.defer();
+    $rootScope.err = "Loading";
+    $rootScope.suggestions = [];
+    $http({
+        method: 'GET',
+        url: '/suggestions'
+    }).success(function (data) {
+        deferred.resolve(data);
+        deferred.promise.then(function (data) {
+            // console.log(data);
+            $rootScope.err = "No Articles Found";
+            // console.log($scope.err);
+            $rootScope.suggestions = data;
+            console.log(data);
+            setDynEle = 0;
+            setDynamicElements();
+        })
+    })
+        .error(function (err, status) {
+            if (status == 404)
+                $rootScope.err = "Articles Not found";
+            else if (status == 500)
+                $rootScope.err = "Internal Server Error";
+
+            console.log(err);
+
+
+        });
+
+}
 
 function trans() {
     //  Materialize.showStaggeredList("#article_tabs ul");

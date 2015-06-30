@@ -30,7 +30,7 @@ controllers.sideBar = function ($scope, $http, $q,$rootScope) {
         else if(v==3)
             category = "College";
         else if(v==4)
-            category = "LifeHack";
+            category = "Life Hacks";
         else if(v==5)
             category = "Hostel";
         else if(v==6)

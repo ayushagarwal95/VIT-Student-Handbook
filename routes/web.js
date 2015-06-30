@@ -15,29 +15,38 @@ router.get('/results', function (req, res) {
 router.get('/browse', function (req, res) {
     res.render('browse');
 });
-/* TODO
- router.get('/suggestions', function (request, response) {
- var collection = request.db.collection('articles');
- var regNo = request.query.regno;
- var category = request.query.category;
- var query = {};
- query['main_category'] = category;
- //query['tags'] =
- collection.find(query).toArray(function (err, docs) {
- if (err) {
- response.status(500).send('Internal Server Error');
- }
- else {
- response.json(docs);
- }
- });
- });*/
+
+router.get('/suggestions', function (request, response) {
+    var collection = request.db.collection('articles');
+    var limit = 10;
+    var skip;
+    var onFind = function (err, docs) {
+        if (err) {
+            response.status(500).send('Internal Server Error');
+        }
+        else {
+            response.json(docs);
+        }
+    };
+    var onCount = function (err, count) {
+        if (err) {
+            console.log(err);
+        }
+        else {
+            skip = Math.floor((Math.random() * 101)) % count;
+            var queryOptions = {
+                limit: limit,
+                skip: skip
+            };
+            collection.find({}, queryOptions).toArray(onFind)
+        }
+    };
+    collection.count(onCount);
+});
 
 router.get('/search', function (request, response) {
     var searchText = request.query.tag;
     var collection = request.db.collection('articles');
-    var query = {}
-    query['tags'] = {'$regex': '*.;' + searchText + ';.*'};
     collection.find({
         '$text': {
             '$search': searchText

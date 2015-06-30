@@ -2,96 +2,84 @@
     <div class=" col s6 grey-text center-align">
         <h3>Suggestions</h3>
         <!--cards -->
-        <div class="row">
+        <div class="row" ng-repeat="a in suggest()" ng-if="$index > 0" onmouseover="setDynamicElements()">
             <div class="col s12">
                 <div class="card">
                     <div class="card-title">
                         <ul class="collection left-align">
-                            <li class="collection-item avatar">
-                                <a href="#">
-                                    <h4 class="circle center-align yellow white-text ">
+                            <li class="collection-item avatar" style="border-bottom: 1px solid rgba(0,0,0,0.1)">
+                                <a href="#modal2" class="modal-trigger" id="{{a._id}}" ng-click="changeTab($event)">
+                                    <h5  class="right">+</h5>
+                                    <h4 class="circle center-align Ac white-text " ng-if="a.main_category == 'Academics'">
                                         <small>Ac</small>
                                     </h4>
-                                    <span class="title grey-text text-darken-2">FFCS</span>
-
-                                    <p class="grey-text">Add / Drop </p>
-                                </a>
-                            </li>
-                        </ul>
-                    </div>
-                    <div class="card-content">
-                        <p>I am a very simple card. I am good at containing small bits of information.
-                            I am convenient because I require little markup to use effectively.</p>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="row">
-            <div class="col s12">
-                <div class="card">
-                    <div class="card-title">
-                        <ul class="collection left-align">
-                            <li class="collection-item avatar">
-                                <img src="img/user-default.png" alt="" class="circle">
-                                <span class="title grey-text text-darken-2">FFCS</span>
-
-                                <p class="grey-text">Add / Drop </p>
-                            </li>
-                        </ul>
-                    </div>
-                    <div class="card-content">
-                        <p>I am a very simple card. I am good at containing small bits of information.
-                            I am convenient because I require little markup to use effectively.</p>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="row">
-            <div class="col s12">
-                <div class="card">
-                    <div class="card-title">
-                        <ul class="collection left-align">
-                            <li class="collection-item avatar">
-                                <a href="#">
-                                    <img src="img/user-default.png" alt="" class="circle">
-                                    <span class="title grey-text text-darken-2">FFCS</span>
-
-                                    <p class="grey-text">Add / Drop </p>
-                                </a>
-                            </li>
-                        </ul>
-                    </div>
-                    <div class="card-content">
-                        <p>I am a very simple card. I am good at containing small bits of information.
-                            I am convenient because I require little markup to use effectively.</p>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-    <div class=" col s6 grey-text center-align">
-        <h3>Featured Article</h3>
-        <!--Cards-->
-        <div class="row">
-            <div class="col s12">
-                <div class="card">
-                    <div class="card-title">
-                        <ul class="collection left-align">
-                            <li class="collection-item avatar">
-                                <a href="#">
-                                    <h4 class="circle center-align purple white-text ">
+                                    <h4 class="circle center-align St white-text " ng-if="a.main_category == 'Student Organization'">
                                         <small>St</small>
                                     </h4>
-                                    <span class="title grey-text text-darken-2">Student Organizations</span>
+                                    <h4 class="circle center-align Co white-text " ng-if="a.main_category == 'College'">
+                                        <small>Co</small>
+                                    </h4>
+                                    <h4 class="circle center-align Li white-text " ng-if="a.main_category == 'Life Hacks'">
+                                        <small>Li</small>
+                                    </h4>
+                                    <h4 class="circle center-align Ho white-text " ng-if="a.main_category == 'Hostel'">
+                                        <small>Ho</small>
+                                    </h4>
+                                    <h4 class="circle center-align Ar white-text " ng-if="a.main_category == 'Around VIT and Vellore'">
+                                        <small>Ar</small>
+                                    </h4>
+                                    <span class="title grey-text text-darken-2">{{a.topic}}</span>
 
-                                    <p class="grey-text">Chapters </p>
+                                    <p class="grey-text">{{a.sub_category}}</p>
                                 </a>
                             </li>
                         </ul>
                     </div>
                     <div class="card-content">
-                        <p>I am a very simple card. I am good at containing small bits of information.
-                            I am convenient because I require little markup to use effectively.</p>
+                        <p style="white-space: nowrap;overflow: hidden;text-overflow: ellipsis;" ng-bind-html="a.content"></p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+    <div class=" col s6 grey-text center-align">
+        <h3>Random Article</h3>
+        <!--Cards-->
+        <div class="row" ng-repeat="a in suggest()" ng-if="$index == 0">
+            <div class="col s12">
+                <div class="card">
+                    <div class="card-title">
+                        <ul class="collection left-align">
+                            <li class="collection-item avatar" style="border-bottom: 1px solid rgba(0,0,0,0.1)">
+                                <a href="#">
+                                    <h4 class="circle center-align Ac white-text " ng-if="a.main_category == 'Academics'">
+                                        <small>Ac</small>
+                                    </h4>
+                                    <h4 class="circle center-align St white-text " ng-if="a.main_category == 'Student Organization'">
+                                        <small>St</small>
+                                    </h4>
+                                    <h4 class="circle center-align Co white-text " ng-if="a.main_category == 'College'">
+                                        <small>Co</small>
+                                    </h4>
+                                    <h4 class="circle center-align Li white-text " ng-if="a.main_category == 'Life Hacks'">
+                                        <small>Li</small>
+                                    </h4>
+                                    <h4 class="circle center-align Ho white-text " ng-if="a.main_category == 'Hostel'">
+                                        <small>Ho</small>
+                                    </h4>
+                                    <h4 class="circle center-align Ar white-text " ng-if="a.main_category == 'Around VIT and Vellore'">
+                                        <small>Ar</small>
+                                    </h4>
+                                    <span class="title grey-text text-darken-2">{{a.topic}}</span>
+
+                                    <p class="grey-text">{{a.sub_category}}</p>
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="card-content">
+                        <p style="" ng-bind-html="a.content"></p>
                     </div>
                     <div class="card-image">
                         <img src="img/sample-1.jpg">
@@ -99,5 +87,58 @@
                 </div>
             </div>
         </div>
+    </div>
+</div>
+<div id="modal2" class="modal"  style="width: 80%!important;" >
+    <div class="modal-content " id="modal_content" style="width: 100%!important;%;">
+        <div class="row" ng-repeat="a in suggest() | filter :put().id" id="{{a._id}}_tab" style="display:block;">
+            <div class="col s12">
+                <div class="">
+                    <div class="card-title" style="box-shadow: 0 5px 2px 1px rgba(0,0,0,0.05)">
+                        <ul class="collection left-align">
+                            <li class="collection-item avatar">
+                                <h4 class="circle center-align Ac white-text "
+                                    ng-if="a.main_category == 'Academics'">
+                                    <small>Ac</small>
+                                </h4>
+                                <h4 class="circle center-align St white-text "
+                                    ng-if="a.main_category == 'Student Organizations'">
+                                    <small>St</small>
+                                </h4>
+                                <h4 class="circle center-align Co white-text "
+                                    ng-if="a.main_category == 'College'">
+                                    <small>Co</small>
+                                </h4>
+                                <h4 class="circle center-align Li white-text "
+                                    ng-if="a.main_category == 'Life Hacks'">
+                                    <small>Li</small>
+                                </h4>
+                                <h4 class="circle center-align Ho white-text "
+                                    ng-if="a.main_category == 'Hostel'">
+                                    <small>Ho</small>
+                                </h4>
+                                <h4 class="circle center-align Ar white-text "
+                                    ng-if="a.main_category == 'Around VIT and Vellore'">
+                                    <small>Ar</small>
+                                </h4>
+
+                                <span class="title grey-text text-darken-2">{{a.topic}}</span>
+
+                                <p class="grey-text text-darken-2">{{a.sub_category}}</p>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="card-content">
+                        <p class="grey-text text-darken-2" ng-bind-html="a.content"></p>
+                    </div>
+                    <div class="card-image">
+                        <img src="img/sample-1.jpg">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="modal-footer">
+        <a href="javascript:0" class=" modal-action modal-close waves-effect waves-blue btn">Close</a>
     </div>
 </div>

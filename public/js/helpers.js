@@ -6,6 +6,10 @@ function setDynamicElements(s) {
         $('.collapsible').collapsible({
             accordion: false // A setting that changes the collapsible behavior to expandable instead of the default accordion style
         });
+        $(document).ready(function(){
+            // the "href" attribute of .modal-trigger must specify the modal ID that wants to be triggered
+            $('.modal-trigger').leanModal();
+        });
         hbtab(s);
         $('#article_tabs .tabs').tabs();
         x = 0;
@@ -248,7 +252,7 @@ function hbtab(s) {
     var openTab;
     var newTab = {};
     var liActive;
-    console.log(current_open);
+    //console.log(current_open);
     if (current_open) {
         openTab = current_open;
         liActive = current_liActive;
@@ -275,7 +279,8 @@ function hbtab(s) {
         } else if (i != 0) {
             tabList[i].style.display = "none";
         }
-        if(s==1){console.log(test);}
+        if(s==1){//console.log(test);
+        }
         if(test == 0){
             test = 1;
             liActive = li[x];
@@ -284,9 +289,9 @@ function hbtab(s) {
             liActive.className = liActive.className + ' active_tab';
             openTab = tabList[0];
 
-            console.log(openTab);
+           // console.log(openTab);
             openTab.style.display = "block";
-            console.log(liActive.childNodes[1]);
+           // console.log(liActive.childNodes[1]);
             current_open = openTab;
             current_liActive = liActive;
 
@@ -295,7 +300,7 @@ function hbtab(s) {
             newTab.id = this.id + "_tab";
 
             liActive.className = liActive.className.replace(/(?:^|\s)active_tab(?!\S)/g, '');
-            console.log(liActive.childNodes);
+           // console.log(liActive.childNodes);
             liActive.childNodes[2].className = 'grey-text';
             liActive.childNodes[4].className = 'grey-text';
             liActive = this;
@@ -307,14 +312,14 @@ function hbtab(s) {
             openTab = newTab.element;
             openTab.style.display = "block";
             if (test == 2) {
-                console.log('click');
+                //console.log('click');
                 if (current_open != openTab) {
                     current_open.style.display = "none";
                     current_open = openTab;
                 }
                 current_liActive = liActive;
             } else {
-                console.log('click2');
+              //  console.log('click2');
                 current_open = openTab;
                 current_liActive = liActive;
             }

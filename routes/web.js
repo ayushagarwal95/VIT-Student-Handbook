@@ -18,7 +18,7 @@ router.get('/browse', function (req, res) {
 
 router.get('/suggestions', function (request, response) {
     var collection = request.db.collection('articles');
-    var limit = 10;
+    var limit = 5;
     var skip;
     var onFind = function (err, docs) {
         if (err) {

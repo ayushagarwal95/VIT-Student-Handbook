@@ -104,11 +104,23 @@ controllers.results = function ($scope,$rootScope) {
  * Main
  */
 controllers.main = function ($scope, $http,$rootScope,$q) {
+
     $scope.setup = function(){
         setDynEle = 0;
+        $scope.modalArticle = {};
         getSuggestions($rootScope, $http, $q);
     };
-    
+    $scope.suggest = function(){
+        //console.log($rootScope.suggestions);
+        return $rootScope.suggestions;
+    };
+    $scope.changeTab = function($event){
+        $scope.modalArticle.id = $event.currentTarget.id;
+    };
+    $scope.put =function(){
+        console.log( $scope.modalArticle);
+       return $scope.modalArticle;
+    };
 };
 /***
  *  Input Controller

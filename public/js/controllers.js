@@ -103,9 +103,10 @@ controllers.results = function ($scope,$rootScope) {
 /***
  * Main
  */
-controllers.main = function ($scope, $http) {
+controllers.main = function ($scope, $http,$rootScope,$q) {
     $scope.setup = function(){
         setDynEle = 0;
+        getSuggestions($rootScope, $http, $q);
     };
     
 };

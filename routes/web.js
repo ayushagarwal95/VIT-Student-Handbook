@@ -34,11 +34,7 @@ router.get('/suggestions', function (request, response) {
         }
         else {
             skip = Math.floor((Math.random() * 101)) % count;
-            var queryOptions = {
-                limit: limit,
-                skip: skip
-            };
-            collection.find({}, queryOptions).toArray(onFind)
+            collection.find().limit(limit).skip(skip).toArray(onFind);
         }
     };
     collection.count(onCount);

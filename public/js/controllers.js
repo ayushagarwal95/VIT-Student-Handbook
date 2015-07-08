@@ -118,7 +118,7 @@ controllers.main = function ($scope, $http,$rootScope,$q) {
         $scope.modalArticle.id = $event.currentTarget.id;
     };
     $scope.put =function(){
-        console.log( $scope.modalArticle);
+       // console.log( $scope.modalArticle);
        return $scope.modalArticle;
     };
 };

@@ -225,6 +225,9 @@ p{
     white-space: pre-wrap;
     text-transform: none!important;
 }
+.card-content p{
+    white-space: normal;
+}
 .avatar .active .grey-text{
     color:rgba(0,0,0,0.6) !important;
 }

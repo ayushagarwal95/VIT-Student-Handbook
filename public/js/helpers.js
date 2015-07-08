@@ -19,7 +19,7 @@ function setDynamicElements(s) {
             //  removeSticky();
         }
         setDynEle = setDynEle + 1;
-        console.log('done');
+       // console.log('done');
     }
     else{
         routec =0;
@@ -185,7 +185,7 @@ function searchCat($rootScope, $http, $q, category) {
             $rootScope.err = "No Articles Found";
             // console.log($scope.err);
             $rootScope.searchCat = data;
-            console.log(data);
+          //  console.log(data);
             setDynEle = 0;
             setDynamicElements();
         })
@@ -216,7 +216,7 @@ function getSuggestions($rootScope, $http, $q) {
             $rootScope.err = "No Articles Found";
             // console.log($scope.err);
             $rootScope.suggestions = data;
-            console.log(data);
+           // console.log(data);
             setDynEle = 0;
             setDynamicElements();
         })

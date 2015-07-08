@@ -15,17 +15,7 @@ appname.directive('fileModel', ['$parse', function ($parse) {
     };
 }]);
 var setDynEle = 0;
-/*
 
-appname.directive('testDir', function () {
-    return function (scope, element, attrs) {
-
-        if (scope.$last) {
-            trans();
-
-        }
-    };
-});*/
 appname.config(['cfpLoadingBarProvider', function(cfpLoadingBarProvider) {
     cfpLoadingBarProvider.latencyThreshold = 0;
 }]);

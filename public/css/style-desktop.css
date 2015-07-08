@@ -244,3 +244,10 @@ p{
 #browse_card{
     padding-right: 0 !important;
 }
+.card-content p img{
+    width:80% !important;
+    margin-left: 10%;
+}
+.card-content p img:before{
+    content:"\A";
+}

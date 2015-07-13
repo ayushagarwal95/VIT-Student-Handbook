@@ -1,6 +1,8 @@
+<!-- input page -->
 <div class="container" ng-init="setup()">
     <ul class="collapsible" data-collapsible="accordion">
         <li>
+            <!-- new entry -->
             <div class="collapsible-header"><i class="mdi-content-add"></i>New</div>
             <div class="collapsible-body">
                 <form ng-submit="processForm()">
@@ -35,6 +37,7 @@
             </div>
         </li>
         <li>
+            <!-- find and edit -->
             <div class="collapsible-header"><i class="mdi-action-label"></i>Find And Edit</div>
             <div class="collapsible-body">
                 <div ng-if="!findMessage">
@@ -46,6 +49,7 @@
                         </div>
                     </form>
                 </div>
+                <!-- if entry is found then edit -->
                 <div ng-if="findMessage">
                     <form ng-submit="editArticle()">
                         <div class="container">
@@ -80,6 +84,7 @@
             </div>
         </li>
         <li>
+            <!-- delete -->
             <div class="collapsible-header"><i class="mdi-action-delete"></i>Delete</div>
             <div class="collapsible-body">
                 <form ng-submit="deleteArticle()">
@@ -91,6 +96,7 @@
             </div>
         </li>
         <li>
+            <!-- add image -->
             <div class="collapsible-header"><i class="mdi-image-add-to-photos"></i>Upload Image</div>
             <div class="collapsible-body">
 

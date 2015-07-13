@@ -1,7 +1,9 @@
-<div class="row col s12 " ng-init="setup()" onmouseover="setDynamicElements()">
+<!-- results -->
+<div class="row col s12 " ng-init="setup()">
+    <!-- main card -->
     <div class="row col s10 offset-s1 card " id="browse_card" style="">
         <div ng-if="res().length!=0" style="height: inherit;">
-
+            <!-- left column -->
             <div class="col s4 " id="article_tabs" onmouseover=""  style="height: inherit;overflow-y: auto">
                 <div id = "SearchPanel2" class="input-field row col s12 left-align" style="" >
                     <a href="#" class="grey-text center-align" style="">
@@ -45,9 +47,10 @@
                         </a></li>
                 </ul>
             </div>
+            <!-- right column -->
             <div class="col s8" id="articles" style="border-left: 1px rgba(0,0,0,0.2) solid;height: inherit;overflow-y: auto">
 
-                <div class="row" ng-repeat="a in res()" id="{{a._id}}" style="display:block;">
+                <div class="row" ng-repeat="a in res()" id="{{a._id}}" style="display:block;" on-finish-render="">
                     <div class="col s12">
                         <div class="">
                             <div class="card-title" style="box-shadow: 0 5px 2px 1px rgba(0,0,0,0.05)">
@@ -89,7 +92,7 @@
         </div>
 
 
-
+<!-- error card -->
 <div ng-if="res().length==0"  >
         <div class="col s12 ">
             <div class="card-title black-text center ">

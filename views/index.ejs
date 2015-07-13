@@ -4,6 +4,7 @@
 <head>
     <title>VIT Student Handbook</title>
     <link rel="icon" type="image/x-icon" href="/favicon.ico" />
+    <!-- libraries -->
     <script src="/angular/angular.js"></script>
     <script src="/angular-route/angular-route.min.js"></script>
     <script src="/angular-file-upload/angular-file-upload.min.js"></script>
@@ -20,6 +21,8 @@
 </head>
 
 <body class="grey lighten-5">
+
+<!-- *******************************************************slide out browse navigation************************* -->
 <ul id="slide-out" class="side-nav collection left-align" data-ng-controller="sideBar" >
     <li class="collection-item avatar">
         <a href="#/browse" ng-click="b(1)">
@@ -70,6 +73,8 @@
         </a>
     </li>
 </ul>
+<!-- *******************************************************slide out browse navigation************************* -->
+<!-- *******************************header************************** -->
 <div ng-controller="header">
     <header class="VIT">
         <div class="navbar-fixed">
@@ -90,13 +95,14 @@
                     <ul class="right">
                         <li><a id="categories" href="#" data-activates="slide-out"
                                class="button-collapse white-text waves-effect waves-light">Categories</a></li>
-                        <li><a id="login" href="#modal1" class="modal-trigger white-text waves-effect waves-light"
-                               onclick="setDynamicElements()">Login</a></li>
+                        <li><a id="login" href="#modal1" class="modal-trigger white-text waves-effect waves-light">Login</a></li>
                     </ul>
                 </div>
             </nav>
         </div>
     </header>
+    <!-- *******************************header************************** -->
+    <!-- ******************************login modal****************************************** -->
     <div id="modal1" class="modal">
         <div class="modal-content">
             <!--<h4 class="center-align teal-text text-darken-3">Login</h4>
@@ -118,12 +124,17 @@
             <a href="#!" class=" modal-action modal-close waves-effect waves-blue btn">Close</a>
         </div>
     </div>
-    <!-- ***************************** ARTICLES **********************-->
+    <!-- ******************************login modal****************************************** -->
+
+
 </div>
+<!-- ng-view contains the middle of the website, this is where main.ejs, browse.ejs,results.ejs ...  are rendered -->
 <ng-view>
 
 </ng-view>
+<!-- ng-view contains the middle of the website, this is where main.ejs, browse.ejs,results.ejs ...  are rendered -->
 
+<!-- *****************************************Footer********************************** -->
 <footer class="page-footer VIT" id="footer">
     <div class="container ">
         <div class="row white-text center-align">
@@ -138,6 +149,9 @@
         </div>
     </div>
 </footer>
+<!-- *****************************************Footer********************************** -->
+
+<!-- scripts -->
 <script type="text/javascript" src="/js/angular-app.js"></script>
 <script type="text/javascript" src="/js/controllers.js"></script>
 <script type="text/javascript" src="/js/routes.js"></script>
@@ -145,6 +159,7 @@
 <script type="text/javascript">
 
 </script>
+<!-- the end -->
 </body>
 
 </html>

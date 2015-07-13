@@ -1,8 +1,10 @@
+<!-- main page content -->
 <div class="row" ng-init="setup()">
     <div class=" col s6 grey-text center-align">
+        <!-- left column -->
         <h3>Suggestions</h3>
         <!--cards -->
-        <div class="row" ng-repeat="a in suggest()" ng-if="$index > 0" onmouseover="setDynamicElements()">
+        <div class="row" ng-repeat="a in suggest()" ng-if="$index > 0" on-finish-render="">
             <div class="col s12">
                 <div class="card">
                     <div class="card-title">
@@ -44,6 +46,7 @@
 
     </div>
     <div class=" col s6 grey-text center-align">
+        <!-- right card -->
         <h3>Random Article</h3>
         <!--Cards-->
         <div class="row" ng-repeat="a in suggest()" ng-if="$index == 0">
@@ -87,6 +90,7 @@
         </div>
     </div>
 </div>
+<!-- modal to view left column articles -->
 <div id="modal2" class="modal"  style="width: 80%!important;" >
     <div class="modal-content " id="modal_content" style="width: 100%!important;%;">
         <div class="row" ng-repeat="a in suggest() | filter :put().id" id="{{a._id}}_tab" style="display:block;">

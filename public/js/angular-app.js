@@ -62,3 +62,16 @@ appname.run(function($rootScope) {
     $rootScope.searchCat = [];
     $rootScope.err = '';
 });
+appname.directive('onFinishRender', function ($timeout) {
+    return {
+        restrict: 'A',
+        link: function (scope, element, attr) {
+            if (scope.$last === true) {
+                $timeout(function () {
+                    setDynamicElements();
+                    //console.log('ngRepeatFinished');
+                });
+            }
+        }
+    }
+});

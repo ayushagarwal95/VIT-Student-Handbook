@@ -1,4 +1,6 @@
-<div class="row col s12 " ng-init="setup()" onmouseover="setDynamicElements()">
+<!-- browse -->
+<div class="row col s12 " ng-init="setup()">
+    <!-- heading -->
     <div class="col s4 offset-s4 center">
         <h4 ng-if="cat()==1" class="Ac-text heading"> Academics</h4>
         <h4 ng-if="cat()==2" class="St-text heading"> Student Organizations</h4>
@@ -10,8 +12,8 @@
     <div class="row col s10 offset-s1 card " id="browse_card" style="">
 
         <div ng-if="brow().length!=0" style="height: inherit;">
-
-            <div class="col s4 " id="article_tabs" onmouseover="" style="position: relative;height: inherit">
+            <!--left column-->
+            <div class="col s4 " id="article_tabs" style="position: relative;height: inherit">
                 <ul style="height: inherit;overflow-y: auto">
                     <li>
                         <div id="SearchPanel2" class="input-field row col s12 left-align" style="position: relative;z-index: 5;background: none">
@@ -66,9 +68,10 @@
                     </li>
                 </ul>
             </div>
+            <!-- righht column -->
             <div class="col s8" id="articles" style="border-left: 1px rgba(0,0,0,0.2) solid;height: inherit;overflow-y: auto">
 
-                <div class="row hb-tab" ng-repeat="a in brow()" id="{{a._id}}_tab" style="display:block;">
+                <div class="row hb-tab" ng-repeat="a in brow()" id="{{a._id}}_tab" style="display:block;" on-finish-render="">
                     <div class="col s12">
                         <div class="">
                             <div class="card-title" style="box-shadow: 0 5px 2px 1px rgba(0,0,0,0.05)">
@@ -113,6 +116,8 @@
                 </div>
             </div>
         </div>
+
+        <!-- error -->
         <div ng-if="brow().length==0">
             <div class="col s12">
                 <div class="card-title black-text center ">

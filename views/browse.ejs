@@ -54,10 +54,10 @@
                                          {{top.sub_category}}
                                     </h5>
                                     <ul>
-                                         <li style="text-align: center"  ng-repeat="a in brow() | filter : top.sub_category ">
-                                            <a href="javascript:0" class="hb-tabs" id="{{a._id}}">
-                                                <p ng-if="a.topic" class=" grey-text " style="font-size:120%!important;">{{a.topic}}</p>
-                                                <p ng-if="!a.topic" class=" grey-text " style="font-size:120%!important;">Topic Not Found</p>
+                                         <li style="text-align: center"  ng-repeat="a in brow()">
+                                            <a href="javascript:0" class="hb-tabs" id="{{a._id}}" ng-if="a.sub_category == top.sub_category">
+                                                <p ng-if="a.topic" class=" grey-text tab_click" style="font-size:120%!important;">{{a.topic}}</p>
+                                                <p ng-if="!a.topic" class=" grey-text tab_click" style="font-size:120%!important;">Topic Not Found</p>
 
                                             </a>
                                         </li>

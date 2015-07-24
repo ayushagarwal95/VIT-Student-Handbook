@@ -38,7 +38,7 @@
                         </ul>
                     </div>
                     <div class="card-content">
-                        <p style="white-space: nowrap;overflow: hidden;text-overflow: ellipsis;text-align: left">{{a.content}}</p>
+                        <p class="suggestion_content" style="white-space: nowrap;overflow: hidden;text-overflow: ellipsis;text-align: left" ng-bind-html="a.content"></p>
                     </div>
                 </div>
             </div>
@@ -131,7 +131,7 @@
                         </ul>
                     </div>
                     <div class="card-content">
-                        <p class="grey-text text-darken-2" ng-bind-html="a.content"></p>
+                        <p class="grey-text text-darken-2" style="white-space: normal;" ng-bind-html="a.content"></p>
                     </div>
                 </div>
             </div>

@@ -20,6 +20,7 @@ function setDynamicElements(s) {
         }
         setDynEle = setDynEle + 1;
        // console.log('done');
+      //  true_ellipse();
     }
     else{
         routec =0;
@@ -329,3 +330,18 @@ function hbtab(s) {
     }
 
 }
+/*
+function true_ellipse(){
+    var content = document.getElementsByClassName('suggestion_content');
+    for(x in content){
+        if(content[x].innerHTML){
+        var n = content[x].innerHTML.search('br');
+        console.log(n);
+            if(n!=-1) {
+                content[x].innerHTML[n] = ' ';
+                console.log(content[x].innerHTML[n]);
+                console.log(content[x].innerHTML);
+            }
+        }
+    }
+}*/

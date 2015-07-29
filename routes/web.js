@@ -59,6 +59,18 @@ router.get('/search', function (request, response) {
 });
 
 router.get('/articles', function (request, response) {
+    // Website you wish to allow to connect
+    response.header('Access-Control-Allow-Origin', '*');
+
+    // Request methods you wish to allow
+    response.header('Access-Control-Allow-Methods', 'GET, POST, OPTIONS, PUT, PATCH, DELETE');
+
+    // Request headers you wish to allow
+    response.header('Access-Control-Allow-Headers', 'X-Requested-With,content-type');
+
+    // Set to true if you need the website to include cookies in the requests sent
+    // to the API (e.g. in case you use sessions)
+    response.header('Access-Control-Allow-Credentials', false);
     var collection = request.db.collection('articles');
     var m_category = request.query.main_category;
     var s_category = request.query.sub_category;
@@ -68,18 +80,7 @@ router.get('/articles', function (request, response) {
                 response.status(500).send('Internal Server Error');
             }
             else {
-                // Website you wish to allow to connect
-                response.header('Access-Control-Allow-Origin', '*');
-
-                // Request methods you wish to allow
-                response.header('Access-Control-Allow-Methods', 'GET, POST, OPTIONS, PUT, PATCH, DELETE');
-
-                // Request headers you wish to allow
-                response.header('Access-Control-Allow-Headers', 'X-Requested-With,content-type');
-
-                // Set to true if you need the website to include cookies in the requests sent
-                // to the API (e.g. in case you use sessions)
-                response.header('Access-Control-Allow-Credentials', true);
+                log.log(docs.length);
                 response.json(docs);
             }
         });

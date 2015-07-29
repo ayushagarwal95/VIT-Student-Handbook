@@ -63,10 +63,10 @@ router.get('/articles', function (request, response) {
     response.header('Access-Control-Allow-Origin', '*');
 
     // Request methods you wish to allow
-    response.header('Access-Control-Allow-Methods', 'GET, POST, OPTIONS, PUT, PATCH, DELETE');
+    response.header('Access-Control-Allow-Methods', 'GET');
 
     // Request headers you wish to allow
-    response.header('Access-Control-Allow-Headers', 'X-Requested-With,content-type');
+    response.header('Access-Control-Allow-Headers', 'X-Requested-With');
 
     // Set to true if you need the website to include cookies in the requests sent
     // to the API (e.g. in case you use sessions)

@@ -60,7 +60,7 @@ router.get('/search', function (request, response) {
 
 router.get('/articles', function (request, response) {
     // Website you wish to allow to connect
-    response.header('Access-Control-Allow-Origin', '*');
+    response.header('Access-Control-Allow-Origin', 'http://localhost:63342');
 
     // Request methods you wish to allow
     response.header('Access-Control-Allow-Methods', 'GET');

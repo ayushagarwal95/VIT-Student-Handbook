@@ -51,7 +51,7 @@ app.use(function (request, response, next) {
 
         // Set to true if you need the website to include cookies in the requests sent
         // to the API (e.g. in case you use sessions)
-      //  res.header('Access-Control-Allow-Credentials', false);
+    response.header('Access-Control-Allow-Credentials', false);
 
         next();
 });

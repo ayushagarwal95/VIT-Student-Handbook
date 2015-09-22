@@ -4,7 +4,15 @@ var express = require('express');
 var router = express.Router();
 
 router.get('/', function (request, response) {
-    response.render('input', {message: null, results: null});
+    var collection = request.db.collection('articles');
+    var articlesAll = collection.find({}).toArray(function(err,docs)
+    {
+      if(err)
+       console.log(err);
+       else {
+         response.render('input', {message: null, results: null , listing : docs});
+       }
+    });
 });
 
 router.post('/new', function (request, response) {
@@ -22,25 +30,26 @@ router.post('/new', function (request, response) {
             console.log('error: ' + err);
         }
         else {
-            response.render('input', {message: 'Inserted', results: null})
+            response.render('input', {message: 'Inserted', results: null , listing :null})
         }
     }
     collection.insert(article, onInsert);
 });
 
-router.post('/find', function (request, response) {
+router.get('/find', function (request, response) {
     var collection = request.db.collection('articles');
-    var topic = request.body.f_topic;
+    var topic = request.query.f_topic;
+    console.log(topic);
     var onSearch = function (err, docs) {
         if (err) {
             console.log('error: ' + err);
         }
         else if (docs === null) {
-            response.render('input', {message: 'Not Found', results: null});
+            response.render('input', {message: 'Not Found', results: null , listing :null});
         }
         else {
             console.log(docs);
-            response.render('input', {results: docs, message: 'Search Successful'});
+            response.render('input', {results: docs, message: 'Search Successful' , listing :null});
         }
     };
     collection.findOne({topic: topic}, onSearch);

@@ -76,12 +76,18 @@
             <div id="collapse2" class="panel-collapse collapse">
                 <div class="panel-body">
                     <% if (results === null) { %>
-                    <form action="/input/find" method="post">
+                    <form action="/input/find" method="get">
                         <label for="topic">Topic</label>
                         <input type="text" placeholder="Topic" name="f_topic"/>
                         <input type="submit" value="Submit"/>
                     </form>
-                    <% } %>
+                     <% if(listing)
+                      {
+                     for(var i = 0 ; i < listing.length ; i++) {  %>
+                      <a href = "/input/find?f_topic=<%=listing[i].topic %>"><p><%= listing[i].topic %></p></a>
+                      <% } %>
+                     <% }
+                     } %>
                     <% if (results) { %>
                     <form action="/input/edit" method="post" class="form-horizontal">
                         <div class="col-xs-12 col-sm-4">

@@ -35,7 +35,7 @@ app.use(multer({
     }
 }));
 
-var mongoURI = process.env.MONGO_LAB_URI || 'mongodb://localhost/handbook';
+var mongoURI = process.env.MONGO_LAB_URI || 'mongodb://127.0.0.1/handbook';
 var mongodbOptions = {
     db: {
         native_parser: true,

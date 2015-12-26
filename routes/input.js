@@ -1,9 +1,18 @@
 'use strict';
 var express = require('express');
+var bcrypt = require('bcrypt-nodejs');
 
 var router = express.Router();
 
-router.get('/', function (request, response) {
+var authenticate = function(req,res,next)
+{
+  if(req.session.isloggedin)
+   next();
+  else
+   res.redirect('/input/login');
+}
+
+router.get('/',authenticate, function (request, response) {
     var collection = request.db.collection('articles');
     var articlesAll = collection.find({}).toArray(function(err,docs)
     {
@@ -15,7 +24,38 @@ router.get('/', function (request, response) {
     });
 });
 
-router.post('/new', function (request, response) {
+router.get('/register',authenticate,function(req,res,next){
+   res.render('register');
+});
+
+router.post('/register',authenticate,function(req,res,next){
+  var users = req.db.collection('users');
+  var onInsert = function(err)
+  {
+   if(err)
+    console.log(err)
+  else
+    {
+      res.redirect('login');
+    }
+  }
+  var uname = req.body.userName ;
+  var pass = req.body.password ;
+  console.log(pass);
+  bcrypt.hash(pass,bcrypt.genSaltSync(),null,function(err,hash)
+  {
+   if(err)
+    console.log(err);
+   else
+   {
+     console.log('inserting');
+     console.log(hash);
+     users.insert({userName : uname , password : hash},onInsert);
+   }
+  });
+});
+
+router.post('/new',authenticate,function (request, response) {
     var collection = request.db.collection('articles');
     var article = {
         main_category: request.body.m_category,
@@ -35,6 +75,25 @@ router.post('/new', function (request, response) {
     }
     collection.insert(article, onInsert);
 });
+router.get('/news',authenticate,function(req,res,next){
+  res.render('news');
+});
+
+router.post('/news',authenticate,function(req,res){
+       var news = req.db.collection('news')
+        var newsDocument = {
+           news_text : req.body.news,
+           date_added : new Date()
+         };
+         news.insert(newsDocument,function(err){
+           if (err) {
+               console.log('error: ' + err);
+           }
+           else {
+               res.render('input', {message: 'Inserted', results: null , listing :null})
+           }
+       });
+    });
 
 router.get('/find', function (request, response) {
     var collection = request.db.collection('articles');
@@ -55,7 +114,7 @@ router.get('/find', function (request, response) {
     collection.findOne({topic: topic}, onSearch);
 });
 
-router.post('/edit', function (request, response) {
+router.post('/edit',authenticate, function (request, response) {
     var collection = request.db.collection('articles');
     var updateCollection = request.db.collection('updates');
     var newArticle = {
@@ -110,7 +169,7 @@ router.post('/edit', function (request, response) {
     );
 });
 
-router.post('/delete', function (request, response) {
+router.post('/delete',authenticate, function (request, response) {
     var collection = request.db.collection('articles');
     var updateCollection = request.db.collection('updates');
     var topic = request.body.d_topic;
@@ -135,7 +194,35 @@ router.post('/delete', function (request, response) {
     collection.remove({topic: topic}, onDelete);
 });
 
-router.post('/upload', function (request, response) {
+router.get('/login',function(req,res,next){
+  res.render('login',{message : null });
+});
+
+router.post('/login',function(req,res,next){
+   var name = req.body.userName ;
+   var password = req.body.password ;
+   var collection = req.db.collection('users');
+   collection.findOne({userName : name},function(err,doc){
+     if (err) {
+         console.log('error: ' + err);
+         res.status(500).send('server error');
+     }
+     else if(!doc)
+       {
+         res.render('login',{message : 'user not found'});
+       }
+       else if(bcrypt.compareSync(password,doc.password))
+       {
+         req.session.isloggedin = true ;
+         res.redirect('/');
+       }
+       else {
+          res.render('login',{message : 'incorrect password'});
+       }
+   })
+});
+
+router.post('/upload',authenticate, function (request, response) {
     console.log('Image uploaded: ' + request.files.name);
     response.render('input', {message: 'Uploaded', results: null});
 })

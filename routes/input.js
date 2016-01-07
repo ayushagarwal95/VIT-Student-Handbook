@@ -6,22 +6,16 @@ var router = express.Router();
 
 var authenticate = function(req,res,next)
 {
-  if(req.session.isloggedin)
+  if(req.session.isloggedin) {
    next();
-  else
+ }
+  else {
    res.redirect('/input/login');
+ }
 }
 
 router.get('/',authenticate, function (request, response) {
-    var collection = request.db.collection('articles');
-    var articlesAll = collection.find({}).toArray(function(err,docs)
-    {
-      if(err)
-       console.log(err);
-       else {
-         response.render('input', {message: null, results: null , listing : docs});
-       }
-    });
+         response.render('input', {message: null, results: null});
 });
 
 router.get('/register',authenticate,function(req,res,next){
@@ -70,7 +64,7 @@ router.post('/new',authenticate,function (request, response) {
             console.log('error: ' + err);
         }
         else {
-            response.render('input', {message: 'Inserted', results: null , listing :null})
+            response.status(200).send({"message": "Article Added"});
         }
     }
     collection.insert(article, onInsert);
@@ -104,11 +98,10 @@ router.get('/find', function (request, response) {
             console.log('error: ' + err);
         }
         else if (docs === null) {
-            response.render('input', {message: 'Not Found', results: null , listing :null});
+            response.status(404).send({results: null, message: 'Not Found'});
         }
         else {
-            console.log(docs);
-            response.render('input', {results: docs, message: 'Search Successful' , listing :null});
+            response.status(200).send({results: docs, message: 'Search Successful'});
         }
     };
     collection.findOne({topic: topic}, onSearch);
@@ -116,55 +109,35 @@ router.get('/find', function (request, response) {
 
 router.post('/edit',authenticate, function (request, response) {
     var collection = request.db.collection('articles');
-    var updateCollection = request.db.collection('updates');
     var newArticle = {
         main_category: request.body.e_m_category,
         sub_category: request.body.e_s_category,
         topic: request.body.e_topic,
-        heading: request.body.e_heading,
         content: request.body.e_contentText,
         tags: request.body.e_tag,
         timestamp: new Date()
     };
     var onUpdate = function (err) {
+        console.log('here');
         if (err) {
             console.log('error: ' + err);
         }
         else {
-            response.render('input', {message: 'Updated', results: null});
-            var updateInfo = {
-                topic: newArticle.topic,
-                timestamp: newArticle.timestamp
-            };
-            var onFinish = function (err) {
-                if (err) {
-                    console.log('error: ' + err);
-                }
-            }
-            updateCollection.findAndModify({topic: updateInfo.topic}, [['topic', 'desc']],
-                {$set: {timestamp: updateInfo.timestamp}},
-                {
-                    safe: true,
-                    new: true,
-                    upsert: true
-                }, onFinish);
+            response.status(200).send({message: 'Updated', results: null});
         }
     };
-    collection.findAndModify({topic: newArticle.topic}, [['topic', 'desc']],
-        {
-            $set: {
-                main_category: newArticle.main_category,
-                sub_category: newArticle.sub_category,
-                heading: newArticle.heading,
-                content: newArticle.content,
-                tags: newArticle.tags,
-                timestamp: newArticle.timestamp
-            }
-        },
-        {
-            safe: true,
+    collection.findAndModify({
+            query: {topic: newArticle.topic},
+            update: {
+                $set: {
+                    main_category: newArticle.main_category,
+                    sub_category: newArticle.sub_category,
+                    content: newArticle.content,
+                    tags: newArticle.tags,
+                    timestamp: newArticle.timestamp
+                }
+            },
             new: true,
-            upsert: true
         }, onUpdate
     );
 });
@@ -174,24 +147,16 @@ router.post('/delete',authenticate, function (request, response) {
     var updateCollection = request.db.collection('updates');
     var topic = request.body.d_topic;
     var onDelete = function (err, results) {
-        var onUpdateRemoval = function (err, results) {
-            if (err) {
-                console.log('Error: ' + err);
-            }
-            else {
-                console.log('Removed: ' + results);
-            }
-        };
-        updateCollection.remove({topic: topic});
         if (err) {
             console.log('error: ' + err);
         }
         else {
             console.log(results);
-            response.render('input', {message: 'Deleted', results: null});
+            response.status(200).send({message: 'Deleted', results: null});
         }
     };
-    collection.remove({topic: topic}, onDelete);
+    var query = {topic: topic};
+    collection.remove(query, onDelete);
 });
 
 router.get('/login',function(req,res,next){
@@ -224,6 +189,6 @@ router.post('/login',function(req,res,next){
 
 router.post('/upload',authenticate, function (request, response) {
     console.log('Image uploaded: ' + request.files.name);
-    response.render('input', {message: 'Uploaded', results: null});
-})
+    response.status(200).send({message: 'Uploaded', results: null});
+});
 module.exports = router;

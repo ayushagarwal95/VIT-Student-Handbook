@@ -18,6 +18,7 @@ var app = express();
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'ejs');
 
+//app.use(favicon(__dirname + '/public/favicon.ico'));
 
 app.use(logger('dev'));
 app.use(bodyParser.json());
@@ -31,7 +32,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use(multer({
     dest: './public/images',
     rename: function (fieldname, filename) {
-        return filename.replace(/\s+/g,"-").toLowerCase();
+        return filename.replace(/\s+/g, "-").toLowerCase();
     },
     limits: {
         files: 1
@@ -67,10 +68,26 @@ var onConnect = function (err, db) {
 };
 
 mongoClient.connect(mongoURI, mongodbOptions, onConnect);
+
 app.use(function (request, response, next) {
-    request.db = mongo;
-    next();
+    request.db = db;
+
+        // Website you wish to allow to connect
+    response.header('Access-Control-Allow-Origin', '*');
+
+        // Request methods you wish to allow
+    response.header('Access-Control-Allow-Methods', 'GET, POST, OPTIONS, PUT, PATCH, DELETE');
+
+        // Request headers you wish to allow
+    response.header('Access-Control-Allow-Headers', 'X-Requested-With,content-type');
+
+        // Set to true if you need the website to include cookies in the requests sent
+        // to the API (e.g. in case you use sessions)
+    response.header('Access-Control-Allow-Credentials', false);
+
+        next();
 });
+
 app.use('/', webRoutes);
 app.use('/api', apiRoutes);
 app.use('/input', inputRoutes);

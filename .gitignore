@@ -31,3 +31,7 @@ node_modules
 
 #Visual Studio Code
 .settings
+
+#frontend dependencies angular
+public/angular
+public/angular-route

@@ -1,15 +1,166 @@
 <!DOCTYPE html>
-<html>
-<head>
-    <title>VIT-SH</title>
-    <link rel='stylesheet' href='/stylesheets/style.css'/>
-</head>
-<body>
-<h1>VIT Student Handbook</h1>
-<a href="/input">For Content Team</a>
-<br/><br/><br/><br/><br/><br/><br/>
+<html ng-app="handbook">
 
-<p>The link will be on the home page temporarily only! If this link is removed, just tyoe the above weblink with a
-    /input at the end!</p>
+<head>
+    <title>VIT Student Handbook</title>
+    <link rel="icon" type="image/x-icon" href="/favicon.ico" />
+    <link rel="shortcut icon" href="/favicon.ico" />
+    <!-- libraries -->
+    <script src="/angular/angular.js"></script>
+    <script src="/angular-route/angular-route.min.js"></script>
+    <script src="/angular-file-upload/angular-file-upload.min.js"></script>
+    <script src="/angular-loading-bar/build/loading-bar.min.js"></script>
+    <script src="/angular-sanitize/angular-sanitize.min.js"></script>
+    <link href="/css/materialize.min.css" rel="stylesheet"/>
+    <link href="/css/style-desktop.css" rel="stylesheet"/>
+    <link href="/angular-loading-bar/build/loading-bar.min.css"  rel="stylesheet"/>
+    <script src="/js/init.js"></script>
+    <script src="/js/jquery-1.11.3.min.js"></script>
+    <script src="/js/materialize.min.js"></script>
+    <script src="/js/app-desktop.js"></script>
+
+</head>
+
+<body class="grey lighten-5">
+
+<!-- *******************************************************slide out browse navigation************************* -->
+<ul id="slide-out" class="side-nav collection left-align" data-ng-controller="sideBar" >
+    <li class="collection-item avatar">
+        <a href="#/browse" ng-click="b(1)">
+            <h4 class="circle Ac white-text center-align right z-depth-1-half tooltipped" data-delay="50"
+                data-position="left" data-tooltip="Academics">
+                <small>Ac</small>
+            </h4>
+        </a>
+    </li>
+    <li class="collection-item avatar">
+        <a href="#/browse" ng-click="b(2)">
+            <h4 class="circle St white-text center-align right z-depth-1-half tooltipped" data-delay="50"
+                data-position="left" data-tooltip="Student Organizations">
+                <small>St</small>
+            </h4>
+        </a>
+    </li>
+    <li class="collection-item avatar">
+        <a href="#/browse" ng-click="b(3)">
+            <h4 class="circle Co white-text center-align right z-depth-1-half tooltipped" data-delay="50"
+                data-position="left" data-tooltip="College">
+                <small>Co</small>
+            </h4>
+        </a>
+    </li>
+    <li class="collection-item avatar">
+        <a href="#/browse" ng-click="b(4)">
+            <h4 class="circle Li white-text center-align right z-depth-1-half tooltipped" data-delay="50"
+                data-position="left" data-tooltip="Life Hack">
+                <small>Li</small>
+            </h4>
+        </a>
+    </li>
+    <li class="collection-item avatar">
+        <a href="#/browse" ng-click="b(5)">
+            <h4 class="circle Ho white-text center-align right z-depth-1-half tooltipped" data-delay="50"
+                data-position="left" data-tooltip="Hostels">
+                <small>Ho</small>
+            </h4>
+        </a>
+    </li>
+    <li class="collection-item avatar">
+        <a href="#/browse" ng-click="b(6)">
+            <h4 class="circle Ar white-text center-align right z-depth-1-half tooltipped" data-delay="50"
+                data-position="left" data-tooltip="Around VIT">
+                <small>Ar</small>
+            </h4>
+        </a>
+    </li>
+</ul>
+<!-- *******************************************************slide out browse navigation************************* -->
+<!-- *******************************header************************** -->
+<div ng-controller="header">
+    <header class="VIT">
+        <div class="navbar-fixed">
+            <nav>
+                <div class="nav-wrapper VIT">
+                    <ul class="left">
+                        <li><a href="#/"   class="white-text waves-effect waves-light">VIT Student Handbook</a></li>
+                    </ul>
+                    <div class="input-field left">
+                        <form ng-submit="searchArt()" onsubmit="window.location.href = '#/results';">
+                            <input id="search" placeholder="Search..." type="search" ng-model="search">
+                            <label for="search">
+                                <button type="submit"><i class="mdi-action-search"></i></button>
+                            </label>
+                            <i class="mdi-navigation-close"></i>
+                        </form>
+                    </div>
+                    <ul class="right">
+                        <li><a id="categories" href="#" data-activates="slide-out"
+                               class="button-collapse white-text waves-effect waves-light">Categories</a></li>
+                        <li><a id="login" href="#modal1" class="modal-trigger white-text waves-effect waves-light">Login</a></li>
+                    </ul>
+                </div>
+            </nav>
+        </div>
+    </header>
+    <!-- *******************************header************************** -->
+    <!-- ******************************login modal****************************************** -->
+    <div id="modal1" class="modal">
+        <div class="modal-content">
+            <!--<h4 class="center-align teal-text text-darken-3">Login</h4>
+
+            <div class="input-field center-align">
+                <i class="mdi-action-account-box prefix"></i>
+                <input id="reg_no" type="text" class="validate">
+                <label for="reg_no" class="text-darken-4">Registration Number</label>
+            </div>
+            <div class="remember">
+                <div class="right">
+                    <input type="checkbox" id="rem"/>
+                    <label for="rem">Remember</label>
+                </div>
+            </div>-->
+            In progress
+        </div>
+        <div class="modal-footer">
+            <a href="#!" class=" modal-action modal-close waves-effect waves-blue btn">Close</a>
+        </div>
+    </div>
+    <!-- ******************************login modal****************************************** -->
+
+
+</div>
+<!-- ng-view contains the middle of the website, this is where main.ejs, browse.ejs,results.ejs ...  are rendered -->
+<ng-view>
+
+</ng-view>
+<!-- ng-view contains the middle of the website, this is where main.ejs, browse.ejs,results.ejs ...  are rendered -->
+
+<!-- *****************************************Footer********************************** -->
+<footer class="page-footer VIT" id="footer">
+    <div class="container ">
+        <div class="row white-text center-align">
+            <a href="#/"><h4>VIT Student Handbook</h4></a>
+
+        </div>
+    </div>
+    <div class="footer-copyright">
+        <div class="container">
+            © 2014 Copyright Text
+            <a class="grey-text text-lighten-4 right" href="http://www.vit.ac.in">VIT Main Page</a>
+        </div>
+    </div>
+</footer>
+<!-- *****************************************Footer********************************** -->
+
+<!-- scripts -->
+<script type="text/javascript" src="/js/angular-app.js"></script>
+<script type="text/javascript" src="/js/controllers.js"></script>
+<script type="text/javascript" src="/js/routes.js"></script>
+<script type="text/javascript" src="/js/helpers.js"></script>
+<script type="text/javascript">
+
+</script>
+<!-- the end -->
 </body>
+
 </html>

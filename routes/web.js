@@ -6,37 +6,55 @@ var router = express.Router();
 router.get('/', function (request, response) {
     response.render('index');
 });
+router.get('/main', function (req, res) {
+    res.render('main');
+});
+router.get('/results', function (req, res) {
+    res.render('results');
+});
+router.get('/browse', function (req, res) {
+    res.render('browse');
+});
 
-/* TODO
 router.get('/suggestions', function (request, response) {
     var collection = request.db.collection('articles');
-    var regNo = request.query.regno;
-    var category = request.query.category;
-    var query = {};
-    query['main_category'] = category;
-    //query['tags'] =
-    collection.find(query).toArray(function (err, docs) {
+    var limit = 5;
+    var skip;
+    var onFind = function (err, docs) {
         if (err) {
             response.status(500).send('Internal Server Error');
         }
         else {
             response.json(docs);
         }
-    });
-});*/
+    };
+    var onCount = function (err, count) {
+        if (err) {
+            console.log(err);
+        }
+        else {
+            skip = Math.floor((Math.random() * 101)) % count;
+            collection.find().limit(limit).skip(skip).toArray(onFind);
+        }
+    };
+    collection.count(onCount);
+});
 
 router.get('/search', function (request, response) {
     var searchText = request.query.tag;
-    var collection = request.db.collection('articles') ;
-    var query = {} ;
-    query['tags'] = {'$regex' : '*.;'+searchText+';.*'};
-    collection.find(query).toArray(function (err, docs) {
-      if(err) {
-        response.status(500).send('Internal Server Error');
-      }
-      else {
-         response.json(docs);
-      }
+    var collection = request.db.collection('articles');
+    collection.find({
+        '$text': {
+            '$search': searchText
+        }
+    }).toArray(function (err, docs) {
+        if (err) {
+            response.status(500).send('Internal Server Error');
+        }
+        else {
+            console.log(docs);
+            response.json(docs);
+        }
     });
 });
 

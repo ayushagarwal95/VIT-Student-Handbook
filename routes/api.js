@@ -16,15 +16,29 @@ router.post('/updates', function (request, response) {
         }
     };
     var date = request.body.timestamp;
-    var parsedDate = new Date(date).toISOString();
-    console.log(parsedDate);
-    var query = {};
-    query['timestamp'] = {
-            '$gte': {
-                '$date': parsedDate
-                }
-    };
-    collection.find(query).toArray(onSearch);
+    var parsedDate = new Date(date);
+    collection.find({
+        timestamp: { $gte: parsedDate }
+    }, onSearch);
+});
+
+router.get('/news',function(req,res,next){
+  var skip = parseInt(req.query.skip)||0;
+  var coll = req.db.collection('news');
+  console.log(skip);
+  coll.find({}).
+  sort({date_added:-1}).
+  skip(skip).limit(10).toArray(function(err,docs){
+    if(err)
+    {
+      console.log("api new fetch error");
+      res.status(500).send("internal server error")
+    }
+    else
+    {
+        res.json(docs);
+      }
+    });
 });
 
 module.exports = router;
